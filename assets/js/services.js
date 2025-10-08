@@ -103,6 +103,7 @@ export async function getUserSession() {
 
 // === API: Book Package ===
 export async function bookPackage(bookingData) {
+  console.log("here is data i received :",bookingData);
   try {
     const response = await fetch("https://kashika-backend.onrender.com/kashikaTravel/bookPackage/bookingData.id", {
       method: "POST",
