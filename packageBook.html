@@ -56,7 +56,9 @@
     (async function init() {
       if (isDelete && packageId) {
         const data = await deletePackage(packageId);
-        window.location.href = "packagedetails.html";
+        setTimeout(()=>{
+          window.location.href = "packagedetails.html";
+        },10000)
         return;
       }
 
