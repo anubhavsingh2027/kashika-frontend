@@ -200,6 +200,7 @@ export async function deletePackage(id) {
       credentials: "include"
     });
     const data = await response.json();
+    console.log("here is data :",data);
     return data;
   } catch (error) {
     console.error("Error fetching packages:", error);

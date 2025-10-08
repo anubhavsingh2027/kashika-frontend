@@ -63,7 +63,13 @@
       if (isDelete && carId) {
         try {
           const data = await deleteCar(carId);
-          window.location.href = "carDetails.html";
+          console.log("html me hu ",data);
+          if(data.success){
+
+           setTimeout(()=>{
+               window.location.href = "carDetails.html";
+           },10000)
+          }
         } catch (err) {
         }
         return;
