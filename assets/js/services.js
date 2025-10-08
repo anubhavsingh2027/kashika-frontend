@@ -93,7 +93,7 @@ export async function getUserSession() {
 
     const data = await response.json();
     console.log("data :",data)
-    return data; 
+    return data;
   } catch (error) {
     console.error("Failed to fetch session:", error);
     return { loggedIn: false, user: { userType: "guest" } };
@@ -104,7 +104,7 @@ export async function getUserSession() {
 // === API: Book Package ===
 export async function bookPackage(bookingData) {
   try {
-    const response = await fetch("https://kashika-backend.onrender.com/kashikaTravel/bookPackage", {
+    const response = await fetch("https://kashika-backend.onrender.com/kashikaTravel/bookPackage/bookingData.id", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       credentials: "include",
