@@ -1,7 +1,7 @@
 // === API: Create Package ===
 export async function createPackage(packageData) {
   try {
-    const response = await fetch("http://localhost:8000/kashikaTravel/admin/createPackage", {
+    const response = await fetch("https://kashika-backend.onrender.com/kashikaTravel/admin/createPackage", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -27,7 +27,7 @@ export async function createPackage(packageData) {
 // === API: Add Car ===
 export async function addCar(carData) {
   try {
-    const response = await fetch("http://localhost:8000/kashikaTravel/admin/addCar", {
+    const response = await fetch("https://kashika-backend.onrender.com/kashikaTravel/admin/addCar", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       credentials: "include",
@@ -46,7 +46,7 @@ export async function addCar(carData) {
 // === API: Register User ===
 export async function registerUser(userData) {
   try {
-    const response = await fetch("http://localhost:8000/kashikaTravel/signup", {
+    const response = await fetch("https://kashika-backend.onrender.com/kashikaTravel/signup", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       credentials: "include",
@@ -66,7 +66,7 @@ export async function registerUser(userData) {
 // === API: User Login ===
 export async function loginUser(loginData) {
   try {
-    const response = await fetch("http://localhost:8000/kashikaTravel/login", {
+    const response = await fetch("https://kashika-backend.onrender.com/kashikaTravel/login", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       credentials: "include",
@@ -87,7 +87,7 @@ export async function loginUser(loginData) {
 // === API: Book Package ===
 export async function bookPackage(bookingData) {
   try {
-    const response = await fetch("http://localhost:8000/kashikaTravel/bookPackage", {
+    const response = await fetch("https://kashika-backend.onrender.com/kashikaTravel/bookPackage", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       credentials: "include",
@@ -110,7 +110,7 @@ export async function bookPackage(bookingData) {
 //=== Get all Cars ===
 export async function getAllCars() {
   try {
-    const response = await fetch("http://localhost:8000/kashikaTravel/getCar",{
+    const response = await fetch("https://kashika-backend.onrender.com/kashikaTravel/getCar",{
       credentials: "include"
     });
     const data = await response.json();
@@ -124,7 +124,7 @@ export async function getAllCars() {
 //=== Get all Packages ===
 export async function getAllPackages() {
   try {
-    const response = await fetch("http://localhost:8000/kashikaTravel/getpackage",{
+    const response = await fetch("https://kashika-backend.onrender.com/kashikaTravel/getpackage",{
       credentials: "include"
     });
     const data = await response.json();

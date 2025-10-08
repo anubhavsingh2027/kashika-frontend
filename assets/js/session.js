@@ -1,6 +1,6 @@
 export async function getUserSession() {
   try {
-    const response = await fetch("http://localhost:8000/kashikaTravel/session-user", {
+    const response = await fetch("https://kashika-backend.onrender.com/kashikaTravel/session-user", {
       credentials: "include",
     });
 
