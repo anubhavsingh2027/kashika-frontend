@@ -99,9 +99,7 @@
   </div>
 
   <script type="module">
-    import { getAllPackages } from "./assets/js/services.js";
-    import { getUserSession } from "./assets/js/services.js";
-    import { bookPackage } from "./assets/js/services.js";
+    import { getAllPackages, getUserSession, bookPackage } from "./assets/js/services.js";
 
     const packageSelect = document.getElementById("packageName");
     const message = document.getElementById("message");
@@ -122,7 +120,7 @@
       const packages = data.packages || data;
 
       if (packageId && packageId.length > 10) {
-        // Specific package selected
+        // User clicked a specific package → prefill and lock
         const selected = packages.find(p => p._id === packageId);
         if (!selected) {
           message.textContent = "Package not found.";
@@ -137,7 +135,7 @@
         packageSelect.appendChild(option);
         packageSelect.disabled = true; // lock selection
       } else {
-        // General booking
+        // General booking → list all packages
         packages.forEach(pkg => {
           const option = document.createElement("option");
           option.value = pkg.packageName;
@@ -174,7 +172,10 @@
         message.textContent = "🎉 Booking successful!";
         message.style.color = "green";
         form.reset();
-        if (packageId && packageSelect.disabled) packageSelect.selectedIndex = 0; // keep locked selection
+        // If package was prefilled, keep selection locked
+        if (packageId && packageSelect.disabled) {
+          packageSelect.selectedIndex = 0;
+        }
       }
     });
 
