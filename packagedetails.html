@@ -109,7 +109,7 @@
           <p class="price">₹${pkg.price}</p>
           ${
             userType === "host"
-              ? `<a href="/deletePackage?id=${pkg._id}" class="action-btn delete-btn">Delete</a>`
+              ? `<a href="packageDelete.html?id=${pkg._id}" class="action-btn delete-btn">Delete</a>`
               : `<a href="packageBook.html?id=${pkg._id}" class="action-btn">Book</a>`
           }
         </div>
