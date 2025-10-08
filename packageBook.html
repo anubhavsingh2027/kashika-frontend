@@ -40,11 +40,10 @@
     const form = document.getElementById("bookForm");
 
     // === Extract package ID from URL reliably ===
-    function getPackageIdFromURL() {
-      const url = window.location.href;
-      const match = url.match(/\/bookPackage\/([a-zA-Z0-9]+)/);
-      return match ? match[1] : null;
-    }
+  function getPackageIdFromURL() {
+  const params = new URLSearchParams(window.location.search);
+  return params.get('id'); // returns the package ID if present
+}
 
     const packageId = getPackageIdFromURL();
 

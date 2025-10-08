@@ -76,51 +76,51 @@
 
     <h1>🧳 Available Packages</h1>
     <div class="container" id="packageContainer">Loading packages...</div>
+<script type="module">
+  import { getAllPackages } from "./assets/js/services.js";
+  import { getUserSession } from "./assets/js/services.js";
 
-    <script type="module">
-      import { getAllPackages } from "./assets/js/services.js";
-      import { getUserSession } from "./assets/js/services.js";
+  async function loadPackages() {
+    const userSession = await getUserSession();
+    const userType = userSession?.user?.userType || "guest";
 
-      async function loadPackages() {
-        const userSession = await getUserSession();
-        const userType = userSession?.user?.userType || "guest";
+    const data = await getAllPackages();
+    const container = document.getElementById("packageContainer");
 
-        const data = await getAllPackages();
-        const container = document.getElementById("packageContainer");
+    if (data.error) {
+      container.textContent = "Failed to load packages.";
+      return;
+    }
 
-        if (data.error) {
-          container.textContent = "Failed to load packages.";
-          return;
-        }
+    if (data.length === 0) {
+      container.textContent = "No packages available.";
+      return;
+    }
 
-        if (data.length === 0) {
-          container.textContent = "No packages available.";
-          return;
-        }
-
-        container.innerHTML = data
-          .map(
-            (pkg) => `
-        <div class="card">
-          <img src="${pkg.url}" alt="${pkg.packageName}">
-          <div class="card-content">
-            <h3>${pkg.packageName}</h3>
-            <p class="place">${pkg.place}</p>
-            <p>${pkg.description}</p>
-            <p class="price">₹${pkg.price}</p>
-            ${
-              userType === "host"
-                ? `<a href="/deletePackage/${pkg._id}" class="action-btn delete-btn">Delete</a>`
-                : `<a href="/bookPackage/${pkg._id}" class="action-btn">Book</a>`
-            }
-          </div>
+    container.innerHTML = data
+      .map(
+        (pkg) => `
+      <div class="card">
+        <img src="${pkg.url}" alt="${pkg.packageName}">
+        <div class="card-content">
+          <h3>${pkg.packageName}</h3>
+          <p class="place">${pkg.place}</p>
+          <p>${pkg.description}</p>
+          <p class="price">₹${pkg.price}</p>
+          ${
+            userType === "host"
+              ? `<a href="/deletePackage?id=${pkg._id}" class="action-btn delete-btn">Delete</a>`
+              : `<a href="packageBook.html?id=${pkg._id}" class="action-btn">Book</a>`
+          }
         </div>
-      `
-          )
-          .join("");
-      }
+      </div>
+    `
+      )
+      .join("");
+  }
 
-      loadPackages();
-    </script>
+  loadPackages();
+</script>
+
   </body>
 </html>
