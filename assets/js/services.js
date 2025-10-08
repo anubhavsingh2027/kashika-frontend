@@ -179,7 +179,7 @@ export async function getAllPackages() {
 //== Delete Car ===
 export async function deleteCar(id) {
   try {
-    const response = await fetch(`https://kashika-backend.onrender.com/kashikaTravel/carDelete/${id}`,{
+    const response = await fetch(`https://kashika-backend.onrender.com/kashikaTravel/admin/carDelete/${id}`,{
       method: "DELETE",
       credentials: "include"
     });
@@ -195,7 +195,7 @@ export async function deleteCar(id) {
 
 export async function deletePackage(id) {
   try {
-    const response = await fetch(`https://kashika-backend.onrender.com/kashikaTravel/packageDelete/${id}`,{
+    const response = await fetch(`https://kashika-backend.onrender.com/kashikaTravel/admin/packageDelete/${id}`,{
       method: "DELETE",
       credentials: "include"
     });
