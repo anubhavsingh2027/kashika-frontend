@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Car Details</title>
+  <style>
+    body { font-family: Arial, sans-serif; margin: 30px; background: #f5f5f5; }
+    h1 { text-align: center; color: #333; }
+    .container { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; margin-top: 20px; }
+    .card {
+      background: white; border-radius: 10px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+      overflow: hidden; transition: transform 0.2s;
+    }
+    .card:hover { transform: translateY(-5px); }
+    .card img { width: 100%; height: 180px; object-fit: cover; }
+    .card-content { padding: 15px; }
+    .card-content h3 { margin: 0; color: #007bff; }
+    .card-content p { margin: 5px 0; color: #555; }
+    .price { font-weight: bold; color: #28a745; }
+    .action-btn {
+      display: inline-block; margin-top: 10px; padding: 8px 12px;
+      border-radius: 6px; text-decoration: none; color: white;
+      background: #007bff;
+    }
+    .delete-btn { background: #dc3545; }
+  </style>
+</head>
+<body>
+  <h1><a href="login.html">login</a> </h1>
+  <h1><a href="packagedetails.html">package</a></h1>
+  <h1>🚗 Available Cars</h1>
+  <div class="container" id="carContainer">Loading cars...</div>
+
+  <script type="module">
+    import { getAllCars } from "./assets/js/services.js";
+    import { getUserSession } from "./assets/js/session.js";
+    async function loadCars() {
+      const userSession = await getUserSession();
+      const userType = userSession?.user?.userType || "guest";
+      // console.log("user type by program in car detail :",userType);
+      // console.log("user type by me: ",userSession);
+
+      const data = await getAllCars();
+      const container = document.getElementById("carContainer");
+
+      if (data.error) {
+        container.textContent = "Failed to load cars.";
+        return;
+      }
+
+      if (data.length === 0) {
+        container.textContent = "No cars available.";
+        return;
+      }
+
+      container.innerHTML = data.map(car => `
+        <div class="card">
+          <img src="${car.url}" alt="${car.carName}">
+          <div class="card-content">
+            <h3>${car.carName}</h3>
+            <p>${car.description}</p>
+            <p class="price">₹${car.price}</p>
+            ${userType === "host"
+              ? `<a href="/delete/${car._id}" class="action-btn delete-btn">Delete</a>`
+              : `<a href="/book/${car._id}" class="action-btn">Book</a>`
+            }
+          </div>
+        </div>
+      `).join("");
+    }
+
+    loadCars();
+  </script>
+</body>
+</html>

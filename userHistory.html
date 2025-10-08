@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>User History</title>
+  
+</head>
+<body>
+<div class="notloggin">
+  <h2>You are no loggin</h2>
+</div>
+    <div class="loggin">
+      <h2>Welcome, <span id="username">Guest</span></h2>
+
+
+  <!-- ✅ Booking History Section -->
+  <div class="section">
+    <h3>🚗 Car Bookings</h3>
+    <div id="carHistory">Did Not Book Car</div>
+  </div>
+
+  <div class="section">
+    <h3>🧳 Package Bookings</h3>
+    <div id="packageHistory">Did Not Book Package</div>
+  </div>
+    </div>
+
+<script type="module">
+import { getUserSession } from "./assets/js/session.js";
+
+async function loadUserData() {
+  const data = await getUserSession();
+
+  const loggedDiv = document.querySelector(".loggin");
+  const notLoggedDiv = document.querySelector(".notloggin");
+
+  if (data.loggedIn) {
+    // ✅ Show logged-in div, hide not-logged-in div
+    loggedDiv.style.display = "block";
+    notLoggedDiv.style.display = "none";
+
+    // Personalize
+    document.getElementById("username").textContent = data.user.userName;
+    renderHistory(data.user);
+
+  } else {
+    // ✅ Show not-logged-in div, hide logged-in div
+    loggedDiv.style.display = "none";
+    notLoggedDiv.style.display = "block";
+  }
+}
+
+function renderHistory(user) {
+  const carDiv = document.getElementById("carHistory");
+  const pkgDiv = document.getElementById("packageHistory");
+
+  carDiv.innerHTML = user.carBooking.length
+    ? user.carBooking.map(b => `
+        <p>🚗 ${b.carName} — ${new Date(b.date).toLocaleDateString()}</p>
+      `).join("")
+    : "Did Not Book Car";
+
+  pkgDiv.innerHTML = user.packageBook.length
+    ? user.packageBook.map(p => `
+        <p>🧳 ${p.packageName} — ${new Date(p.bookingDate).toLocaleDateString()}</p>
+      `).join("")
+    : "Did Not Book Package";
+}
+
+// ✅ Initialize
+loadUserData();
+</script>
+
+</body>
+</html>

@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SignUp</title>
+  <!-- Font Awesome for icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+</head>
+<body>
+  <main>
+    <!-- Logo -->
+    <div>
+      <a href="/">
+        <img src="https://th.bing.com/th/id/R.d97d73f5e73dfe85f5cce6558429ebb5?rik=6Y393%2b4rAkA2Xg&riu=http%3a%2f%2fpluspng.com%2fimg-png%2fairbnb-logo-png-airbnb-logo-1600.png&ehk=WAmNzwdvuNRieYe57EPvJlUkIJzLt9Bd0hT0HaEgsvs%3d&risl=&pid=ImgRaw&r=0"
+             alt="KashikaTravel Logo"/>
+      </a>
+    </div>
+
+    <div>
+      <header>
+        <h1>Create Your Account</h1>
+        <p>Join our community and start your journey</p>
+      </header>
+
+      <form id="registerForm">
+
+        <!-- Name fields -->
+        <div>
+          <div>
+            <label for="firstName">First Name</label>
+            <div>
+              <span>
+                <i class="fa-solid fa-user fa-beat"></i>
+              </span>
+              <input
+                type="text"
+                id="userName"
+                name="userName"
+                placeholder="John"
+                required />
+            </div>
+          </div>
+        </div>
+
+        <!-- Email field -->
+        <div>
+          <label for="email">Email Address</label>
+          <div>
+            <span>
+              <i class="fa-solid fa-envelope fa-bounce"></i>
+            </span>
+            <input
+              type="email"
+              id="email"
+              name="email"
+              placeholder="your.email@example.com"
+              required />
+          </div>
+        </div>
+
+        <!-- Phone field -->
+        <div>
+          <label for="phone">Phone No</label>
+          <div>
+            <span>
+              <i class="fa-solid fa-phone fa-bounce"></i>
+            </span>
+            <input
+              type="text"
+              id="phone"
+              name="phone"
+              placeholder="Enter the Phone No"
+              required />
+          </div>
+        </div>
+
+        <!-- Location field -->
+        <div>
+          <label for="location">Location</label>
+          <div>
+            <span>
+              <i class="fa-solid fa-location-dot fa-beat"></i>
+            </span>
+            <input
+              type="text"
+              id="location"
+              name="location"
+              placeholder="Enter Your Address"
+              required />
+          </div>
+        </div>
+
+        <!-- Password fields -->
+        <div>
+          <div>
+            <label for="password">Password</label>
+            <div>
+              <span>
+                <i class="fas fa-lock"></i>
+              </span>
+              <input
+                type="password"
+                id="password"
+                name="password"
+                placeholder="••••••••"
+                required/>
+            </div>
+          </div>
+
+          <div>
+            <label for="confirmPassword">Confirm Password</label>
+            <div>
+              <span>
+                <i class="fas fa-lock"></i>
+              </span>
+              <input
+                type="password"
+                id="confirmPassword"
+                name="confirmPassword"
+                placeholder="••••••••"
+                required/>
+            </div>
+          </div>
+        </div>
+
+        <!-- Submit button -->
+        <button type="submit">
+          <span>Create Account</span>
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+            <path fill-rule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clip-rule="evenodd" />
+          </svg>
+        </button>
+
+        <!-- Divider -->
+        <div>
+          <div></div>
+          <div>
+            <span>or</span>
+          </div>
+        </div>
+
+        <!-- Login link -->
+        <p>
+          Already have an account?
+          <a href="login.html" ">Sign in</a>
+        </p>
+      </form>
+    </div>
+  </main>
+
+  <p id="registerMessage"></p>
+  <script src="./assets/js/services.js"></script>
+</body>
+</html>

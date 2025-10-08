@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Add Package</title>
+</head>
+<body>
+  <form id="packageSetForm">
+     <input type="text" name="packageName" placeholder="Enter the Package Name" id="packageName">
+     <input type="text" name="place" id="place" placeholder="Enter the Place To to From">
+     <input type="number" name="price" id="price" placeholder="Enter the Price ">
+     <input type="text" name="url" id="url" placeholder="Enter the Url">
+     <textarea name="description" id="description" placeholder="Enter the Description about Package"></textarea>
+     <button type="submit">Submit</button>
+  </form>
+<p id="PackageMessage"></p>
+  <script type="module">
+import { createPackage } from './assets/js/services.js';
+
+const packageForm = document.getElementById("packageSetForm");
+const message = document.getElementById("PackageMessage");
+
+if (packageForm) {
+  packageForm.addEventListener("submit", async (event) => {
+    event.preventDefault();
+
+    const packageData = {
+      packageName: document.getElementById("packageName").value.trim(),
+      place: document.getElementById("place").value.trim(),
+      url: document.getElementById("url").value.trim(),
+      price: document.getElementById("price").value.trim(),
+      description: document.getElementById("description").value.trim(),
+    };
+
+    const data = await createPackage(packageData);
+
+    if (data.error) {
+      message.textContent = `Failed To Add Package: ${data.message}`;
+      message.style.color = "red";
+    } else {
+      message.textContent = "Package Added Successfully!";
+      message.style.color = "green";
+      packageForm.reset();
+    }
+
+    setTimeout(() => {
+      message.textContent = "";
+    }, 5000);
+  });
+}
+</script>
+
+</body>
+</html>

@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Book Package</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        background: linear-gradient(135deg, #dfe9f3 0%, #ffffff 100%);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 100vh;
+      }
+
+      .booking-container {
+        background: #fff;
+        padding: 30px;
+        border-radius: 15px;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+        width: 90%;
+        max-width: 450px;
+      }
+
+      h2 {
+        text-align: center;
+        margin-bottom: 25px;
+        color: #333;
+      }
+
+      label {
+        font-weight: bold;
+        display: block;
+        margin-top: 15px;
+      }
+
+      input,
+      select {
+        width: 100%;
+        padding: 10px;
+        border-radius: 8px;
+        border: 1px solid #ccc;
+        margin-top: 5px;
+      }
+
+      button {
+        width: 100%;
+        margin-top: 25px;
+        background: #0078ff;
+        color: white;
+        border: none;
+        padding: 12px;
+        border-radius: 8px;
+        font-size: 16px;
+        cursor: pointer;
+        transition: 0.3s ease;
+      }
+
+      button:hover {
+        background: #005ecc;
+      }
+
+      .package-preview {
+        text-align: center;
+        margin-top: 10px;
+      }
+
+      .package-preview img {
+        width: 100%;
+        max-width: 300px;
+        border-radius: 12px;
+        margin-top: 10px;
+      }
+
+      .message {
+        text-align: center;
+        margin-top: 15px;
+        font-weight: bold;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="booking-container">
+      <h2 id="pageTitle">Book Your Package</h2>
+
+      <div id="selectSection">
+        <label for="packageDropdown">Select a Package</label>
+        <select id="PackageName">
+          <option value="">-- Select a Package --</option>
+          <option value="PKG101">Mountain Explorer</option>
+          <option value="PKG102">Beach Paradise</option>
+          <option value="PKG103">Desert Adventure</option>
+        </select>
+      </div>
+
+      <form id="PackageBookingForm">
+        <label for="numPeople">Size of Group</label>
+        <input
+                  type="number"
+                  id="guestNo"
+                  name="guestNo"
+                  min="1"
+                  placeholder="Enter number of people"
+        />
+
+        <label for="arrivalDate">Arrival Date</label>
+        <input type="date" id="arrivalDate" name="arrivalDate" />
+        <label for="request">Request</label>
+        <textarea
+          name="request"
+          id="request"
+          placeholder="Please Enter If Any request"
+        ></textarea>
+        <button type="submit">Confirm Booking</button>
+      </form>
+
+      <div class="packageBookingmessage" id="message"></div>
+    </div>
+
+    <script type="module">
+import { bookPackage } from './assets/js/services.js';
+
+const bookingForm = document.getElementById("PackageBookingForm");
+const message = document.getElementById("message");
+const packageDropdown = document.getElementById("PackageName");
+
+if (bookingForm) {
+  bookingForm.addEventListener("submit", async (event) => {
+    event.preventDefault();
+
+    const packageName = packageDropdown.options[packageDropdown.selectedIndex].text;
+    const guestNo = document.getElementById("guestNo").value.trim();
+    const arrivalDate = document.getElementById("arrivalDate").value.trim();
+    const request = document.getElementById("request").value.trim();
+
+    const bookingData = { packageName, guestNo, arrivalDate, request };
+    const data = await bookPackage(bookingData);
+
+    if (data.error) {
+      message.textContent = `Failed To Book Package: ${data.message}`;
+      message.style.color = "red";
+    } else {
+      message.textContent = data.message || "Package Booked Successfully!";
+      message.style.color = "green";
+      bookingForm.reset();
+      setTimeout(() => { window.location.href = "index.html"; }, 2000);
+    }
+
+    setTimeout(() => { message.textContent = ""; }, 5500);
+  });
+}
+</script>
+
+  </body>
+</html>

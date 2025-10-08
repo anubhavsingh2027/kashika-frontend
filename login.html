@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+</head>
+<body>
+  <main>
+    <!-- Logo -->
+    <div>
+      <a href="/">
+        <img src="http://kashikatravel.com/images/logo.png" alt="Kashika Travel Logo"/>
+      </a>
+    </div>
+
+    <!-- Login Form Card -->
+    <div>
+      <header>
+        <h1>Welcome back</h1>
+        <p>Sign in to continue your journey</p>
+      </header>
+
+      <form id="loginForm">
+        <div>
+          <div>
+            <input
+              type="email"
+              id="email"
+              name="email"
+              placeholder="you@example.com"
+              required
+            />
+
+          </div>
+
+          <div>
+            <input
+              type="password"
+              name="password"
+              id="password"
+              placeholder="Enter your password"
+              required
+            />
+
+          </div>
+        </div>
+
+        <div>
+          <label>
+            <input type="checkbox" name="remember"/>
+            <span>Remember me</span>
+          </label>
+          <a href="#">Forgot password?</a>
+        </div>
+
+        <button type="submit">Sign in</button>
+      </form>
+
+      <div>
+        <div></div>
+        <div>
+          <span>or</span>
+        </div>
+      </div>
+
+      <p id="loginMessage"></p>
+
+      <footer>
+        <p>
+          Don't have an account?
+          <a href="signup.html">Create one</a>
+        </p>
+      </footer>
+    </div>
+  </main>
+
+  <script type="module">
+import { loginUser } from './assets/js/services.js';
+const loginForm = document.getElementById("loginForm");
+const message = document.getElementById("loginMessage");
+
+if (loginForm) {
+  loginForm.addEventListener("submit", async (event) => {
+    event.preventDefault();
+
+    const email = document.getElementById("email").value.trim();
+    const password = document.getElementById("password").value;
+
+    const loginData = { email, password };
+    const data = await loginUser(loginData);
+
+    if (data.error) {
+      message.textContent = `Failed To Login: ${data.message}`;
+      message.style.color = "red";
+    } else {
+      message.textContent = data.message;
+      message.style.color = "green";
+      loginForm.reset();
+      setTimeout(() => { window.location.href = "carDetails.html"; }, 2000);
+    }
+
+    setTimeout(() => { message.textContent = ""; }, 5500);
+  });
+}
+</script>
+
+</body>
+</html>
