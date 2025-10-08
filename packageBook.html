@@ -112,7 +112,9 @@
         if (packageId && packageSelect.disabled) packageSelect.selectedIndex = 0;
       }
     });
-
+      setTimeout(()=>{
+        message.textContent="";
+      },3000);
     setupPackages();
   </script>
 </body>

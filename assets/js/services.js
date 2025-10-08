@@ -103,10 +103,32 @@ export async function getUserSession() {
 
 // === API: Book Package ===
 export async function bookPackage(bookingData) {
-  console.log("here is data i received :",bookingData.userId);
   const userId=bookingData.userId;
   try {
     const response = await fetch(`https://kashika-backend.onrender.com/kashikaTravel/bookPackage/${userId}`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      credentials: "include",
+      body: JSON.stringify(bookingData),
+    });
+
+    const data = await response.json();
+
+    if (!response.ok) throw new Error(data.message || "Network response was not ok",{
+      credentials: "include"
+    });
+    return data;
+  } catch (error) {
+    console.error("API call failed:", error);
+    return { error: true, message: error.message };
+  }
+}
+
+// === API: Book Car ===
+export async function bookingCar(bookingData) {
+  const userId=bookingData.userId;
+  try {
+    const response = await fetch(`https://kashika-backend.onrender.com/kashikaTravel/carbooking/${userId}`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       credentials: "include",
