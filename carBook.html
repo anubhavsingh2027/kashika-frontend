@@ -37,7 +37,7 @@
   </div>
 
   <script type="module">
-    import { getAllCars, getUserSession, bookingCar } from "./assets/js/services.js";
+    import { getAllCars, getUserSession, bookingCar, deleteCar } from "./assets/js/services.js";
 
     const carSelect = document.getElementById("carName");
     const priceInput = document.getElementById("price");
@@ -45,92 +45,111 @@
     const message = document.getElementById("message");
     const form = document.getElementById("bookForm");
 
-    // === Extract Car ID from URL ===
-    function getCarIdFromURL() {
+    // === Extract Car ID and Delete Flag from URL ===
+    function getCarParams() {
       const params = new URLSearchParams(window.location.search);
-      return params.get('id');
+      return {
+        id: params.get("id"),
+        isDelete: params.get("delete") === "true"
+      };
     }
-    const carId = getCarIdFromURL();
 
-    // === Populate Car Options ===
-    async function setupCars() {
-      const data = await getAllCars();
-      if (!data || data.error) {
-        message.textContent = "Failed to load cars.";
-        message.style.color = "red";
+    const { id: carId, isDelete } = getCarParams();
+    console.log(carId, isDelete);
+
+    // === MAIN LOGIC ===
+    (async function init() {
+      // Handle Delete Mode
+      if (isDelete && carId) {
+        try {
+          const data = await deleteCar(carId);
+          window.location.href = "carDetails.html";
+        } catch (err) {
+        }
         return;
       }
 
-      const cars = data.cars || data;
-
-      if (carId) {
-        // Prefill & lock
-        const selected = cars.find(c => c._id === carId);
-        if (!selected) {
-          message.textContent = "Car not found.";
+      // === Populate Car Dropdown ===
+      async function setupCars() {
+        const data = await getAllCars();
+        if (!data || data.error) {
+          message.textContent = "Failed to load cars.";
           message.style.color = "red";
           return;
         }
 
-        const option = document.createElement("option");
-        option.value = selected.carName;
-        option.textContent = selected.carName;
-        option.selected = true;
-        carSelect.appendChild(option);
-        carSelect.disabled = true;
-        priceInput.value = selected.price;
-      } else {
-        // Show all cars
-        cars.forEach(car => {
+        const cars = data.cars || data;
+
+        if (carId) {
+          // Prefill selected car
+          const selected = cars.find(c => c._id === carId);
+          if (!selected) {
+            message.textContent = "Car not found.";
+            message.style.color = "red";
+            return;
+          }
+
           const option = document.createElement("option");
-          option.value = car.carName;
-          option.textContent = car.carName;
-          option.dataset.price = car.price;
+          option.value = selected.carName;
+          option.textContent = selected.carName;
+          option.selected = true;
           carSelect.appendChild(option);
+          carSelect.disabled = true;
+          priceInput.value = selected.price;
+        } else {
+          // Populate all cars
+          cars.forEach(car => {
+            const option = document.createElement("option");
+            option.value = car.carName;
+            option.textContent = car.carName;
+            option.dataset.price = car.price;
+            carSelect.appendChild(option);
+          });
+        }
+
+        // Show price dynamically
+        carSelect.addEventListener("change", () => {
+          const selectedOption = carSelect.options[carSelect.selectedIndex];
+          priceInput.value = selectedOption.dataset.price || "";
         });
       }
 
-      carSelect.addEventListener("change", () => {
-        const selectedOption = carSelect.options[carSelect.selectedIndex];
-        priceInput.value = selectedOption.dataset.price || "";
+      // === Booking Form Submission ===
+      form.addEventListener("submit", async (e) => {
+        e.preventDefault();
+        message.textContent = "";
+        message.style.color = "red";
+
+        const userData = await getUserSession();
+        if (!userData || !userData.user?._id) {
+          message.textContent = "Please login first to book.";
+          return;
+        }
+
+        const bookingData = {
+          carName: carSelect.value,
+          price: priceInput.value,
+          duration: durationInput.value,
+          date: document.getElementById("date").value,
+          userId: userData.user._id
+        };
+
+        const response = await bookingCar(bookingData);
+
+        if (response.error) {
+          message.textContent = response.message || "Booking failed.";
+        } else {
+          message.textContent = "🎉 Car booked successfully!";
+          message.style.color = "green";
+          form.reset();
+          if (carId && carSelect.disabled) carSelect.selectedIndex = 0;
+        }
+
+        setTimeout(() => { message.textContent = ""; }, 3000);
       });
-    }
 
-    // === Form Submit ===
-    form.addEventListener("submit", async (e) => {
-      e.preventDefault();
-      message.textContent = "";
-      message.style.color = "red";
-
-      const userData = await getUserSession();
-      if (!userData || !userData.user?._id) {
-        message.textContent = "Please login first to book.";
-        return;
-      }
-
-      const bookingData = {
-        carName: carSelect.value,
-        price: priceInput.value,
-        duration: durationInput.value,
-        date: document.getElementById("date").value,
-        userId: userData.user._id
-      };
-
-      const response = await bookingCar(bookingData);
-
-      if (response.error) {
-        message.textContent = response.message || "Booking failed.";
-      } else {
-        message.textContent = "🎉 Car booked successfully!";
-        message.style.color = "green";
-        form.reset();
-        if (carId && carSelect.disabled) carSelect.selectedIndex = 0;
-      }
-
-      setTimeout(() => { message.textContent = ""; }, 3000);
-    });
-
-    setupCars();
+      setupCars();
+    })();
   </script>
 </body>
 </html>

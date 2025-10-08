@@ -175,3 +175,34 @@ export async function getAllPackages() {
     return { error: true };
   }
 }
+
+//== Delete Car ===
+export async function deleteCar(id) {
+  try {
+    const response = await fetch(`https://kashika-backend.onrender.com/kashikaTravel/carDelete/${id}`,{
+      method: "DELETE",
+      credentials: "include"
+    });
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    console.error("Error fetching packages:", error);
+    return { error: true };
+  }
+}
+
+//== Delete Package ===
+
+export async function deletePackage(id) {
+  try {
+    const response = await fetch(`https://kashika-backend.onrender.com/kashikaTravel/packageDelete/${id}`,{
+      method: "DELETE",
+      credentials: "include"
+    });
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    console.error("Error fetching packages:", error);
+    return { error: true };
+  }
+}

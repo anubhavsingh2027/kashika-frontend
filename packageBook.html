@@ -33,21 +33,33 @@
   </div>
 
   <script type="module">
-    import { getAllPackages, getUserSession, bookPackage } from "./assets/js/services.js";
+    import { getAllPackages, getUserSession, bookPackage, deletePackage } from "./assets/js/services.js";
 
     const packageSelect = document.getElementById("packageName");
     const message = document.getElementById("message");
     const form = document.getElementById("bookForm");
 
-    // === Extract package ID from URL reliably ===
-  function getPackageIdFromURL() {
-  const params = new URLSearchParams(window.location.search);
-  return params.get('id'); // returns the package ID if present
-}
+    // === Extract Package ID and Delete Flag ===
+    function getPackageIdFromURL() {
+      const params = new URLSearchParams(window.location.search);
+      return {
+        id: params.get("id"),
+        isDelete: params.get("delete") === "true"
+      };
+    }
 
-    const packageId = getPackageIdFromURL();
+    const { id: packageId, isDelete } = getPackageIdFromURL();
 
-    async function setupPackages() {
+    console.log(packageId, isDelete);
+
+    // === MAIN LOGIC ===
+    (async function init() {
+      if (isDelete && packageId) {
+        const data = await deletePackage(packageId);
+        window.location.href = "packagedetails.html";
+        return;
+      }
+
       const data = await getAllPackages();
       if (!data || data.error) {
         message.textContent = "Failed to load packages.";
@@ -58,7 +70,6 @@
       const packages = data.packages || data;
 
       if (packageId) {
-        // Prefill & lock
         const selected = packages.find(p => p._id === packageId);
         if (!selected) {
           message.textContent = "Package not found.";
@@ -72,7 +83,6 @@
         packageSelect.appendChild(option);
         packageSelect.disabled = true;
       } else {
-        // Show all packages
         packages.forEach(pkg => {
           const option = document.createElement("option");
           option.value = pkg.packageName;
@@ -80,42 +90,40 @@
           packageSelect.appendChild(option);
         });
       }
-    }
 
-    form.addEventListener("submit", async (e) => {
-      e.preventDefault();
-      message.textContent = "";
-      message.style.color = "red";
+      // === Handle Booking ===
+      form.addEventListener("submit", async (e) => {
+        e.preventDefault();
+        message.textContent = "";
+        message.style.color = "red";
 
-      const userData = await getUserSession();
-      if (!userData || !userData.user?._id) {
-        message.textContent = "Please login first to book.";
-        return;
-      }
+        const userData = await getUserSession();
+        if (!userData || !userData.user?._id) {
+          message.textContent = "Please login first to book.";
+          return;
+        }
 
-      const bookingData = {
-        packageName: packageSelect.value,
-        guestNo: document.getElementById("guestNo").value,
-        arrivalDate: document.getElementById("arrivalDate").value,
-        request: document.getElementById("request").value,
-        userId: userData.user._id
-      };
+        const bookingData = {
+          packageName: packageSelect.value,
+          guestNo: document.getElementById("guestNo").value,
+          arrivalDate: document.getElementById("arrivalDate").value,
+          request: document.getElementById("request").value,
+          userId: userData.user._id
+        };
 
-      const response = await bookPackage(bookingData);
+        const response = await bookPackage(bookingData);
 
-      if (response.error) {
-        message.textContent = response.message || "Booking failed.";
-      } else {
-        message.textContent = "🎉 Booking successful!";
-        message.style.color = "green";
-        form.reset();
-        if (packageId && packageSelect.disabled) packageSelect.selectedIndex = 0;
-      }
-    });
-      setTimeout(()=>{
-        message.textContent="";
-      },3000);
-    setupPackages();
+        if (response.error) {
+          message.textContent = response.message || "Booking failed.";
+          message.style.color = "red";
+        } else {
+          message.textContent = "🎉 Booking successful!";
+          message.style.color = "green";
+          form.reset();
+          setTimeout(() => { message.textContent = ""; }, 3000);
+        }
+      });
+    })(); // ✅ close async init
   </script>
 </body>
 </html>

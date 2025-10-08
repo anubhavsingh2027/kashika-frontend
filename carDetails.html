@@ -103,7 +103,7 @@
             <p class="price">₹${car.price}</p>
             ${
               userType === "host"
-                ? `<a href="carDelete.html?id=${car._id}" class="action-btn delete-btn">Delete</a>`
+                 ? `<a href="carBook.html?id=${car._id}&delete=true" class="action-btn delete-btn">Delete</a>`
                 : `<a href="carBook.html?id=${car._id}" class="action-btn">Book</a>`
             }
           </div>
