@@ -88,14 +88,14 @@ if (loginForm) {
     const loginData = { email, password };
     const data = await loginUser(loginData);
 
-    if (data.error) {
-      message.textContent = `Failed To Login: ${data.message}`;
+    if (!data.status) {
+      message.textContent = `${data.message}`;
       message.style.color = "red";
     } else {
       message.textContent = data.message;
       message.style.color = "green";
       loginForm.reset();
-      setTimeout(() => { window.location.href = "kashika-frontend/"; }, 2000);
+      setTimeout(() => { window.location.href = "/"; }, 2000);
     }
 
     setTimeout(() => { message.textContent = ""; }, 5500);

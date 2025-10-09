@@ -76,7 +76,7 @@ export async function loginUser(loginData) {
     if (!response.ok) throw new Error(data.message || "Network response was not ok");
     return data;
   } catch (error) {
-    return { error: true, message: "Network Error " };
+    return { status: false, message: "Network Error " };
   }
 }
 
@@ -249,7 +249,7 @@ export async function userTypeChanged(typeData){
       headers: {
         "Content-Type": "application/json"
       },
-      body: JSON.stringify(typeData) 
+      body: JSON.stringify(typeData)
     });
 
     const data = await response.json();
