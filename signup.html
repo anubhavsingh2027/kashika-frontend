@@ -192,6 +192,8 @@
           }`;
           msg.style.color = "green"; // green
           form.reset();
+          setTimeout(() => { window.location.href = "/"; }, 2000);
+
         } else if (result.status === false) {
           msg.textContent = `❌ ${result.message || "Signup failed"}`;
           msg.style.color = "red"; // red
