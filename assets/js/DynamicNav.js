@@ -8,6 +8,7 @@ async function loadNavbar() {
     console.log("session kuch deraha hai :",session);
     const { LoggedIn, user } = session || {};
     const userType = user?.userType || null;
+  console.log("userType kuch de raha hai kya ",userType)
 
     let links = [];
 
@@ -34,7 +35,7 @@ async function loadNavbar() {
         { name: "Book Package", href: "packageBook.html" },
         { name: "Book Car", href: "carBook.html" },
         { name: "History", href: "userHistory.html" },
-        { name: "signout", href: "login.html?logoutRequuest=true" },
+        { name: "signout", href: "login.html?logoutRequest=true" },
       ];
     }
 
@@ -49,7 +50,7 @@ async function loadNavbar() {
         { name: "Admin Package Set", href: "adminPackageSet.html" },
         { name: "Admin History", href: "allBookingHistory.html" },
         { name: "Access Grant", href: "userTypeAccess.html" },
-        { name: "signout", href: "login.html?logoutRequuest=true" },
+        { name: "signout", href: "login.html?logoutRequest=true" },
       ];
     }
 
@@ -67,7 +68,7 @@ async function loadNavbar() {
       <a href="carDetails.html">carDetails</a>
       <a href="contact.html">contact</a>
       <a href="about.html">about</a>
-      <a href="login.html">login</a>
+      <a href="login.html">error</a>
     `;
   }
 }
