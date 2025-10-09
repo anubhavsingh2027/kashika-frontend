@@ -77,10 +77,12 @@
     <h1>🧳 Available Packages</h1>
     <div class="container" id="packageContainer">Loading packages...</div>
 
+
 <script type="module" src="./assets/js/DynamicNav.js"></script>
+
 <script type="module">
-  import { getAllPackages } from "./assets/js/services.js";
-  import { getUserSession } from "./assets/js/services.js";
+  import { getAllPackages,getUserSession } from "./assets/js/services.js";
+
 
   async function loadPackages() {
     const userSession = await getUserSession();

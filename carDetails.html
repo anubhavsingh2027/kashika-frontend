@@ -72,8 +72,7 @@
 
     <script type="module" src="./assets/js/DynamicNav.js"></script>
     <script type="module">
-      import { getAllCars } from "./assets/js/services.js";
-      import { getUserSession } from "./assets/js/services.js";
+      import { getAllCars,getUserSession } from "./assets/js/services.js";
       async function loadCars() {
         const userSession = await getUserSession();
         const userType = userSession?.user?.userType || "guest";
