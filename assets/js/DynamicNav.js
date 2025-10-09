@@ -5,27 +5,29 @@ const navbar = document.getElementById("navbar");
 async function loadNavbar() {
   try {
     const session = await getUserSession();
-    console.log("session kuch deraha hai :",session);
-    const { LoggedIn, user } = session || {};
+    console.log("session kuch deraha hai :", session);
+
+    const { loggedIn: LoggedIn, user } = session || {};
     const userType = user?.userType || null;
-  console.log("userType kuch de raha hai kya ",userType)
+
+    console.log("userType kuch de raha hai kya ", userType);
 
     let links = [];
 
-    // // 🧭 CASE 1: Not Logged In
-    // if (!LoggedIn) {
-    //   links = [
-    //     { name: "index", href: "index.html" },
-    //     { name: "packagedetails", href: "packagedetails.html" },
-    //     { name: "carDetails", href: "carDetails.html" },
-    //     { name: "contact", href: "contact.html" },
-    //     { name: "about", href: "about.html" },
-    //     { name: "login", href: "login.html" },
-    //   ];
-    // }
+    // 🧭 CASE 1: Not Logged In
+    if (!LoggedIn) {
+      links = [
+        { name: "index", href: "index.html" },
+        { name: "packagedetails", href: "packagedetails.html" },
+        { name: "carDetails", href: "carDetails.html" },
+        { name: "contact", href: "contact.html" },
+        { name: "about", href: "about.html" },
+        { name: "login", href: "login.html" },
+      ];
+    }
 
     // 👤 CASE 2: Logged In (Guest)
-     if (LoggedIn && userType === "guest") {
+    else if (LoggedIn && userType === "guest") {
       links = [
         { name: "index", href: "index.html" },
         { name: "packagedetails", href: "packagedetails.html" },
@@ -39,7 +41,7 @@ async function loadNavbar() {
       ];
     }
 
-    // 🛠️ CASE 3: Logged In (Admin or Other)
+    // 🛠️ CASE 3: Logged In (Host/Admin)
     else if (LoggedIn && userType === "host") {
       links = [
         { name: "index", href: "index.html" },
@@ -54,21 +56,18 @@ async function loadNavbar() {
       ];
     }
 
-    // 🧱 Render Navbar Links
     navbar.innerHTML = links
       .map(link => `<a href="${link.href}">${link.name}</a>`)
       .join(" ");
-
   } catch (err) {
     console.error("Navbar load failed:", err);
-    // 🧩 Fallback in case of server or fetch issue
     navbar.innerHTML = `
       <a href="index.html">index</a>
       <a href="packagedetails.html">packagedetails</a>
       <a href="carDetails.html">carDetails</a>
       <a href="contact.html">contact</a>
       <a href="about.html">about</a>
-      <a href="login.html">error</a>
+      <a href="login.html">login</a>
     `;
   }
 }
