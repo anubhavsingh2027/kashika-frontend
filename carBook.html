@@ -55,7 +55,7 @@
     }
 
     const { id: carId, isDelete } = getCarParams();
-    console.log(carId, isDelete);
+    
 
     // === MAIN LOGIC ===
     (async function init() {
@@ -63,12 +63,8 @@
       if (isDelete && carId) {
         try {
           const data = await deleteCar(carId);
-          console.log("html me hu ",data);
           if(data.success){
-
-           setTimeout(()=>{
                window.location.href = "carDetails.html";
-           },10000)
           }
         } catch (err) {
         }

@@ -18,8 +18,7 @@ export async function createPackage(packageData) {
 
     return data;
   } catch (error) {
-    console.error("API call failed:", error);
-    return { error: true, message: error.message };
+    return { error: true, message: "Network Error " };
   }
 }
 
@@ -38,7 +37,7 @@ export async function addCar(carData) {
     return data;
   } catch (error) {
     console.error("API call failed:", error);
-    return { error: true, message: error.message };
+    return { error: true, message: "Network Error " };
   }
 }
 
@@ -57,10 +56,9 @@ export async function registerUser(userData) {
     return data;
   } catch (error) {
     console.error("API call failed:", error);
-    return { error: true, message: error.message };
+    return { error: true, message: "Network Error " };
   }
 }
-
 
 
 // === API: User Login ===
@@ -78,9 +76,10 @@ export async function loginUser(loginData) {
     if (!response.ok) throw new Error(data.message || "Network response was not ok");
     return data;
   } catch (error) {
-    return { error: true, message: error.message };
+    return { error: true, message: "Network Error " };
   }
 }
+
 
 export  async function forgetPass(forgetData){
   try {
@@ -97,7 +96,7 @@ export  async function forgetPass(forgetData){
     return data;
   } catch (error) {
     console.error("API call failed:", error);
-    return { error: true, message: error.message };
+    return { error: true, message: "Network Error " };
   }
 }
 
@@ -137,9 +136,10 @@ export async function bookPackage(bookingData) {
     return data;
   } catch (error) {
     console.error("API call failed:", error);
-    return { error: true, message: error.message };
+    return { error: true, message: "Network Error " };
   }
 }
+
 
 // === API: Book Car ===
 export async function bookingCar(bookingData) {
@@ -160,12 +160,12 @@ export async function bookingCar(bookingData) {
     return data;
   } catch (error) {
     console.error("API call failed:", error);
-    return { error: true, message: error.message };
+    return { error: true, message: "Network Error " };
   }
 }
 
 
-//=== Get all Cars ===
+//===API: Get all Cars ===
 export async function getAllCars() {
   try {
     const response = await fetch("https://kashika-backend.onrender.com/kashikaTravel/getCar",{
@@ -175,25 +175,27 @@ export async function getAllCars() {
     return data;
   } catch (error) {
     console.error("Error fetching cars:", error);
-    return { error: true };
+    return { error: true,message:"Network Error" };
   }
 }
 
-//=== Get all Packages ===
+
+//===API: Get all Packages ===
 export async function getAllPackages() {
   try {
-    const response = await fetch("https://kashika-backend.onrender.com/kashikaTravel/getpackage",{
+    const response = await fetch("https://kashika-backend.onrender.com/kashikaTravel/getPackage",{
       credentials: "include"
     });
     const data = await response.json();
     return data;
   } catch (error) {
     console.error("Error fetching packages:", error);
-    return { error: true };
+    return { error: true,message:"Network Error" };
   }
 }
 
-//== Delete Car ===
+
+//===API: Delete Car ===
 export async function deleteCar(id) {
   try {
     const response = await fetch(`https://kashika-backend.onrender.com/kashikaTravel/admin/carDelete/${id}`,{
@@ -204,12 +206,12 @@ export async function deleteCar(id) {
     return data;
   } catch (error) {
     console.error("Error fetching packages:", error);
-    return { error: true };
+    return { error: true,message:"Network Error" };
   }
 }
 
-//== Delete Package ===
 
+//===API: Delete Package ===
 export async function deletePackage(id) {
   try {
     const response = await fetch(`https://kashika-backend.onrender.com/kashikaTravel/admin/packageDelete/${id}`,{
@@ -220,7 +222,34 @@ export async function deletePackage(id) {
     console.log("here is data :",data);
     return data;
   } catch (error) {
-    console.error("Error fetching packages:", error);
-    return { error: true };
+    return { error: true,message:"Network Problem" };
+  }
+}
+
+
+//=== API: Get all user ===
+export async function getUsers(){
+  try {
+    const response = await fetch("https://kashika-backend.onrender.com/kashikaTravel/getUser",{
+      credentials: "include"
+    });
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    console.error("Error fetching cars:", error);
+    return { error: true,message:"Network Error" };
+  }
+}
+
+export async function userTypeChanged(typeData){
+  try {
+    const response = await fetch(`https://kashika-backend.onrender.com/kashikaTravel/changeUserType`,{
+      method: "PUT",
+      credentials: "include"
+    });
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    return { error: true,message:"Network Error" };
   }
 }
