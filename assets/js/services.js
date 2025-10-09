@@ -229,6 +229,7 @@ export async function getUsers(){
   }
 }
 
+//===API :Type changed ===
 export async function userTypeChanged(typeData){
   try {
     const response = await fetch(`https://kashika-backend.onrender.com/kashikaTravel/changeUserType`, {
@@ -241,6 +242,21 @@ export async function userTypeChanged(typeData){
     });
 
     const data = await response.json();
+    return data;
+  } catch (error) {
+    return { error: true, message: "Network Error" };
+  }
+}
+
+//===API :Log out ===
+export async function logoutRequiested(){
+  try {
+  await fetch("https://your-backend-url.com/logout", {
+  method: "POST",
+  credentials: "include",
+});
+
+  const data = await response.json();
     return data;
   } catch (error) {
     return { error: true, message: "Network Error" };

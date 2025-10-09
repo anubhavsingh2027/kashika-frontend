@@ -74,9 +74,36 @@
   </main>
 
   <script type="module">
-import { loginUser } from './assets/js/services.js';
+import { loginUser,logoutRequiested } from './assets/js/services.js';
 const loginForm = document.getElementById("loginForm");
 const message = document.getElementById("loginMessage");
+
+
+
+    // === Extract logout Request  Flag from URL ===
+    function getLogoutParams() {
+      const params = new URLSearchParams(window.location.search);
+      return {
+      logoutRequest: params.get("logoutRequest") === "true"
+      };
+    }
+
+    const { logoutRequest } = getLogoutParams();
+
+
+    // === MAIN LOGIC ===
+    (async function init() {
+      if (logoutRequest) {
+        try {
+          const data = await logoutRequiested();
+          if(data.status){
+               window.location.href = "index.html";
+          }
+        } catch (err) {
+        }
+        return;
+      }
+
 
 if (loginForm) {
   loginForm.addEventListener("submit", async (event) => {
@@ -101,6 +128,7 @@ if (loginForm) {
     setTimeout(() => { message.textContent = ""; }, 5500);
   });
 }
+})();
 </script>
 
 </body>
