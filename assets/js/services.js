@@ -78,11 +78,28 @@ export async function loginUser(loginData) {
     if (!response.ok) throw new Error(data.message || "Network response was not ok");
     return data;
   } catch (error) {
-    console.error("API call failed:", error);
     return { error: true, message: error.message };
   }
 }
 
+export  async function forgetPass(forgetData){
+  try {
+    const response = await fetch("https://kashika-backend.onrender.com/kashikaTravel/forgetPassword", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      credentials: "include",
+      body: JSON.stringify(forgetData),
+    });
+
+    const data = await response.json();
+
+    if (!response.ok) throw new Error(data.message || "Network response was not ok");
+    return data;
+  } catch (error) {
+    console.error("API call failed:", error);
+    return { error: true, message: error.message };
+  }
+}
 
 //===session  required====
 export async function getUserSession() {
