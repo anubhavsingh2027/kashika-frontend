@@ -138,9 +138,9 @@
   <script src="./assets/js/script.js"></script>
 
 <script type="module">
-  import { getAllPackages,getUserSession,getAllCars  } from "./assets/js/services.js";
+  import { getAllPackages, getUserSession, getAllCars } from "./assets/js/services.js";
 
-
+  // ================= LOAD PACKAGES =================
   async function loadPackages() {
     const userSession = await getUserSession();
     const userType = userSession?.user?.userType || "guest";
@@ -148,83 +148,78 @@
     const data = await getAllPackages();
     const container = document.getElementById("packageContainer");
 
+    if (!container) return;
     if (data.error) {
       container.textContent = "Failed to load packages.";
       return;
     }
-
     if (data.length === 0) {
       container.textContent = "No packages available.";
       return;
     }
 
-    container.innerHTML = data
-      .map(
-        (pkg) => `
-      <div class="card">
-        <img src="${pkg.url}" alt="${pkg.packageName}">
-        <div class="card-content">
-          <h3>${pkg.packageName}</h3>
-          <p class="place">${pkg.place}</p>
-          <p>${pkg.description}</p>
-          <p class="price">₹${pkg.price}</p>
-          ${
-            userType === "host"
-              ? `<a href="packageBook.html?id=${pkg._id}&delete=true" class="action-btn delete-btn">Delete</a>`
-              : `<a href="packageBook.html?id=${pkg._id}" class="action-btn">Book</a>`
-          }
+    container.innerHTML = data.map(pkg => {
+      const cardHTML = `
+        <div class="card">
+          <img src="${pkg.url}" alt="${pkg.packageName}">
+          <div class="card-content">
+            <h3>${pkg.packageName}</h3>
+            <p class="place">${pkg.place}</p>
+            <p>${pkg.description}</p>
+            <p class="price">₹${pkg.price}</p>
+          </div>
         </div>
-      </div>
-    `
-      )
-      .join("");
+      `;
+
+      // show link if userType === "guest"
+      return userType === "guest"
+        ? `<a href="packageBook.html?id=${pkg._id}" class="action-btn">${cardHTML}</a>`
+        : cardHTML;
+    }).join("");
   }
 
-  loadPackages();
+  // ================= LOAD CARS =================
+  async function loadCars() {
+    const userSession = await getUserSession();
+    const userType = userSession?.user?.userType || "guest";
 
+    const data = await getAllCars();
+    const container = document.getElementById("carContainer");
 
-     async function loadCars() {
-        const userSession = await getUserSession();
-        const userType = userSession?.user?.userType || "guest";
-        // console.log("user type by program in car detail :",userType);
-        // console.log("user type by me: ",userSession);
+    if (!container) return;
+    if (data.error) {
+      container.textContent = "Failed to load cars.";
+      return;
+    }
+    if (data.length === 0) {
+      container.textContent = "No cars available.";
+      return;
+    }
 
-        const data = await getAllCars();
-        const container = document.getElementById("carContainer");
-
-        if (data.error) {
-          container.textContent = "Failed to load cars.";
-          return;
-        }
-
-        if (data.length === 0) {
-          container.textContent = "No cars available.";
-          return;
-        }
-
-        container.innerHTML = data
-          .map(
-            (car) => `
+    container.innerHTML = data.map(car => {
+      const cardHTML = `
         <div class="card">
           <img src="${car.url}" alt="${car.carName}">
           <div class="card-content">
             <h3>${car.carName}</h3>
             <p>${car.description}</p>
             <p class="price">₹${car.price}</p>
-            ${
-              userType === "host"
-                 ? `<a href="carBook.html?id=${car._id}&delete=true" class="action-btn delete-btn">Delete</a>`
-                : `<a href="carBook.html?id=${car._id}" class="action-btn">Book</a>`
-            }
           </div>
         </div>
-      `
-          )
-          .join("");
-      }
+      `;
 
-      loadCars();
+      // show link if userType === "guest"
+      return userType === "guest"
+        ? `<a href="carBook.html?id=${car._id}" class="action-btn">${cardHTML}</a>`
+        : cardHTML;
+    }).join("");
+  }
+
+  // ================= CALL FUNCTIONS =================
+  loadPackages();
+  loadCars();
 </script>
+
 
 </body>
 </html>
