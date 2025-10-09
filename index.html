@@ -1,211 +1,364 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Kashika Travel</title>
 
-    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.1/css/all.min.css" integrity="sha512-5Hs3dF2AEPkpNAR7UiOHba+lRSJNeM2ECkwxUIxC1Q/FLycGTbNapWXB4tP889k5T5Ju8fs4b1P5z/iB4nMfSQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.1/css/all.min.css"
+      integrity="sha512-5Hs3dF2AEPkpNAR7UiOHba+lRSJNeM2ECkwxUIxC1Q/FLycGTbNapWXB4tP889k5T5Ju8fs4b1P5z/iB4nMfSQ=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
   </head>
-  <body class="antialiased bg-gradient-to-b from-slate-50 to-white text-slate-800">
-
+  <body
+    class="antialiased bg-gradient-to-b from-slate-50 to-white text-slate-800"
+  >
     <nav id="navbar" class="sticky top-0 z-40 shadow-sm"></nav>
 
+    <main class="">
+      <!-- HERO -->
+      <section
+        id="home"
+        class="relative bg-gradient-to-br from-sky-600 via-indigo-600 to-rose-500 text-white overflow-hidden"
+      >
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div class="pt-20 pb-20 lg:pb-32">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
+              <div class="space-y-6">
+                <h1 class="text-4xl sm:text-5xl font-extrabold leading-tight">
+                  Discover Varanasi with confidence
+                </h1>
+                <p class="text-lg text-white/90 max-w-xl">
+                  Curated pilgrimage and leisure packages, reliable car rentals,
+                  and 24/7 support — experience the spiritual heart of India
+                  with comfort and style.
+                </p>
+                <div class="flex items-center gap-3">
+                  <a
+                    href="packagedetails.html"
+                    class="inline-flex items-center gap-2 px-5 py-3 bg-white text-slate-900 rounded-full font-medium shadow-lg hover:scale-105 transition"
+                    >Browse Packages <i class="fa-solid fa-angle-right"></i
+                  ></a>
+                  <a href="contact.html" class="text-white/90 underline"
+                    >Request Assistance</a
+                  >
+                </div>
+                <div class="mt-4 flex gap-4">
+                  <div
+                    class="inline-flex items-center gap-2 bg-white/10 px-3 py-1 rounded-full"
+                  >
+                    ⭐ 4.9
+                    <span class="text-sm text-white/80">(2k reviews)</span>
+                  </div>
+                  <div
+                    class="inline-flex items-center gap-2 bg-white/10 px-3 py-1 rounded-full"
+                  >
+                    🚗 Fleet-ready
+                  </div>
+                </div>
+              </div>
 
-    <main>
-   <section id="home" class="hero" >
-      <div class="slideshow">
-          <img src="banner1.jpg" alt="Banner 1" class="slide" loading="lazy">
-          <img src="http://kashikatravel.com/images/bannerbg2.jpg" alt="Banner 2" class="slide" loading="lazy">
-          <img src="https://wallpapercave.com/wp/wp6612935.jpg" alt="Banner 3" class="slide" loading="lazy">
-      </div>
-      <div class="indicators"></div>
-  </section>
-
-  <section id="special-packages" class="special-packages">
-    <h2>Special <span>Packages</span></h2>
-    <div class="package-grid">
- <div class="container" id="packageContainer">Loading packages...</div>
-
-
-    </div>
-</section>
-    <section id="about" class="about">
-        <h2>About <span>Varanasi</span></h2>
-        <div class="varanasi-highlight">
-            <div class="highlight-item">
-                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTlXm4G8nlga6K0kcZonik9CHL3RAK_NfWYHg&s" alt="Shree Kashi Vishwanath">
-                <h3>Shree Kashi Vishwanath Temple</h3>
-                <p>One of the most sacred temples in India, dedicated to Lord Shiva, located in the heart of Varanasi.</p>
+              <div class="relative">
+                <div
+                  class="rounded-2xl overflow-hidden shadow-2xl bg-white/5 p-1"
+                >
+                  <img
+                    src="banner1.jpg"
+                    alt="Varanasi"
+                    class="w-full h-72 object-cover rounded-lg transform hover:scale-105 transition"
+                  />
+                </div>
+              </div>
             </div>
-            <div class="highlight-item">
-                <img src="https://kashiyatra.in/wp-content/uploads/2023/02/ganga-aarti.jpg" alt="Ganga Aarti">
-                <h3>Ganga Aarti</h3>
-                <p>A divine ritual performed at the ghats of Varanasi to honor the holy river Ganges.</p>
-            </div>
-            <div class="highlight-item">
-                <img src="https://media.istockphoto.com/id/505843236/photo/view-of-varanasi-india.jpg?s=612x612&w=0&k=20&c=j75uFPrDa60hTHmXPmvqD23j_WYxMQ4VMbFTjXqN-Jc=" alt="Dashashwamedh Ghat">
-                <h3>Dashashwamedh Ghat</h3>
-                <p>One of the most prominent and bustling ghats in Varanasi, known for its stunning aarti ceremonies.</p>
-            </div>
-            <div class="highlight-item">
-                <img src="https://www.shutterstock.com/shutterstock/videos/3509034973/thumb/1.jpg?ip=x480" alt="Sarnath">
-                <h3>Sarnath</h3>
-                <p>A significant Buddhist site, where Lord Buddha gave his first sermon after attaining enlightenment.</p>
-            </div>
-            <div class="highlight-item">
-                <img src="https://www.shutterstock.com/shutterstock/videos/3558065331/thumb/1.jpg?ip=x480" alt="Namo Ghat">
-                <h3>Namo Ghat</h3>
-                <p>A newly developed ghat, known for its peaceful environment and modern amenities.</p>
-            </div>
-             <div class="highlight-item">
-                <img src="https://www.rvcj.com/wp-content/uploads/2019/11/Bharat-Kala-Bhavan-Museum.jpg" alt="Namo Ghat">
-                <h3>Bharat Kala Bhavan</h3>
-                <p>
-                    Bharat Kala Bhavan in Varanasi is a premier museum showcasing India's rich cultural and artistic heritage through its vast collection of artifacts and artworks.</p>
-            </div>
-            <div class="highlight-item">
-                <img src="https://th.bing.com/th/id/OIP.zmG7vVGaqQg2GjjnYCDOQgAAAA?rs=1&pid=ImgDetMain" alt="Ramnagar fort ">
-                <h3>Ramnagar Fort</h3>
-                <p>
-                    Ramnagar Fort in Varanasi is a historic fort on the banks of the Ganges, known for its stunning architecture and royal heritage.</p>
-            </div>
-            <div class="highlight-item">
-                <img src="https://i.ytimg.com/vi/y_Neql8GKWI/maxresdefault.jpg" alt="Bhu Vishwanath Temple ">
-                <h3>Bhu Vishwanath Temple </h3>
-                <p>
-                    Bhu Vishwanath Temple in Varanasi is a revered Hindu shrine dedicated to Lord Shiva, known for its spiritual significance and intricate architecture.</p>
-            </div>
+          </div>
         </div>
-    </section>
-    <section id="car-rental" class="car-rental">
-        <h2>Car <span>Rental Services</span></h2>
-        <div class="rental-grid">
-<div class="container" id="carContainer">Loading cars...</div>
-    </section>
+      </section>
 
+      <!-- PACKAGES -->
+      <section id="special-packages" class="py-16 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div class="flex items-center justify-between mb-6">
+            <h2 class="text-2xl font-extrabold">Special Packages</h2>
+            <a href="packagedetails.html" class="text-sky-600 hover:underline"
+              >View all</a
+            >
+          </div>
 
+          <div
+            id="packageContainer"
+            class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6"
+          >
+            Loading packages...
+          </div>
+        </div>
+      </section>
 
-</main>
-<footer class="footer">
-    <div class="footer-content">
+      <!-- TESTIMONIALS -->
+      <section class="bg-slate-50 py-12">
+        <div class="max-w-4xl mx-auto px-4 text-center">
+          <h3 class="text-xl font-semibold mb-4">What our travelers say</h3>
+          <div id="testimonialCarousel" class="relative"></div>
+        </div>
+      </section>
+
+      <!-- ABOUT / HIGHLIGHTS -->
+      <section id="about" class="py-12">
+        <div
+          class="max-w-7xl mx-auto px-4 grid grid-cols-1 lg:grid-cols-3 gap-6"
+        >
+          <div class="lg:col-span-2">
+            <h2 class="text-2xl font-extrabold mb-4">Explore Varanasi</h2>
+            <p class="text-slate-700 mb-6">
+              From the Ganga aarti to historic forts and sacred temples, our
+              packages are designed to showcase the city’s spiritual and
+              cultural richness with comfort and local expertise.
+            </p>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <!-- ...existing highlights condensed into cards... -->
+              <div
+                class="bg-white p-4 rounded-lg shadow hover:shadow-lg transition"
+              >
+                <img
+                  src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTlXm4G8nlga6K0kcZonik9CHL3RAK_NfWYHg&s"
+                  class="w-full h-40 object-cover rounded-md mb-3"
+                  alt="Shree Kashi Vishwanath"
+                />
+                <h4 class="font-semibold">Shree Kashi Vishwanath</h4>
+                <p class="text-sm text-slate-600">
+                  A sacred temple dedicated to Lord Shiva located in the heart
+                  of Varanasi.
+                </p>
+              </div>
+
+              <div
+                class="bg-white p-4 rounded-lg shadow hover:shadow-lg transition"
+              >
+                <img
+                  src="https://kashiyatra.in/wp-content/uploads/2023/02/ganga-aarti.jpg"
+                  class="w-full h-40 object-cover rounded-md mb-3"
+                  alt="Ganga Aarti"
+                />
+                <h4 class="font-semibold">Ganga Aarti</h4>
+                <p class="text-sm text-slate-600">
+                  Experience the evening ritual at the ghats — a highlight of
+                  any Varanasi trip.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <aside class="bg-white p-6 rounded-lg shadow">
+            <h4 class="font-semibold mb-2">Car Rental</h4>
+            <p class="text-sm text-slate-600 mb-4">
+              Reliable drivers, modern fleet, hourly or package-based rentals.
+            </p>
+            <a
+              href="carDetails.html"
+              class="inline-block px-4 py-2 bg-sky-600 text-white rounded-lg"
+              >Browse Cars</a
+            >
+          </aside>
+        </div>
+      </section>
+
+      <!-- CARS -->
+      <section id="car-rental" class="py-12 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div class="flex items-center justify-between mb-6">
+            <h2 class="text-2xl font-extrabold">Car Rental Services</h2>
+            <a href="carDetails.html" class="text-sky-600 hover:underline"
+              >View all</a
+            >
+          </div>
+          <div
+            id="carContainer"
+            class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6"
+          >
+            Loading cars...
+          </div>
+        </div>
+      </section>
+    </main>
+    <footer class="footer">
+      <div class="footer-content">
         <div class="footer-box">
-            <h3>Kashika Travel</h3>
-            <p>Kashika Travel is the handling agent in Varanasi, Hindu Pilgrimage, and the entire Buddhist Circuit. Our office is based in the Holy City of Varanasi.</p>
+          <h3>Kashika Travel</h3>
+          <p>
+            Kashika Travel is the handling agent in Varanasi, Hindu Pilgrimage,
+            and the entire Buddhist Circuit. Our office is based in the Holy
+            City of Varanasi.
+          </p>
         </div>
         <div class="footer-box">
-            <h3>Address</h3>
-            <p>52 Patel Nagar, Near Hotel New Temple Town, Varanasi - 221002</p>
+          <h3>Address</h3>
+          <p>52 Patel Nagar, Near Hotel New Temple Town, Varanasi - 221002</p>
         </div>
         <div class="footer-box help-support">
-            <h3>Help and Support</h3>
-            <div class="help-links">
-                <div class="link-column">
-                    <a href="#about-us">About Us</a>
-                    <a href="#varanasi-service">Varanasi Service</a>
-                </div>
-                <div class="link-column">
-                    <a href="#enquiry">Enquiry</a>
-                    <a href="#varanasi-tours">Varanasi Tours</a>
-                </div>
-                <div class="link-column">
-                    <a href="#car-rental">Car Rental</a>
-                    <a href="#contact-us">Contact Us</a>
-                </div>
+          <h3>Help and Support</h3>
+          <div class="help-links">
+            <div class="link-column">
+              <a href="#about-us">About Us</a>
+              <a href="#varanasi-service">Varanasi Service</a>
             </div>
+            <div class="link-column">
+              <a href="#enquiry">Enquiry</a>
+              <a href="#varanasi-tours">Varanasi Tours</a>
+            </div>
+            <div class="link-column">
+              <a href="#car-rental">Car Rental</a>
+              <a href="#contact-us">Contact Us</a>
+            </div>
+          </div>
         </div>
-    </div>
-    <div class="footer-bottom">
+      </div>
+      <div class="footer-bottom">
         <h2>&copy; 2024 Kashika Travel</h2>
-    </div>
-</footer>
-<script type="module" src="./assets/js/DynamicNav.js"></script>
-  <script src="./assets/js/script.js"></script>
+      </div>
+    </footer>
+    <script type="module" src="./assets/js/DynamicNav.js"></script>
+    <script src="./assets/js/script.js"></script>
 
-<script type="module">
-  import { getAllPackages, getUserSession, getAllCars } from "./assets/js/services.js";
+    <script type="module">
+      import {
+        getAllPackages,
+        getUserSession,
+        getAllCars,
+      } from "./assets/js/services.js";
+      import {
+        openModal,
+        initTestimonials,
+      } from "./assets/js/ui-components.js";
 
-  // ================= LOAD PACKAGES =================
-  async function loadPackages() {
-    const userSession = await getUserSession();
-    const userType = userSession?.user?.userType || "guest";
-
-    const data = await getAllPackages();
-    const container = document.getElementById("packageContainer");
-
-    if (!container) return;
-    if (data.error) {
-      container.textContent = "Failed to load packages.";
-      return;
-    }
-    if (data.length === 0) {
-      container.textContent = "No packages available.";
-      return;
-    }
-
-    container.innerHTML = data.map(pkg => {
-      const cardHTML = `
-        <div class="card">
-          <img src="${pkg.url}" alt="${pkg.packageName}">
-          <div class="card-content">
-            <h3>${pkg.packageName}</h3>
-            <p class="place">${pkg.place}</p>
-            <p>${pkg.description}</p>
-            <p class="price">₹${pkg.price}</p>
+      // Small card renderer
+      function packageCard(pkg) {
+        return `
+      <article class="bg-white rounded-lg shadow hover:shadow-lg transition overflow-hidden">
+        <img src="${pkg.url}" alt="${pkg.packageName}" class="w-full h-48 object-cover" />
+        <div class="p-4">
+          <h3 class="font-semibold text-lg">${pkg.packageName}</h3>
+          <p class="text-sm text-slate-500 mt-1">${pkg.place}</p>
+          <p class="text-slate-600 mt-2 text-sm line-clamp-3">${pkg.description}</p>
+          <div class="mt-4 flex items-center justify-between">
+            <div class="text-emerald-600 font-semibold">₹${pkg.price}</div>
+            <div class="flex items-center gap-2">
+              <button data-id="${pkg._id}" data-type="package" class="previewBtn px-3 py-1 bg-sky-600 text-white rounded">Preview</button>
+              <a href="packageBook.html?id=${pkg._id}" class="px-3 py-1 bg-white border rounded text-slate-700">Book</a>
+            </div>
           </div>
         </div>
-      `;
+      </article>
+    `;
+      }
 
-      // show link if userType === "guest"
-      return userType === "guest"
-        ? `<a href="packageBook.html?id=${pkg._id}" class="action-btn">${cardHTML}</a>`
-        : cardHTML;
-    }).join("");
-  }
-
-  // ================= LOAD CARS =================
-  async function loadCars() {
-    const userSession = await getUserSession();
-    const userType = userSession?.user?.userType || "guest";
-
-    const data = await getAllCars();
-    const container = document.getElementById("carContainer");
-
-    if (!container) return;
-    if (data.error) {
-      container.textContent = "Failed to load cars.";
-      return;
-    }
-    if (data.length === 0) {
-      container.textContent = "No cars available.";
-      return;
-    }
-
-    container.innerHTML = data.map(car => {
-      const cardHTML = `
-        <div class="card">
-          <img src="${car.url}" alt="${car.carName}">
-          <div class="card-content">
-            <h3>${car.carName}</h3>
-            <p>${car.description}</p>
-            <p class="price">₹${car.price}</p>
+      function carCard(car) {
+        return `
+      <article class="bg-white rounded-lg shadow hover:shadow-lg transition overflow-hidden">
+        <img src="${car.url}" alt="${car.carName}" class="w-full h-40 object-cover" />
+        <div class="p-4">
+          <h3 class="font-semibold text-lg">${car.carName}</h3>
+          <p class="text-slate-600 mt-2 text-sm line-clamp-3">${car.description}</p>
+          <div class="mt-4 flex items-center justify-between">
+            <div class="text-emerald-600 font-semibold">₹${car.price}</div>
+            <div class="flex items-center gap-2">
+              <button data-id="${car._id}" data-type="car" class="previewBtn px-3 py-1 bg-sky-600 text-white rounded">Preview</button>
+              <a href="carBook.html?id=${car._id}" class="px-3 py-1 bg-white border rounded text-slate-700">Book</a>
+            </div>
           </div>
         </div>
-      `;
+      </article>
+    `;
+      }
 
-      // show link if userType === "guest"
-      return userType === "guest"
-        ? `<a href="carBook.html?id=${car._id}" class="action-btn">${cardHTML}</a>`
-        : cardHTML;
-    }).join("");
-  }
+      // ================= LOAD PACKAGES =================
+      async function loadPackages() {
+        const userSession = await getUserSession();
+        const userType = userSession?.user?.userType || "guest";
 
-  // ================= CALL FUNCTIONS =================
-  loadPackages();
-  loadCars();
-</script>
+        const data = await getAllPackages();
+        const container = document.getElementById("packageContainer");
 
+        if (!container) return;
+        if (data.error) {
+          container.textContent = "Failed to load packages.";
+          return;
+        }
+        if (data.length === 0) {
+          container.textContent = "No packages available.";
+          return;
+        }
 
-</body>
+        container.innerHTML = data.map((pkg) => packageCard(pkg)).join("");
+
+        // attach preview listeners
+        document.querySelectorAll(".previewBtn").forEach((btn) => {
+          btn.addEventListener("click", (e) => {
+            const id = btn.dataset.id;
+            const type = btn.dataset.type;
+            const item = data.find((d) => d._id === id);
+            if (!item) return;
+            openModal(
+              `<h3 class="text-xl font-semibold mb-2">${
+                item.packageName || item.carName
+              }</h3><p class=\"text-slate-600\">${
+                item.description
+              }</p><p class=\"mt-3 font-semibold text-emerald-600\">₹${
+                item.price
+              }</p><div class=\"mt-4\"><a href=\"${
+                type === "package"
+                  ? "packageBook.html?id=" + id
+                  : "carBook.html?id=" + id
+              }\" class=\"px-4 py-2 bg-sky-600 text-white rounded\">Book now</a></div>`
+            );
+          });
+        });
+      }
+
+      // ================= LOAD CARS =================
+      async function loadCars() {
+        const userSession = await getUserSession();
+        const userType = userSession?.user?.userType || "guest";
+
+        const data = await getAllCars();
+        const container = document.getElementById("carContainer");
+
+        if (!container) return;
+        if (data.error) {
+          container.textContent = "Failed to load cars.";
+          return;
+        }
+        if (data.length === 0) {
+          container.textContent = "No cars available.";
+          return;
+        }
+
+        container.innerHTML = data.map((car) => carCard(car)).join("");
+
+        document.querySelectorAll(".previewBtn").forEach((btn) => {
+          btn.addEventListener("click", (e) => {
+            const id = btn.dataset.id;
+            const item = data.find((d) => d._id === id);
+            if (!item) return;
+            openModal(
+              `<h3 class="text-xl font-semibold mb-2">${item.carName}</h3><p class=\"text-slate-600\">${item.description}</p><p class=\"mt-3 font-semibold text-emerald-600\">₹${item.price}</p><div class=\"mt-4\"><a href=\"carBook.html?id=${id}\" class=\"px-4 py-2 bg-sky-600 text-white rounded\">Book now</a></div>`
+            );
+          });
+        });
+      }
+
+      // testimonials
+      initTestimonials("testimonialCarousel");
+
+      // call
+      loadPackages();
+      loadCars();
+    </script>
+  </body>
 </html>
