@@ -12,9 +12,7 @@ export async function createPackage(packageData) {
 
     const data = await response.json();
 
-    if (!response.ok) {
-      throw new Error(data.message || "Network response was not ok");
-    }
+
 
     return data;
   } catch (error) {
@@ -33,7 +31,6 @@ export async function addCar(carData) {
       body: JSON.stringify(carData),
     });
     const data = await response.json();
-    if (!response.ok) throw new Error(data.message || "Network response was not ok");
     return data;
   } catch (error) {
     console.error("API call failed:", error);
@@ -52,7 +49,6 @@ export async function registerUser(userData) {
       body: JSON.stringify(userData),
     });
     const data = await response.json();
-    if (!response.ok) throw new Error(data.message || "Network response was not ok");
     return data;
   } catch (error) {
     console.error("API call failed:", error);
@@ -73,7 +69,6 @@ export async function loginUser(loginData) {
 
     const data = await response.json();
 
-    if (!response.ok) throw new Error(data.message || "Network response was not ok");
     return data;
   } catch (error) {
     return { status: false, message: "Network Error " };
@@ -92,7 +87,6 @@ export  async function forgetPass(forgetData){
 
     const data = await response.json();
 
-    if (!response.ok) throw new Error(data.message || "Network response was not ok");
     return data;
   } catch (error) {
     console.error("API call failed:", error);
@@ -130,9 +124,6 @@ export async function bookPackage(bookingData) {
 
     const data = await response.json();
 
-    if (!response.ok) throw new Error(data.message || "Network response was not ok",{
-      credentials: "include"
-    });
     return data;
   } catch (error) {
     console.error("API call failed:", error);
@@ -154,9 +145,6 @@ export async function bookingCar(bookingData) {
 
     const data = await response.json();
 
-    if (!response.ok) throw new Error(data.message || "Network response was not ok",{
-      credentials: "include"
-    });
     return data;
   } catch (error) {
     console.error("API call failed:", error);
