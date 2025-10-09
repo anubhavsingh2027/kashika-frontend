@@ -243,13 +243,18 @@ export async function getUsers(){
 
 export async function userTypeChanged(typeData){
   try {
-    const response = await fetch(`https://kashika-backend.onrender.com/kashikaTravel/changeUserType`,{
+    const response = await fetch(`https://kashika-backend.onrender.com/kashikaTravel/changeUserType`, {
       method: "PUT",
-      credentials: "include"
+      credentials: "include",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(typeData) 
     });
+
     const data = await response.json();
     return data;
   } catch (error) {
-    return { error: true,message:"Network Error" };
+    return { error: true, message: "Network Error" };
   }
 }
