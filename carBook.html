@@ -1,162 +1,200 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>Book Car | Kashika Travels</title>
-  <style>
-    body { font-family: Arial; background: #f0f4f8; display:flex; justify-content:center; align-items:center; min-height:100vh; margin:0; }
-    .container { background:#fff; padding:30px 40px; border-radius:20px; box-shadow:0 10px 25px rgba(0,0,0,0.1); width:100%; max-width:450px; }
-    h1 { text-align:center; color:#0077cc; margin-bottom:25px; }
-    label { display:block; margin-bottom:5px; font-weight:bold; color:#333; }
-    input, select, textarea { width:100%; padding:10px 12px; margin-bottom:15px; border-radius:10px; border:1px solid #ccc; font-size:14px; outline:none; }
-    input:focus, select:focus, textarea:focus { border-color:#0077cc; box-shadow:0 0 5px rgba(0,119,204,0.3); }
-    button { width:100%; padding:12px; border:none; border-radius:10px; background:#0077cc; color:white; font-size:16px; font-weight:bold; cursor:pointer; transition:background 0.3s ease; }
-    button:hover { background:#005fa3; }
-    #message { text-align:center; margin-top:10px; font-weight:bold; }
-  </style>
-</head>
-<body>
-  <nav id="navbar"></nav>
-  <div class="container">
-    <h1>Book Your Car</h1>
-    <form id="bookForm">
-      <label for="carName">Car Name</label>
-      <select id="carName" required></select>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Book Car | Kashika Travels</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <nav id="navbar" class="sticky top-0 z-40"></nav>
+    <main
+      class="min-h-screen flex items-center justify-center bg-gradient-to-b from-slate-50 to-white p-6"
+    >
+      <div class="w-full max-w-md bg-white rounded-2xl shadow-lg p-8">
+        <h1 class="text-xl font-semibold text-slate-800 mb-4">Book Your Car</h1>
+        <form id="bookForm" class="space-y-3">
+          <label for="carName" class="text-sm font-medium">Car Name</label>
+          <select
+            id="carName"
+            required
+            class="w-full px-3 py-2 border rounded-lg"
+          ></select>
 
-      <label for="price">Price (₹)</label>
-      <input type="text" id="price" readonly />
+          <label for="price" class="text-sm font-medium">Price (₹)</label>
+          <input
+            type="text"
+            id="price"
+            readonly
+            class="w-full px-3 py-2 border rounded-lg bg-slate-50"
+          />
 
-      <label for="duration">Duration (in days)</label>
-      <input type="number" id="duration" min="1" placeholder="e.g., 3" required />
+          <label for="duration" class="text-sm font-medium"
+            >Duration (in days)</label
+          >
+          <input
+            type="number"
+            id="duration"
+            min="1"
+            placeholder="e.g., 3"
+            required
+            class="w-full px-3 py-2 border rounded-lg"
+          />
 
-      <label for="date">Booking Date</label>
-      <input type="date" id="date" required />
+          <label for="date" class="text-sm font-medium">Booking Date</label>
+          <input
+            type="date"
+            id="date"
+            required
+            class="w-full px-3 py-2 border rounded-lg"
+          />
 
-      <button type="submit">Book Now</button>
-      <p id="message"></p>
-    </form>
-  </div>
+          <button
+            type="submit"
+            class="w-full py-3 bg-gradient-to-r from-sky-600 to-indigo-600 text-white rounded-lg"
+          >
+            Book Now
+          </button>
+          <p id="message" class="text-center font-medium"></p>
+        </form>
+      </div>
+    </main>
 
+    <script type="module" src="./assets/js/DynamicNav.js"></script>
+    <script type="module">
+      import {
+        getAllCars,
+        getUserSession,
+        bookingCar,
+        deleteCar,
+      } from "./assets/js/services.js";
+      import { showToast, withLoader } from "./assets/js/tailwind-init.js";
 
-  <script type="module" src="./assets/js/DynamicNav.js"></script>
-  <script type="module">
-    import { getAllCars, getUserSession, bookingCar, deleteCar } from "./assets/js/services.js";
+      const carSelect = document.getElementById("carName");
+      const priceInput = document.getElementById("price");
+      const durationInput = document.getElementById("duration");
+      const message = document.getElementById("message");
+      const form = document.getElementById("bookForm");
+      const submitBtn = form.querySelector("button");
 
-    const carSelect = document.getElementById("carName");
-    const priceInput = document.getElementById("price");
-    const durationInput = document.getElementById("duration");
-    const message = document.getElementById("message");
-    const form = document.getElementById("bookForm");
-
-    // === Extract Car ID and Delete Flag from URL ===
-    function getCarParams() {
-      const params = new URLSearchParams(window.location.search);
-      return {
-        id: params.get("id"),
-        isDelete: params.get("delete") === "true"
-      };
-    }
-
-    const { id: carId, isDelete } = getCarParams();
-
-
-    // === MAIN LOGIC ===
-    (async function init() {
-      // Handle Delete Mode
-      if (isDelete && carId) {
-        try {
-          const data = await deleteCar(carId);
-          if(data.success){
-               window.location.href = "carDetails.html";
-          }
-        } catch (err) {
-        }
-        return;
+      // === Extract Car ID and Delete Flag from URL ===
+      function getCarParams() {
+        const params = new URLSearchParams(window.location.search);
+        return {
+          id: params.get("id"),
+          isDelete: params.get("delete") === "true",
+        };
       }
 
-      // === Populate Car Dropdown ===
-      async function setupCars() {
-        const data = await getAllCars();
-        if (!data || data.error) {
-          message.textContent = "Failed to load cars.";
-          message.style.color = "red";
+      const { id: carId, isDelete } = getCarParams();
+
+      // === MAIN LOGIC ===
+      (async function init() {
+        // Handle Delete Mode
+        if (isDelete && carId) {
+          try {
+            const data = await deleteCar(carId);
+            if (data.success) {
+              window.location.href = "carDetails.html";
+            }
+          } catch (err) {}
           return;
         }
 
-        const cars = data.cars || data;
-
-        if (carId) {
-          // Prefill selected car
-          const selected = cars.find(c => c._id === carId);
-          if (!selected) {
-            message.textContent = "Car not found.";
+        // === Populate Car Dropdown ===
+        async function setupCars() {
+          const data = await getAllCars();
+          if (!data || data.error) {
+            message.textContent = "Failed to load cars.";
             message.style.color = "red";
             return;
           }
 
-          const option = document.createElement("option");
-          option.value = selected.carName;
-          option.textContent = selected.carName;
-          option.selected = true;
-          carSelect.appendChild(option);
-          carSelect.disabled = true;
-          priceInput.value = selected.price;
-        } else {
-          // Populate all cars
-          cars.forEach(car => {
+          const cars = data.cars || data;
+
+          if (carId) {
+            // Prefill selected car
+            const selected = cars.find((c) => c._id === carId);
+            if (!selected) {
+              message.textContent = "Car not found.";
+              message.style.color = "red";
+              return;
+            }
+
             const option = document.createElement("option");
-            option.value = car.carName;
-            option.textContent = car.carName;
-            option.dataset.price = car.price;
+            option.value = selected.carName;
+            option.textContent = selected.carName;
+            option.selected = true;
             carSelect.appendChild(option);
+            carSelect.disabled = true;
+            priceInput.value = selected.price;
+          } else {
+            // Populate all cars
+            cars.forEach((car) => {
+              const option = document.createElement("option");
+              option.value = car.carName;
+              option.textContent = car.carName;
+              option.dataset.price = car.price;
+              carSelect.appendChild(option);
+            });
+          }
+
+          // Show price dynamically
+          carSelect.addEventListener("change", () => {
+            const selectedOption = carSelect.options[carSelect.selectedIndex];
+            priceInput.value = selectedOption.dataset.price || "";
           });
         }
 
-        // Show price dynamically
-        carSelect.addEventListener("change", () => {
-          const selectedOption = carSelect.options[carSelect.selectedIndex];
-          priceInput.value = selectedOption.dataset.price || "";
+        // === Booking Form Submission ===
+        form.addEventListener("submit", async (e) => {
+          e.preventDefault();
+          message.textContent = "";
+          message.style.color = "red";
+
+          const userData = await getUserSession();
+          if (!userData || !userData.user?._id) {
+            message.textContent = "Please login for Booking .";
+            setTimeout(() => {
+              window.location.href = "index.html";
+            }, 2000);
+
+            return;
+          }
+
+          const bookingData = {
+            carName: carSelect.value,
+            price: priceInput.value,
+            duration: durationInput.value,
+            date: document.getElementById("date").value,
+            userId: userData.user._id,
+          };
+
+          const response = await withLoader(submitBtn, () =>
+            bookingCar(bookingData)
+          );
+
+          if (response?.error) {
+            showToast(response.message || "Booking failed", "error");
+            message.textContent = response.message || "Booking failed.";
+          } else {
+            showToast("Car booked successfully", "success");
+            message.textContent = "🎉 Car booked successfully!";
+            message.style.color = "green";
+            form.reset();
+            if (carId && carSelect.disabled) carSelect.selectedIndex = 0;
+          }
+
+          setTimeout(() => {
+            message.textContent = "";
+          }, 3000);
         });
-      }
 
-      // === Booking Form Submission ===
-      form.addEventListener("submit", async (e) => {
-        e.preventDefault();
-        message.textContent = "";
-        message.style.color = "red";
-
-        const userData = await getUserSession();
-        if (!userData || !userData.user?._id) {
-          message.textContent = "Please login for Booking .";
-          setTimeout(() => { window.location.href = "index.html"; }, 2000);
-
-          return;
-        }
-
-        const bookingData = {
-          carName: carSelect.value,
-          price: priceInput.value,
-          duration: durationInput.value,
-          date: document.getElementById("date").value,
-          userId: userData.user._id
-        };
-
-        const response = await bookingCar(bookingData);
-
-        if (response.error) {
-          message.textContent = response.message || "Booking failed.";
-        } else {
-          message.textContent = "🎉 Car booked successfully!";
-          message.style.color = "green";
-          form.reset();
-          if (carId && carSelect.disabled) carSelect.selectedIndex = 0;
-        }
-
-        setTimeout(() => { message.textContent = ""; }, 3000);
-      });
-
-      setupCars();
-    })();
-  </script>
-</body>
+        setupCars();
+      })();
+    </script>
+    <script type="module" src="./assets/js/tailwind-init.js"></script>
+  </body>
 </html>

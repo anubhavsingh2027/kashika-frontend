@@ -3,162 +3,98 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>SignUp</title>
+    <title>Create Account — Kashika Travels</title>
     <link
+      href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css"
       rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
     />
-    <style>
-      body {
-        font-family: Arial, sans-serif;
-        background: #f2f5f8;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        min-height: 100vh;
-        margin: 0;
-      }
-      form {
-        background: #fff;
-        padding: 30px;
-        border-radius: 10px;
-        box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
-        width: 350px;
-      }
-      h2 {
-        text-align: center;
-        margin-bottom: 20px;
-      }
-      form div {
-        margin-bottom: 15px;
-      }
-      label {
-        font-weight: bold;
-        display: block;
-        margin-bottom: 5px;
-      }
-      input {
-        width: 100%;
-        padding: 10px;
-        border: 1px solid #ccc;
-        border-radius: 6px;
-        outline: none;
-      }
-      input:focus {
-        border-color: #007bff;
-      }
-      button {
-        width: 100%;
-        padding: 12px;
-        border: none;
-        background: #007bff;
-        color: white;
-        border-radius: 6px;
-        cursor: pointer;
-        font-size: 16px;
-        font-weight: bold;
-        transition: background 0.3s ease;
-      }
-      button:hover {
-        background: #0056b3;
-      }
-
-      /* Basic message style (color controlled by JS) */
-      #registerMessage {
-        text-align: center;
-        margin-top: 15px;
-        font-weight: bold;
-        font-size: 15px;
-        transition: all 0.3s ease;
-      }
-    </style>
   </head>
-  <body>
-    <main>
-      <form id="registerForm">
-        <h2>Create Your Account</h2>
+  <body
+    class="antialiased bg-gradient-to-b from-slate-50 to-white text-slate-800"
+  >
+    <nav id="navbar" class="sticky top-0 z-40"></nav>
 
-        <div>
-          <label>Full Name</label>
+    <main class="min-h-screen flex items-center justify-center p-6">
+      <form
+        id="registerForm"
+        class="max-w-lg w-full bg-white rounded-2xl shadow-lg p-8 space-y-4"
+      >
+        <div class="flex items-center gap-3">
+          <img
+            src="./assets/images/logo.png"
+            class="h-10 w-10 rounded-full shadow-sm"
+            alt="logo"
+          />
+          <h2 class="text-2xl font-semibold">Create Your Account</h2>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
           <input
-            type="text"
             id="userName"
-            name="userName"
-            placeholder="John Doe"
+            placeholder="Full name"
+            class="px-4 py-2 border rounded-lg focus:ring-2 focus:ring-sky-400 outline-none"
             required
           />
-        </div>
-
-        <div>
-          <label>Email</label>
           <input
-            type="email"
             id="email"
-            name="email"
-            placeholder="you@example.com"
+            placeholder="Email address"
+            type="email"
+            class="px-4 py-2 border rounded-lg focus:ring-2 focus:ring-sky-400 outline-none"
             required
           />
-        </div>
-
-        <div>
-          <label>Phone</label>
           <input
-            type="text"
             id="phone"
-            name="phone"
-            placeholder="9876543210"
+            placeholder="Phone number"
+            class="px-4 py-2 border rounded-lg focus:ring-2 focus:ring-sky-400 outline-none"
             required
           />
-        </div>
-
-        <div>
-          <label>Location</label>
           <input
-            type="text"
             id="location"
-            name="location"
-            placeholder="Your Address"
-            required
+            placeholder="City / Location"
+            class="px-4 py-2 border rounded-lg focus:ring-2 focus:ring-sky-400 outline-none"
           />
         </div>
 
-        <div>
-          <label>Password</label>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
           <input
-            type="password"
             id="password"
-            name="password"
-            placeholder="••••••••"
-            required
-          />
-        </div>
-
-        <div>
-          <label>Confirm Password</label>
-          <input
             type="password"
+            placeholder="Password"
+            class="px-4 py-2 border rounded-lg focus:ring-2 focus:ring-sky-400 outline-none"
+            required
+          />
+          <input
             id="confirmPassword"
-            name="confirmPassword"
-            placeholder="••••••••"
+            type="password"
+            placeholder="Confirm Password"
+            class="px-4 py-2 border rounded-lg focus:ring-2 focus:ring-sky-400 outline-none"
             required
           />
         </div>
 
-        <button type="submit">Create Account</button>
+        <button
+          id="registerBtn"
+          type="submit"
+          class="w-full py-3 bg-gradient-to-r from-sky-600 to-indigo-600 text-white rounded-lg font-semibold"
+        >
+          Create Account
+        </button>
+        <p id="registerMessage" class="text-center text-sm font-medium"></p>
       </form>
-
-      <p id="registerMessage"></p>
     </main>
 
+    <script type="module" src="./assets/js/DynamicNav.js"></script>
+    <script type="module" src="./assets/js/tailwind-init.js"></script>
     <script type="module">
       import { registerUser } from "./assets/js/services.js";
+      import { showToast, withLoader } from "./assets/js/tailwind-init.js";
 
       const form = document.getElementById("registerForm");
       const msg = document.getElementById("registerMessage");
+      const btn = document.getElementById("registerBtn");
 
       form.addEventListener("submit", async (e) => {
         e.preventDefault();
-
         msg.textContent = "";
         msg.style.color = "";
 
@@ -170,37 +106,34 @@
         const confirmPassword =
           document.getElementById("confirmPassword").value;
         if (password !== confirmPassword) {
-          msg.textContent = "❌ Passwords do not match!";
+          showToast("Passwords do not match", "error");
+          msg.textContent = "Passwords do not match";
           msg.style.color = "red";
           return;
         }
 
         const userData = { userName, email, phone, location, password };
-        const submitBtn = form.querySelector("button");
-        submitBtn.disabled = true;
-        submitBtn.textContent = "Creating account...";
 
-        const result = await registerUser(userData);
-
-        submitBtn.disabled = false;
-        if (result.error) {
-          msg.textContent = `⚠️ ${result.message}`;
-          msg.style.color = "red"; // red
-        } else if (result.status === true) {
-          msg.textContent = `✅ ${
-            result.message || "Account created successfully!"
-          }`;
-          msg.style.color = "green";
-          form.reset();
-          setTimeout(() => { window.location.href = "index.html"; }, 2000);
-
-        } else if (result.status === false) {
-          msg.textContent = `❌ ${result.message || "Signup failed"}`;
-          msg.style.color = "red";
-        } else {
-          msg.textContent = "⚠️ Unexpected response from server.";
-          msg.style.color = "red";
-        }
+        await withLoader(btn, async () => {
+          const result = await registerUser(userData);
+          if (result.error) {
+            showToast(result.message || "Registration failed", "error");
+            msg.textContent = result.message || "Registration failed";
+            msg.style.color = "red";
+          } else if (result.status) {
+            showToast(result.message || "Account created", "success");
+            msg.textContent = result.message || "Account created";
+            msg.style.color = "green";
+            form.reset();
+            setTimeout(() => {
+              window.location.href = "index.html";
+            }, 1500);
+          } else {
+            showToast("Unexpected server response", "error");
+            msg.textContent = "Unexpected server response";
+            msg.style.color = "red";
+          }
+        });
       });
     </script>
   </body>

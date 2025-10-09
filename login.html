@@ -1,135 +1,151 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Login</title>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
-</head>
-<body>
-  <main>
-    <!-- Logo -->
-    <div>
-      <a href="/">
-        <img src="http://kashikatravel.com/images/logo.png" alt="Kashika Travel Logo"/>
-      </a>
-    </div>
-
-    <!-- Login Form Card -->
-    <div>
-      <header>
-        <h1>Welcome back</h1>
-        <p>Sign in to continue your journey</p>
-      </header>
-
-      <form id="loginForm">
-        <div>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Login</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+    />
+    <link
+      href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <main
+      class="min-h-screen flex items-center justify-center bg-gradient-to-b from-slate-50 to-sky-50"
+    >
+      <div
+        class="max-w-md w-full bg-white rounded-2xl shadow-xl p-8 mx-4 transform transition-all duration-500 hover:scale-[1.01]"
+      >
+        <div class="flex items-center gap-3 mb-6">
+          <img
+            src="./assets/images/logo.png"
+            alt="logo"
+            class="h-12 w-12 rounded-full shadow"
+          />
           <div>
+            <h1 class="text-2xl font-semibold">Welcome Back</h1>
+            <p class="text-sm text-slate-500">
+              Sign in to continue your journey
+            </p>
+          </div>
+        </div>
+
+        <form id="loginForm" class="space-y-4">
+          <div>
+            <label for="email" class="block text-sm font-medium text-slate-700"
+              >Email</label
+            >
             <input
               type="email"
               id="email"
               name="email"
               placeholder="you@example.com"
               required
+              class="mt-1 w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-sky-400 focus:border-transparent outline-none transition"
             />
-
           </div>
-
           <div>
+            <label
+              for="password"
+              class="block text-sm font-medium text-slate-700"
+              >Password</label
+            >
             <input
               type="password"
               name="password"
               id="password"
               placeholder="Enter your password"
               required
+              class="mt-1 w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-sky-400 focus:border-transparent outline-none transition"
             />
-
           </div>
-        </div>
 
-        <div>
+          <div class="flex items-center justify-between text-sm">
+            <a href="forgetPassword.html" class="text-sky-600 hover:underline"
+              >Forgot password?</a
+            >
+            <a href="signup.html" class="text-slate-500">Create account</a>
+          </div>
 
-          <a href="forgetPassword.html">Forgot password?</a>
-        </div>
+          <button
+            type="submit"
+            class="w-full py-3 bg-gradient-to-r from-sky-600 to-indigo-600 text-white rounded-lg font-semibold hover:from-indigo-600 hover:to-sky-600 transition-all"
+          >
+            Sign in
+          </button>
+        </form>
 
-        <button type="submit">Sign in</button>
-      </form>
-
-      <div>
-        <div></div>
-        <div>
-          <span>or</span>
-        </div>
+        <p id="loginMessage" class="mt-4 text-center text-sm font-medium"></p>
       </div>
+    </main>
+    <script type="module" src="./assets/js/tailwind-init.js"></script>
 
-      <p id="loginMessage"></p>
+    <script type="module">
+      import { loginUser, logoutRequiested } from "./assets/js/services.js";
+      import { showToast, withLoader } from "./assets/js/tailwind-init.js";
 
-      <footer>
-        <p>
-          Don't have an account?
-          <a href="signup.html">Create one</a>
-        </p>
-      </footer>
-    </div>
-  </main>
+      const loginForm = document.getElementById("loginForm");
+      const message = document.getElementById("loginMessage");
+      const submitBtn = loginForm?.querySelector("button");
 
-  <script type="module">
-import { loginUser,logoutRequiested } from './assets/js/services.js';
-const loginForm = document.getElementById("loginForm");
-const message = document.getElementById("loginMessage");
-
-
-
-    // === Extract logout Request  Flag from URL ===
-    function getLogoutParams() {
-      const params = new URLSearchParams(window.location.search);
-      return {
-      logoutRequest: params.get("logoutRequest") === "true"
-      };
-    }
-
-    const { logoutRequest } = getLogoutParams();
-
-
-    // === MAIN LOGIC ===
-    (async function init() {
-      if (logoutRequest) {
-        try {
-          const data = await logoutRequiested();
-          if(data.status){
-               window.location.href = "index.html";
-          }
-        } catch (err) {
-        }
-        return;
+      function getLogoutParams() {
+        const params = new URLSearchParams(window.location.search);
+        return { logoutRequest: params.get("logoutRequest") === "true" };
       }
 
+      const { logoutRequest } = getLogoutParams();
 
-if (loginForm) {
-  loginForm.addEventListener("submit", async (event) => {
-    event.preventDefault();
+      (async function init() {
+        if (logoutRequest) {
+          try {
+            const data = await logoutRequiested();
+            if (data.status) window.location.href = "index.html";
+          } catch (err) {}
+          return;
+        }
 
-    const email = document.getElementById("email").value.trim();
-    const password = document.getElementById("password").value;
+        if (loginForm) {
+          loginForm.addEventListener("submit", async (event) => {
+            event.preventDefault();
+            const email = document.getElementById("email").value.trim();
+            const password = document.getElementById("password").value;
+            const loginData = { email, password };
 
-    const loginData = { email, password };
-    const data = await loginUser(loginData);
+            try {
+              const data = await withLoader(submitBtn, () =>
+                loginUser(loginData)
+              );
+              if (!data || !data.status) {
+                const msg = data?.message || "Login failed";
+                showToast(msg, "error");
+                message.textContent = msg;
+                message.style.color = "red";
+                return;
+              }
 
-    if (!data.status) {
-      message.textContent = `${data.message}`;
-      message.style.color = "red";
-    } else {
-      message.textContent = data.message;
-      message.style.color = "green";
-      loginForm.reset();
-      setTimeout(() => { window.location.href = "index.html"; }, 2000);
-    }
-
-    setTimeout(() => { message.textContent = ""; }, 5500);
-  });
-}
-})();
-</script>
-
-</body>
+              showToast(data.message || "Logged in successfully", "success");
+              message.textContent = data.message || "Logged in successfully";
+              message.style.color = "green";
+              loginForm.reset();
+              setTimeout(() => {
+                window.location.href = "index.html";
+              }, 1200);
+            } catch (err) {
+              showToast("Network error", "error");
+              message.textContent = "Network error";
+              message.style.color = "red";
+            } finally {
+              setTimeout(() => {
+                message.textContent = "";
+              }, 4500);
+            }
+          });
+        }
+      })();
+    </script>
+  </body>
 </html>

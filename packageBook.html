@@ -1,132 +1,157 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>Book Package | Kashika Travels</title>
-  <style>
-    body { font-family: Arial; background: #f0f4f8; display:flex; justify-content:center; align-items:center; min-height:100vh; margin:0; }
-    .container { background:#fff; padding:30px 40px; border-radius:20px; box-shadow:0 10px 25px rgba(0,0,0,0.1); width:100%; max-width:450px; }
-    h1 { text-align:center; color:#0077cc; margin-bottom:25px; }
-    label { display:block; margin-bottom:5px; font-weight:bold; color:#333; }
-    input, select, textarea { width:100%; padding:10px 12px; margin-bottom:15px; border-radius:10px; border:1px solid #ccc; font-size:14px; outline:none; }
-    input:focus, select:focus, textarea:focus { border-color:#0077cc; box-shadow:0 0 5px rgba(0,119,204,0.3); }
-    button { width:100%; padding:12px; border:none; border-radius:10px; background:#0077cc; color:white; font-size:16px; font-weight:bold; cursor:pointer; transition:background 0.3s ease; }
-    button:hover { background:#005fa3; }
-    #message { text-align:center; margin-top:10px; font-weight:bold; }
-  </style>
-</head>
-<body>
-  <nav id="navbar"></nav>
-  <div class="container">
-    <h1>Book Your Package</h1>
-    <form id="bookForm">
-      <label for="packageName">Package Name</label>
-      <select id="packageName" required></select>
-      <label for="guestNo">Number of Guests</label>
-      <input type="number" id="guestNo" min="1" placeholder="e.g., 2" required />
-      <label for="arrivalDate">Arrival Date</label>
-      <input type="date" id="arrivalDate" required />
-      <label for="request">Special Request</label>
-      <textarea id="request" rows="3" placeholder="Any special requests?"></textarea>
-      <button type="submit">Book Now</button>
-      <p id="message"></p>
-    </form>
-  </div>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Book Package | Kashika Travels</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <nav id="navbar"></nav>
+    <main
+      class="min-h-screen flex items-center justify-center bg-gradient-to-b from-slate-50 to-white p-6"
+    >
+      <div class="w-full max-w-md bg-white rounded-2xl shadow-lg p-8">
+        <h1 class="text-xl font-semibold text-slate-800 mb-4">
+          Book Your Package
+        </h1>
+        <form id="bookForm">
+          <label for="packageName">Package Name</label>
+          <select id="packageName" required></select>
+          <label for="guestNo">Number of Guests</label>
+          <input
+            type="number"
+            id="guestNo"
+            min="1"
+            placeholder="e.g., 2"
+            required
+          />
+          <label for="arrivalDate">Arrival Date</label>
+          <input type="date" id="arrivalDate" required />
+          <label for="request">Special Request</label>
+          <textarea
+            id="request"
+            rows="3"
+            placeholder="Any special requests?"
+          ></textarea>
+          <button type="submit">Book Now</button>
+          <p id="message"></p>
+        </form>
+      </div>
+    </main>
 
-  <script type="module" src="./assets/js/DynamicNav.js"></script>
-  <script type="module">
-    import { getAllPackages, getUserSession, bookPackage, deletePackage } from "./assets/js/services.js";
+    <script type="module" src="./assets/js/DynamicNav.js"></script>
+    <script type="module">
+      import {
+        getAllPackages,
+        getUserSession,
+        bookPackage,
+        deletePackage,
+      } from "./assets/js/services.js";
+      import { showToast, withLoader } from "./assets/js/tailwind-init.js";
 
-    const packageSelect = document.getElementById("packageName");
-    const message = document.getElementById("message");
-    const form = document.getElementById("bookForm");
+      const packageSelect = document.getElementById("packageName");
+      const message = document.getElementById("message");
+      const form = document.getElementById("bookForm");
+      const submitBtn = form.querySelector("button");
 
-    // === Extract Package ID and Delete Flag ===
-    function getPackageIdFromURL() {
-      const params = new URLSearchParams(window.location.search);
-      return {
-        id: params.get("id"),
-        isDelete: params.get("delete") === "true"
-      };
-    }
-
-    const { id: packageId, isDelete } = getPackageIdFromURL();
-
-    console.log(packageId, isDelete);
-
-    // === MAIN LOGIC ===
-    (async function init() {
-      if (isDelete && packageId) {
-        const data = await deletePackage(packageId);
-          window.location.href = "packagedetails.html";
-        return;
-      }
-
-      const data = await getAllPackages();
-      if (!data || data.error) {
-        message.textContent = "Failed to load packages.";
-        message.style.color = "red";
-        return;
-      }
-
-      const packages = data.packages || data;
-
-      if (packageId) {
-        const selected = packages.find(p => p._id === packageId);
-        if (!selected) {
-          message.textContent = "Package not found.";
-          message.style.color = "red";
-          return;
-        }
-        const option = document.createElement("option");
-        option.value = selected.packageName;
-        option.textContent = selected.packageName;
-        option.selected = true;
-        packageSelect.appendChild(option);
-        packageSelect.disabled = true;
-      } else {
-        packages.forEach(pkg => {
-          const option = document.createElement("option");
-          option.value = pkg.packageName;
-          option.textContent = pkg.packageName;
-          packageSelect.appendChild(option);
-        });
-      }
-
-      // === Handle Booking ===
-      form.addEventListener("submit", async (e) => {
-        e.preventDefault();
-        message.textContent = "";
-        message.style.color = "red";
-
-        const userData = await getUserSession();
-        if (!userData || !userData.user?._id) {
-          message.textContent = "Please login for booking.";
-          setTimeout(() => { window.location.href = "login.html"; }, 2000);
-          return;
-        }
-
-        const bookingData = {
-          packageName: packageSelect.value,
-          guestNo: document.getElementById("guestNo").value,
-          arrivalDate: document.getElementById("arrivalDate").value,
-          request: document.getElementById("request").value,
-          userId: userData.user._id
+      // === Extract Package ID and Delete Flag ===
+      function getPackageIdFromURL() {
+        const params = new URLSearchParams(window.location.search);
+        return {
+          id: params.get("id"),
+          isDelete: params.get("delete") === "true",
         };
+      }
 
-        const response = await bookPackage(bookingData);
+      const { id: packageId, isDelete } = getPackageIdFromURL();
 
-        if (response.error) {
-          message.textContent = response.message || "Booking failed.";
-          message.style.color = "red";
-        } else {
-          message.textContent = "🎉 Booking successful!";
-          message.style.color = "green";
-          form.reset();
-          setTimeout(() => { message.textContent = ""; }, 3000);
+      console.log(packageId, isDelete);
+
+      // === MAIN LOGIC ===
+      (async function init() {
+        if (isDelete && packageId) {
+          const data = await deletePackage(packageId);
+          window.location.href = "packagedetails.html";
+          return;
         }
-      });
-    })(); // ✅ close async init
-  </script>
-</body>
+
+        const data = await getAllPackages();
+        if (!data || data.error) {
+          message.textContent = "Failed to load packages.";
+          message.style.color = "red";
+          return;
+        }
+
+        const packages = data.packages || data;
+
+        if (packageId) {
+          const selected = packages.find((p) => p._id === packageId);
+          if (!selected) {
+            message.textContent = "Package not found.";
+            message.style.color = "red";
+            return;
+          }
+          const option = document.createElement("option");
+          option.value = selected.packageName;
+          option.textContent = selected.packageName;
+          option.selected = true;
+          packageSelect.appendChild(option);
+          packageSelect.disabled = true;
+        } else {
+          packages.forEach((pkg) => {
+            const option = document.createElement("option");
+            option.value = pkg.packageName;
+            option.textContent = pkg.packageName;
+            packageSelect.appendChild(option);
+          });
+        }
+
+        // === Handle Booking ===
+        form.addEventListener("submit", async (e) => {
+          e.preventDefault();
+          message.textContent = "";
+          message.style.color = "red";
+
+          const userData = await getUserSession();
+          if (!userData || !userData.user?._id) {
+            message.textContent = "Please login for booking.";
+            setTimeout(() => {
+              window.location.href = "login.html";
+            }, 2000);
+            return;
+          }
+
+          const bookingData = {
+            packageName: packageSelect.value,
+            guestNo: document.getElementById("guestNo").value,
+            arrivalDate: document.getElementById("arrivalDate").value,
+            request: document.getElementById("request").value,
+            userId: userData.user._id,
+          };
+
+          const response = await withLoader(submitBtn, () =>
+            bookPackage(bookingData)
+          );
+
+          if (response?.error) {
+            showToast(response.message || "Booking failed", "error");
+            message.textContent = response.message || "Booking failed.";
+            message.style.color = "red";
+          } else {
+            showToast("Booking confirmed", "success");
+            message.textContent = "🎉 Booking successful!";
+            message.style.color = "green";
+            form.reset();
+            setTimeout(() => {
+              message.textContent = "";
+            }, 3000);
+          }
+        });
+      })(); // ✅ close async init
+    </script>
+    <script type="module" src="./assets/js/tailwind-init.js"></script>
+  </body>
 </html>

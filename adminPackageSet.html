@@ -1,58 +1,100 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Add Package</title>
-</head>
-<body>
-  <nav id="navbar"></nav>
-  <form id="packageSetForm">
-     <input type="text" name="packageName" placeholder="Enter the Package Name" id="packageName">
-     <input type="text" name="place" id="place" placeholder="Enter the Place To to From">
-     <input type="number" name="price" id="price" placeholder="Enter the Price ">
-     <input type="text" name="url" id="url" placeholder="Enter the Url">
-     <textarea name="description" id="description" placeholder="Enter the Description about Package"></textarea>
-     <button type="submit">Submit</button>
-  </form>
-<p id="PackageMessage"></p>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Add Package</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <nav id="navbar" class="sticky top-0 z-40"></nav>
+    <main class="max-w-3xl mx-auto px-4 py-10">
+      <form
+        id="packageSetForm"
+        class="bg-white p-6 rounded-lg shadow space-y-3"
+      >
+        <input
+          type="text"
+          name="packageName"
+          id="packageName"
+          placeholder="Package name"
+          class="w-full px-4 py-2 border rounded-lg"
+        />
+        <input
+          type="text"
+          name="place"
+          id="place"
+          placeholder="Place (from - to)"
+          class="w-full px-4 py-2 border rounded-lg"
+        />
+        <input
+          type="number"
+          name="price"
+          id="price"
+          placeholder="Price"
+          class="w-full px-4 py-2 border rounded-lg"
+        />
+        <input
+          type="text"
+          name="url"
+          id="url"
+          placeholder="Image URL"
+          class="w-full px-4 py-2 border rounded-lg"
+        />
+        <textarea
+          name="description"
+          id="description"
+          placeholder="Description"
+          class="w-full px-4 py-2 border rounded-lg"
+        ></textarea>
+        <button
+          type="submit"
+          class="py-2 px-4 bg-sky-600 text-white rounded-lg"
+        >
+          Submit
+        </button>
+      </form>
+      <p id="PackageMessage" class="mt-4"></p>
+    </main>
 
-<script type="module" src="./assets/js/DynamicNav.js"></script>
-  <script type="module">
-import { createPackage } from './assets/js/services.js';
+    <script type="module" src="./assets/js/DynamicNav.js"></script>
+    <script type="module">
+      import { createPackage } from "./assets/js/services.js";
 
-const packageForm = document.getElementById("packageSetForm");
-const message = document.getElementById("PackageMessage");
+      const packageForm = document.getElementById("packageSetForm");
+      const message = document.getElementById("PackageMessage");
 
-if (packageForm) {
-  packageForm.addEventListener("submit", async (event) => {
-    event.preventDefault();
+      if (packageForm) {
+        packageForm.addEventListener("submit", async (event) => {
+          event.preventDefault();
 
-    const packageData = {
-      packageName: document.getElementById("packageName").value.trim(),
-      place: document.getElementById("place").value.trim(),
-      url: document.getElementById("url").value.trim(),
-      price: document.getElementById("price").value.trim(),
-      description: document.getElementById("description").value.trim(),
-    };
+          const packageData = {
+            packageName: document.getElementById("packageName").value.trim(),
+            place: document.getElementById("place").value.trim(),
+            url: document.getElementById("url").value.trim(),
+            price: document.getElementById("price").value.trim(),
+            description: document.getElementById("description").value.trim(),
+          };
 
-    const data = await createPackage(packageData);
+          const data = await createPackage(packageData);
 
-    if (data.error) {
-      message.textContent = `Failed To Add Package: ${data.message}`;
-      message.style.color = "red";
-    } else {
-      message.textContent = "Package Added Successfully!";
-      message.style.color = "green";
-      packageForm.reset();
-    }
+          if (data.error) {
+            message.textContent = `Failed To Add Package: ${data.message}`;
+            message.style.color = "red";
+          } else {
+            message.textContent = "Package Added Successfully!";
+            message.style.color = "green";
+            packageForm.reset();
+          }
 
-    setTimeout(() => {
-      message.textContent = "";
-    }, 5000);
-  });
-}
-</script>
-
-</body>
+          setTimeout(() => {
+            message.textContent = "";
+          }, 5000);
+        });
+      }
+    </script>
+  </body>
 </html>

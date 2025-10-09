@@ -1,26 +1,49 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Document</title>
-</head>
-<body>
- <nav id="navbar"></nav>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <nav id="navbar" class="sticky top-0 z-40"></nav>
 
-about kashika
+    <main class="max-w-5xl mx-auto px-4 py-10">
+      <h1 class="text-3xl font-extrabold mb-4">About Kashika Travel</h1>
+      <p class="text-slate-700 leading-relaxed mb-4">
+        Kashika Travel is a trusted travel operator based in Varanasi, serving
+        pilgrims and travelers across the region. We operate a modern fleet —
+        from compact sedans to tempo travellers — and maintain high standards of
+        safety, cleanliness, and hospitality. Our drivers are professional,
+        experienced, and ready to assist with local knowledge to make your
+        journey comfortable.
+      </p>
 
-About Us
+      <section class="bg-white rounded-lg shadow p-6">
+        <h2 class="font-semibold mb-2">Our Fleet & Services</h2>
+        <p class="text-slate-600">
+          We provide well-maintained vehicles including Tata Etios, Dzire,
+          Toyota Innova and Tempo Traveller (9+1). 24/7 support and personalized
+          itineraries are available on request.
+        </p>
+      </section>
 
+      <div class="mt-6">
+        <iframe
+          class="w-full h-96 rounded-lg"
+          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3606.1367874070056!2d82.98397047534226!3d25.333190577623633!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x398e2dc3ffffffff%3A0xde9120df8c61c1b4!2sKashika%20Travel!5e0!3m2!1sen!2sin!4v1760040531091!5m2!1sen!2sin"
+          style="border: 0"
+          allowfullscreen=""
+          loading="lazy"
+        ></iframe>
+      </div>
 
-Kashika Travel is the handling agent in Varanasi, Hindu Pilgrimage and the entire Buddhist Circuit. Our Office is based in the Holy City of Varanasi.
-
-We are having our own fleet of Vehicles Like Tata Etios,Dzire, Toyota Innova/ Tempo Traveller ( 9+1 Seater ). The Vehicles that are provided to our Highly esteemed clients are all well maintained and every care has been taken in providing the assigning the best drivers who are courteous, Well Mannered and can speak & understand English very well with an experience of more than 10-15 years of experience in the Travel Trade. Support & assistance is provided round the clock with utmost personal care.
-
-add more about if any details traveling website
- //location
-
- <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3606.1367874070056!2d82.98397047534226!3d25.333190577623633!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x398e2dc3ffffffff%3A0xde9120df8c61c1b4!2sKashika%20Travel!5e0!3m2!1sen!2sin!4v1760040531091!5m2!1sen!2sin" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
- <script type="module" src="./assets/js/DynamicNav.js"></script>
-</body>
+      <script type="module" src="./assets/js/DynamicNav.js"></script>
+      <script type="module" src="./assets/js/tailwind-init.js"></script>
+    </main>
+  </body>
 </html>
