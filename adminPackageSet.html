@@ -6,6 +6,7 @@
   <title>Add Package</title>
 </head>
 <body>
+  <nav id="navbar"></nav>
   <form id="packageSetForm">
      <input type="text" name="packageName" placeholder="Enter the Package Name" id="packageName">
      <input type="text" name="place" id="place" placeholder="Enter the Place To to From">
@@ -15,6 +16,8 @@
      <button type="submit">Submit</button>
   </form>
 <p id="PackageMessage"></p>
+
+<script type="module" src="./assets/js/DynamicNav.js"></script>
   <script type="module">
 import { createPackage } from './assets/js/services.js';
 

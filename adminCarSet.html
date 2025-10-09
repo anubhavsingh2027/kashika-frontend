@@ -6,6 +6,7 @@
   <title>Add Car</title>
 </head>
 <body>
+  <nav id="navbar"></nav>
   <form id="carSetForm">
      <input type="text" name="carName" placeholder="Enter the car Name" id="carName" required>
      <input type="number" name="price" id="price" placeholder="Enter the Price " required>
@@ -14,6 +15,7 @@
      <button type="submit">Submit</button>
   </form>
   <p id="carMessage"></p>
+  <script type="module" src="./assets/js/DynamicNav.js"></script>
  <script type="module">
 import { addCar } from './assets/js/services.js';
 

@@ -65,11 +65,12 @@
     </style>
   </head>
   <body>
-    <h1><a href="login.html">login</a></h1>
-    <h1><a href="packagedetails.html">package</a></h1>
+    <nav id="navbar"></nav>1>
     <h1>🚗 Available Cars</h1>
     <div class="container" id="carContainer">Loading cars...</div>
 
+
+    <script type="module" src="./assets/js/DynamicNav.js"></script>
     <script type="module">
       import { getAllCars } from "./assets/js/services.js";
       import { getUserSession } from "./assets/js/services.js";

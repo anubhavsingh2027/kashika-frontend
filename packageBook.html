@@ -16,6 +16,7 @@
   </style>
 </head>
 <body>
+  <nav id="navbar"></nav>
   <div class="container">
     <h1>Book Your Package</h1>
     <form id="bookForm">
@@ -32,6 +33,7 @@
     </form>
   </div>
 
+  <script type="module" src="./assets/js/DynamicNav.js"></script>
   <script type="module">
     import { getAllPackages, getUserSession, bookPackage, deletePackage } from "./assets/js/services.js";
 
@@ -99,7 +101,8 @@
 
         const userData = await getUserSession();
         if (!userData || !userData.user?._id) {
-          message.textContent = "Please login first to book.";
+          message.textContent = "Please login for booking.";
+          setTimeout(() => { window.location.href = "login.html"; }, 2000);
           return;
         }
 
