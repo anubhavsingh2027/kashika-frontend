@@ -12,20 +12,20 @@ async function loadNavbar() {
 
     let links = [];
 
-    // 🧭 CASE 1: Not Logged In
-    if (!LoggedIn) {
-      links = [
-        { name: "index", href: "index.html" },
-        { name: "packagedetails", href: "packagedetails.html" },
-        { name: "carDetails", href: "carDetails.html" },
-        { name: "contact", href: "contact.html" },
-        { name: "about", href: "about.html" },
-        { name: "login", href: "login.html" },
-      ];
-    }
+    // // 🧭 CASE 1: Not Logged In
+    // if (!LoggedIn) {
+    //   links = [
+    //     { name: "index", href: "index.html" },
+    //     { name: "packagedetails", href: "packagedetails.html" },
+    //     { name: "carDetails", href: "carDetails.html" },
+    //     { name: "contact", href: "contact.html" },
+    //     { name: "about", href: "about.html" },
+    //     { name: "login", href: "login.html" },
+    //   ];
+    // }
 
     // 👤 CASE 2: Logged In (Guest)
-    else if (LoggedIn && userType === "guest") {
+     if (LoggedIn && userType === "guest") {
       links = [
         { name: "index", href: "index.html" },
         { name: "packagedetails", href: "packagedetails.html" },
@@ -40,7 +40,7 @@ async function loadNavbar() {
     }
 
     // 🛠️ CASE 3: Logged In (Admin or Other)
-    else if (LoggedIn && userType !== "guest") {
+    else if (LoggedIn && userType === "host") {
       links = [
         { name: "index", href: "index.html" },
         { name: "about", href: "about.html" },
