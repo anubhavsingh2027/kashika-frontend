@@ -118,10 +118,6 @@
               Sign in
             </span>
           </button>
-
-          <div id="loginMessage" class="text-center font-medium mt-6 transition-all duration-300 opacity-0 transform translate-y-2 relative">
-            <div class="absolute inset-x-0 -top-2 h-1 bg-gradient-to-r from-transparent via-slate-200 to-transparent opacity-50"></div>
-          </div>
         </form>
       </div>
 
@@ -193,36 +189,7 @@
       const message = document.getElementById("loginMessage");
       const submitBtn = loginForm?.querySelector("button");
 
-      function showMessage(text, type = 'success') {
-        const existingMsg = message.querySelector('div');
-        if (existingMsg) {
-          existingMsg.classList.remove('animate-slide-up');
-          existingMsg.classList.add('opacity-0', 'translate-y-4');
-        }
-
-        // Create and insert new message
-        const msgElement = document.createElement('div');
-        msgElement.className = `px-4 py-3 rounded-xl shadow-lg flex items-center gap-3 animate-slide-up
-          ${type === 'success'
-            ? 'bg-gradient-to-r from-emerald-500 to-teal-500'
-            : 'bg-gradient-to-r from-rose-500 to-pink-500'
-          } text-white`;
-        msgElement.innerHTML = `
-          <i class="fas ${type === 'success' ? 'fa-check-circle' : 'fa-exclamation-circle'}
-            ${type === 'success' ? 'animate-bounce' : 'animate-pulse'}"></i>
-          <p class="flex-1">${text}</p>
-        `;
-
-        message.innerHTML = '';
-        message.appendChild(msgElement);
-        message.style.opacity = '1';
-        message.style.transform = 'translateY(0)';
-
-        setTimeout(() => {
-          message.style.opacity = '0';
-          message.style.transform = 'translateY(8px)';
-        }, 5000);
-      }
+      // Toast notifications are handled by the imported showToast function
 
       function setLoading(isLoading) {
   if (!submitBtn) return;
@@ -255,7 +222,6 @@
       }
 
       const { logoutRequest } = getLogoutParams();
-        console.log("kya bhai kuch dega tu saale",logoutRequest);
       (async function init() {
         if (logoutRequest) {
           try {
@@ -287,12 +253,10 @@
               const data = await loginUser(loginData);
               if (!data || !data.status) {
                 const msg = data?.message || "Login failed";
-                showMessage(msg, 'error');
                 showToast(msg, "error");
                 return;
               }
 
-              showMessage("🎉 Successfully logged in!", 'success');
               showToast(data.message || "Logged in successfully", "success");
               loginForm.reset();
 
