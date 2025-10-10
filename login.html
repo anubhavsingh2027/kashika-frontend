@@ -272,8 +272,9 @@
             console.log("login form se kuch dega ",loginData);
             try {
               setLoading(true);
+              console.log("api call se pahele");
               const data = await loginUser(loginData);
-
+              console.log("api call ke baad data",data);
               if (!data || !data.status) {
                 const msg = data?.message || "Login failed";
                 showMessage(msg, 'error');
