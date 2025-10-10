@@ -59,6 +59,17 @@ export async function registerUser(userData) {
 
 // === API: User Login ===
 export async function loginUser(loginData) {
+  console.log|("data kya aaraha hai login me hu ",loginData);
+  fetch("https://kashika-backend.onrender.com/kashikaTravel/login", {
+  method: "POST",
+  headers: { "Content-Type": "application/json" },
+  credentials: "include",
+  body: JSON.stringify({ email: "test@test.com", password: "123456" }),
+})
+.then(r => r.json())
+.then(console.log)
+.catch(console.error);
+
   try {
     const response = await fetch("https://kashika-backend.onrender.com/kashikaTravel/login", {
       method: "POST",
@@ -75,7 +86,7 @@ export async function loginUser(loginData) {
   }
 }
 
-
+//===forget Password ===
 export  async function forgetPass(forgetData){
   try {
     const response = await fetch("https://kashika-backend.onrender.com/kashikaTravel/forgetPassword", {
