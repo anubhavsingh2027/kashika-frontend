@@ -4,229 +4,538 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>About Us - Kashika Travel</title>
-    <link
-      href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css"
-      rel="stylesheet"
-    />
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet" />
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
     />
-  </head>
-  <body class="bg-slate-50">
-    <nav id="navbar" class="sticky top-0 z-40"></nav>
+  <style>
+      /* Animation keyframes */
+      @keyframes float {
+        0% { transform: translateY(0px) rotate(0deg); }
+        50% { transform: translateY(-10px) rotate(1deg); }
+        100% { transform: translateY(0px) rotate(0deg); }
+      }
+      @keyframes slideUp {
+        0% { transform: translateY(3rem); opacity: 0; }
+        50% { transform: translateY(1.5rem); opacity: 0.5; }
+        100% { transform: translateY(0); opacity: 1; }
+      }
+      @keyframes fadeIn {
+        0% { opacity: 0; transform: scale(0.98) translateY(10px); }
+        100% { opacity: 1; transform: scale(1) translateY(0); }
+      }
+      @keyframes scaleIn {
+        0% { transform: scale(0.9) translateY(10px); opacity: 0; }
+        70% { transform: scale(1.05) translateY(-5px); opacity: 0.7; }
+        100% { transform: scale(1) translateY(0); opacity: 1; }
+      }
+      @keyframes shimmer {
+        0% { background-position: -200% 0; opacity: 0.5; }
+        50% { opacity: 1; }
+        100% { background-position: 200% 0; opacity: 0.5; }
+      }
+      @keyframes pulseBackground {
+        0% { background-color: rgba(226, 232, 240, 0.7); }
+        50% { background-color: rgba(241, 245, 249, 0.9); }
+        100% { background-color: rgba(226, 232, 240, 0.7); }
+      }
 
-    <!-- Hero Section -->
-    <header
-      class="relative bg-gradient-to-br from-sky-600 via-indigo-600 to-rose-500 text-white overflow-hidden"
-    >
-      <div class="absolute inset-0">
+      /* Custom Properties */
+      :root {
+        --primary: 60 130 246;
+        --indigo: 99 102 241;
+        --base-duration: 1s;
+        --section-spacing: clamp(4rem, 8vw, 8rem);
+        --content-spacing: clamp(2rem, 4vw, 4rem);
+        --card-spacing: clamp(1.5rem, 3vw, 3rem);
+      }
+
+      /* Animation Classes */
+      @media (prefers-reduced-motion: no-preference) {
+        .animate-float { animation: float calc(var(--base-duration) * 4.5) ease-in-out infinite; }
+        .animate-slide-up { animation: slideUp calc(var(--base-duration) * 0.7) cubic-bezier(.16,1,.3,1) forwards; }
+        .animate-fade-in { animation: fadeIn calc(var(--base-duration) * 0.9) cubic-bezier(.16,1,.3,1) forwards; }
+        .animate-scale-in { animation: scaleIn calc(var(--base-duration) * 0.8) cubic-bezier(.16,1,.3,1) forwards; }
+      }
+
+      .bg-shimmer {
+        background: linear-gradient(90deg,
+          rgba(255,255,255,0) 0%,
+          rgba(255,255,255,0.2) 50%,
+          rgba(255,255,255,0) 100%
+        );
+        background-size: 200% 100%;
+        animation: shimmer calc(var(--base-duration) * 3) infinite;
+      }
+
+      /* Animation Delays */
+      .animate-delay-1 { animation-delay: calc(var(--base-duration) * 0.2); }
+      .animate-delay-2 { animation-delay: calc(var(--base-duration) * 0.4); }
+      .animate-delay-3 { animation-delay: calc(var(--base-duration) * 0.6); }
+
+      /* Loading States */
+      .img-loading-placeholder {
+        background: rgba(226, 232, 240, 0.8);
+        animation: pulseBackground 2s ease-in-out infinite;
+      }
+
+      /* Image lazy load blur-up technique */
+      .blur-load {
+        background-size: cover;
+        background-position: center;
+        position: relative;
+      }
+      .blur-load::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        animation: pulseBackground 2s ease-in-out infinite;
+        background-color: rgba(226, 232, 240, 0.8);
+      }
+      .blur-load.loaded::before {
+        content: none;
+      }
+      .blur-load img {
+        opacity: 0;
+        transition: opacity 0.5s ease-in-out;
+      }
+      .blur-load.loaded img {
+        opacity: 1;
+      }
+
+      .bg-grid {
+        background-image:
+          linear-gradient(to right, rgba(99,179,237,0.1) 1px, transparent 1px),
+          linear-gradient(to bottom, rgba(99,179,237,0.1) 1px, transparent 1px);
+        background-size: 24px 24px;
+      }
+
+      /* Utility-ish overrides for better contrast and buttons */
+      .btn-primary{
+        background: linear-gradient(90deg, rgba(var(--primary),1), rgba(99,102,241,1));
+        color: white;
+        padding: .65rem 1.25rem;
+        border-radius: .75rem;
+        box-shadow: 0 10px 25px rgba(59,130,246,0.12);
+        transition: transform .28s ease, box-shadow .28s ease, opacity .2s;
+      }
+      .btn-primary:hover{ transform: translateY(-4px) scale(1.01); box-shadow: 0 18px 40px rgba(59,130,246,0.14); }
+
+      /* small responsive improvements */
+      @media (max-width:640px){
+        header .max-w-3xl{ padding-left: 1rem; padding-right: 1rem; }
+      }
+    </style>
+  </head>
+  <body class="bg-gradient-to-br from-slate-100 via-white to-blue-50 min-h-screen">
+    <!-- Enhanced Background decorations -->
+    <div class="fixed inset-0 bg-[radial-gradient(circle_at_top_right,_var(--tw-gradient-stops))] from-indigo-100/30 via-sky-100/20 to-transparent"></div>
+    <div class="fixed inset-0 bg-[radial-gradient(circle_at_bottom_left,_var(--tw-gradient-stops))] from-blue-100/30 via-purple-100/20 to-transparent"></div>
+    <div class="fixed inset-0 bg-grid opacity-30"></div>
+    <div class="fixed inset-0 bg-gradient-to-t from-white/80 to-transparent"></div>
+
+  <nav id="navbar" class="sticky top-0 z-40 bg-gray-100 backdrop-blur-md border-b border-white/20 shadow-sm"> </nav>
+
+    <!-- Enhanced Hero Section with improved accessibility -->
+    <header class="relative overflow-hidden rounded-b-3xl shadow-lg" role="banner">
+      <div class="absolute inset-0 bg-gradient-to-br from-indigo-950 via-blue-950 to-sky-950 opacity-95"></div>
+      <div class="absolute inset-0" aria-hidden="true">
         <img
-          src="https://varanasitourism.in/images/slider1.jpg"
-          alt="Varanasi Ghats"
+          src="assets/images/banner1.jpg"
+          alt=""
           class="w-full h-full object-cover mix-blend-overlay opacity-20"
+          loading="eager"
+          decoding="async"
         />
       </div>
-      <div
-        class="relative max-w-7xl mx-auto px-4 py-20 sm:px-6 lg:px-8"
-        data-reveal
-      >
-        <div class="max-w-3xl">
-          <h1 class="text-4xl sm:text-5xl font-bold mb-6">
-            Discover Varanasi's Spirit with Kashika Travel
-          </h1>
-          <p class="text-xl text-white/90 leading-relaxed">
-            Your trusted companion for spiritual journeys and comfortable
-            travels in the holy city of Varanasi. Experience the perfect blend
-            of tradition and modern comfort.
-          </p>
+      <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-black/30 to-transparent"></div>
+      <div class="relative max-w-7xl mx-auto px-4 py-32 sm:px-8 lg:px-16" data-reveal>
+        <div class="max-w-3xl relative animate-fade-in bg-white/10 rounded-2xl p-8 shadow-xl backdrop-blur-md border border-white/10">
+          <div class="absolute -inset-1 bg-gradient-to-r from-indigo-500/10 to-sky-500/10 rounded-2xl blur-xl"></div>
+          <div class="relative">
+            <span class="inline-flex items-center px-4 py-2 rounded-lg bg-white/95 backdrop-blur-md text-indigo-700 text-sm font-semibold mb-4 animate-fade-in shadow-sm border border-indigo-100/50 group" role="text">
+              <i class="fas fa-star-of-life mr-2 text-indigo-500 group-hover:rotate-180 transition-transform duration-700"></i>
+              Welcome to Kashika Travel
+              <i class="fas fa-star-of-life ml-2 text-indigo-500 group-hover:-rotate-180 transition-transform duration-700"></i>
+            </span>
+            <h1 class="text-4xl sm:text-6xl font-bold mb-6 text-transparent bg-clip-text bg-gradient-to-r from-white via-white to-indigo-200 drop-shadow-lg relative" tabindex="0">
+              <span class="absolute -left-4 top-1/2 -translate-y-1/2 w-1 h-12 bg-gradient-to-b from-indigo-500 to-sky-500 rounded-full"></span>
+              Discover Varanasi's Spirit
+              <span class="block mt-2 text-3xl sm:text-5xl text-indigo-200">with Kashika Travel</span>
+            </h1>
+            <p class="text-lg text-white/90 leading-relaxed backdrop-blur-sm bg-gradient-to-r from-black/30 to-indigo-950/30 p-8 rounded-xl border border-white/10 shadow-inner relative" tabindex="0">
+              <span class="absolute -left-1 top-4 bottom-4 w-0.5 bg-gradient-to-b from-transparent via-white/50 to-transparent"></span>
+              Your trusted companion for spiritual journeys and comfortable
+              travels in the holy city of Varanasi. Experience the perfect blend
+              of tradition and modern comfort.
+            </p>
+            <div class="mt-8 flex flex-wrap gap-4">
+              <a href="packagedetails.html"
+                 class="btn-primary inline-flex items-center gap-3 shadow-xl bg-gradient-to-r from-indigo-600 to-sky-500 hover:from-indigo-500 hover:to-sky-400"
+                 role="button"
+                 aria-label="Book a travel package">
+                <span>Book a Package</span>
+                <i class="fas fa-plane-departure" aria-hidden="true"></i>
+              </a>
+              <a href="contact.html"
+                 class="btn-primary inline-flex items-center gap-3 bg-gradient-to-r from-emerald-600 to-teal-500 hover:from-emerald-500 hover:to-teal-400 shadow-xl"
+                 role="button"
+                 aria-label="Contact our team">
+                <span>Contact Us</span>
+                <i class="fas fa-envelope" aria-hidden="true"></i>
+              </a>
+            </div>
+          </div>
         </div>
       </div>
+      <!-- Decorative Elements -->
+      <div class="absolute bottom-0 left-0 right-0 h-24 bg-gradient-to-t from-slate-100 to-transparent" aria-hidden="true"></div>
     </header>
 
     <main class="relative">
-      <!-- About Us Overview -->
-      <section class="max-w-7xl mx-auto px-4 py-16 sm:px-6 lg:px-8">
-        <div
-          class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center"
-          data-reveal
-        >
-          <div class="space-y-6">
-            <h2
-              class="text-3xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-sky-600 to-indigo-600"
-            >
-              Your Journey, Our Commitment
-            </h2>
-            <p class="text-slate-600 leading-relaxed">
-              Kashika Travel is a premier travel operator based in Varanasi,
-              dedicated to providing exceptional travel experiences for pilgrims
-              and tourists alike. With years of expertise in the region, we
-              specialize in:
-            </p>
-            <ul class="space-y-4">
-              <li class="flex items-start gap-3">
-                <div
-                  class="flex-shrink-0 w-6 h-6 rounded-full bg-sky-100 flex items-center justify-center text-sky-600"
-                >
-                  <i class="fas fa-om text-sm"></i>
-                </div>
+      <!-- Enhanced About Us Overview -->
+  <section class="relative max-w-7xl mx-auto px-4 py-20 sm:px-8 lg:px-16">
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center" data-reveal>
+          <div class="relative z-10">
+            <div class="bg-white/90 backdrop-blur-md rounded-3xl p-10 shadow-2xl border border-slate-100">
+                <div class="space-y-6">
                 <div>
-                  <h3 class="font-semibold text-slate-800">Spiritual Tours</h3>
-                  <p class="text-slate-600">
-                    Curated pilgrim packages covering all major temples and
-                    ghats
+                  <span class="inline-block px-3 py-1 text-sm font-medium text-indigo-600 bg-indigo-50 rounded-lg mb-4">
+                    About Us
+                  </span>
+                  <h2 class="text-4xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-indigo-600 to-sky-600">
+                    Your Journey, Our Commitment
+                  </h2>
+                </div>
+                <p class="text-slate-700 leading-relaxed text-lg">
+                  Kashika Travel is a premier travel operator based in Varanasi,
+                  dedicated to providing exceptional travel experiences for pilgrims
+                  and tourists alike. With years of expertise in the region, we
+                  specialize in:
+                </p>
+            <ul class="space-y-8">
+        <li class="group bg-white/95 hover:bg-white p-8 rounded-2xl transition-all duration-300 hover:shadow-xl border border-indigo-100 flex items-center gap-8 animate-slide-up">
+                  <div class="relative">
+                    <div class="absolute -inset-2 bg-gradient-to-r from-indigo-500/20 to-purple-500/20 rounded-2xl blur-xl opacity-60 group-hover:opacity-100 transition-opacity duration-500"></div>
+                    <div class="w-20 h-20 rounded-2xl bg-gradient-to-br from-indigo-100 to-purple-50 flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform duration-300 relative border border-indigo-200/50">
+                      <div class="absolute inset-0.5 bg-gradient-to-br from-white to-indigo-50 rounded-2xl"></div>
+                      <i class="fas fa-om text-3xl text-indigo-600 relative z-10 group-hover:animate-pulse"></i>
+                    </div>
+                  </div>
+                  <div class="transform group-hover:translate-x-1 transition-transform duration-300">
+                    <h3 class="text-2xl font-bold text-indigo-700 mb-2 group-hover:text-indigo-600 transition-colors">Spiritual Tours</h3>
+                    <p class="text-slate-600 leading-relaxed group-hover:text-slate-700 text-lg">
+                      Curated pilgrim packages covering all major temples and ghats, offering deep spiritual experiences
+                    </p>
+                  </div>
+                </div>
+              </li>
+              <li class="group bg-white/95 hover:bg-white p-8 rounded-2xl transition-all duration-300 hover:shadow-xl border border-sky-100 flex items-center gap-8 animate-slide-up animate-delay-1">
+                <div class="relative">
+                  <div class="absolute -inset-2 bg-gradient-to-r from-sky-500/20 to-blue-500/20 rounded-2xl blur-xl opacity-60 group-hover:opacity-100 transition-opacity duration-500"></div>
+                  <div class="w-20 h-20 rounded-2xl bg-gradient-to-br from-sky-100 to-blue-50 flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform duration-300 relative border border-sky-200/50">
+                    <div class="absolute inset-0.5 bg-gradient-to-br from-white to-blue-50 rounded-2xl"></div>
+                    <i class="fas fa-car text-3xl text-sky-600 relative z-10 group-hover:animate-pulse"></i>
+                  </div>
+                </div>
+                <div class="transform group-hover:translate-x-1 transition-transform duration-300">
+                  <h3 class="text-2xl font-bold text-sky-700 mb-2 group-hover:text-blue-600 transition-colors">Premium Car Rentals</h3>
+                  <p class="text-slate-600 leading-relaxed group-hover:text-slate-700 text-lg">
+                    Modern fleet with professional drivers and 24/7 support for a comfortable journey
                   </p>
                 </div>
               </li>
-              <li class="flex items-start gap-3">
-                <div
-                  class="flex-shrink-0 w-6 h-6 rounded-full bg-sky-100 flex items-center justify-center text-sky-600"
-                >
-                  <i class="fas fa-car text-sm"></i>
+              <li class="group bg-white/95 hover:bg-white p-8 rounded-2xl transition-all duration-300 hover:shadow-xl border border-emerald-100 flex items-center gap-8 animate-slide-up animate-delay-2">
+                <div class="relative">
+                  <div class="absolute -inset-2 bg-gradient-to-r from-emerald-500/20 to-teal-500/20 rounded-2xl blur-xl opacity-60 group-hover:opacity-100 transition-opacity duration-500"></div>
+                  <div class="w-20 h-20 rounded-2xl bg-gradient-to-br from-emerald-100 to-teal-50 flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform duration-300 relative border border-emerald-200/50">
+                    <div class="absolute inset-0.5 bg-gradient-to-br from-white to-teal-50 rounded-2xl"></div>
+                    <i class="fas fa-route text-3xl text-emerald-600 relative z-10 group-hover:animate-pulse"></i>
+                  </div>
                 </div>
-                <div>
-                  <h3 class="font-semibold text-slate-800">
-                    Premium Car Rentals
-                  </h3>
-                  <p class="text-slate-600">
-                    Modern fleet with professional drivers and 24/7 support
-                  </p>
-                </div>
-              </li>
-              <li class="flex items-start gap-3">
-                <div
-                  class="flex-shrink-0 w-6 h-6 rounded-full bg-sky-100 flex items-center justify-center text-sky-600"
-                >
-                  <i class="fas fa-route text-sm"></i>
-                </div>
-                <div>
-                  <h3 class="font-semibold text-slate-800">
-                    Custom Itineraries
-                  </h3>
-                  <p class="text-slate-600">
-                    Personalized travel plans tailored to your preferences
+                <div class="transform group-hover:translate-x-1 transition-transform duration-300">
+                  <h3 class="text-2xl font-bold text-emerald-700 mb-2 group-hover:text-teal-600 transition-colors">Custom Itineraries</h3>
+                  <p class="text-slate-600 leading-relaxed group-hover:text-slate-700 text-lg">
+                    Personalized travel plans tailored to your preferences and schedule
                   </p>
                 </div>
               </li>
             </ul>
           </div>
           <div class="lg:ml-6">
-            <div class="relative">
-              <div
-                class="absolute inset-0 bg-gradient-to-r from-sky-600/30 to-indigo-600/30 blur-2xl transform rotate-3 rounded-2xl"
-              ></div>
-              <img
-                src="https://varanasitourism.in/images/dashaswamedh-ghat-varanasi.jpg"
-                alt="Varanasi Ghats"
-                class="relative rounded-2xl shadow-xl w-full h-[400px] object-cover"
-              />
+            <div class="relative group">
+              <div class="absolute -inset-4 bg-gradient-to-r from-sky-600/30 to-indigo-600/30 blur-2xl transform rotate-3 rounded-2xl group-hover:rotate-6 transition-transform duration-700"></div>
+              <div class="absolute -inset-4 bg-gradient-to-r from-indigo-600/20 to-sky-600/20 blur-xl transform -rotate-3 rounded-2xl opacity-0 group-hover:opacity-100 transition-all duration-700"></div>
+              <div class="relative bg-gradient-to-br from-white to-slate-100 p-8 rounded-2xl shadow-2xl transform group-hover:scale-[1.02] transition-transform duration-700">
+                <div class="absolute inset-0 bg-grid opacity-20 rounded-2xl"></div>
+                <img
+                  src="assets/images/logo.png"
+                  alt="Kashika Travel Logo"
+                  class="relative rounded-xl shadow-lg w-full h-[400px] object-cover hover:shadow-2xl transition-shadow duration-500"
+                  loading="lazy"
+                />
+                <div class="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent rounded-2xl"></div>
+                <div class="absolute bottom-0 left-0 right-0 p-6 bg-gradient-to-t from-black/80 via-black/50 to-transparent rounded-b-2xl">
+                  <p class="text-white/90 text-sm font-medium">Experience the magic of Varanasi with Kashika Travel</p>
+                </div>
+              </div>
             </div>
           </div>
         </div>
       </section>
 
       <!-- Services Grid -->
-      <section class="bg-white py-16">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8" data-reveal>
-          <h2
-            class="text-3xl font-bold text-center mb-12 bg-clip-text text-transparent bg-gradient-to-r from-sky-600 to-indigo-600"
-          >
-            Our Premium Services
-          </h2>
+  <section class="relative py-24">
+        <div class="absolute inset-0 bg-gradient-to-br from-white via-slate-50 to-white backdrop-blur-sm"></div>
+        <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8" data-reveal>
+          <div class="text-center mb-20">
+            <span class="inline-flex items-center px-4 py-2 rounded-lg bg-gradient-to-r from-sky-50 to-indigo-50 text-sky-600 text-sm font-semibold mb-4 animate-fade-in shadow-sm border border-sky-100/50">
+              <i class="fas fa-gem mr-2 text-indigo-500"></i>
+              Our Services
+            </span>
+            <h2 class="text-4xl sm:text-5xl font-bold mb-6 bg-clip-text text-transparent bg-gradient-to-r from-sky-600 to-indigo-600 relative inline-block">
+              Premium Travel Services
+              <div class="absolute -bottom-4 left-1/2 transform -translate-x-1/2 w-24 h-1 bg-gradient-to-r from-sky-500 to-indigo-500 rounded-full"></div>
+            </h2>
+            <p class="text-slate-600 text-lg max-w-2xl mx-auto mt-8">
+              Experience the best of India with our comprehensive travel services. From spiritual journeys to luxury car rentals,
+              we ensure your travel experience is seamless and memorable.
+            </p>
+          </div>
+
           <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            <!-- Car Rental Card -->
-            <div
-              class="bg-white rounded-xl shadow-md hover:shadow-xl transition-all duration-300 group hover:-translate-y-1"
-            >
-              <div class="p-6">
-                <div
-                  class="w-12 h-12 bg-sky-100 rounded-lg flex items-center justify-center mb-4 group-hover:scale-110 transition-transform"
-                >
-                  <i class="fas fa-car-side text-xl text-sky-600"></i>
+            <!-- Tour Packages -->
+            <div class="bg-white/90 rounded-2xl shadow-xl hover:shadow-2xl transition-all duration-500 group hover:-translate-y-1 backdrop-blur-sm animate-slide-up">
+              <div class="p-8 relative overflow-hidden">
+                <div class="absolute inset-0 bg-gradient-to-br from-sky-50 to-indigo-50 opacity-50"></div>
+                <div class="relative">
+                  <div class="relative">
+                    <div class="absolute -inset-1 bg-gradient-to-r from-sky-500 to-indigo-500 rounded-2xl blur opacity-60 group-hover:opacity-80 transition-opacity duration-500"></div>
+                    <div class="w-24 h-24 bg-gradient-to-br from-sky-100 to-indigo-50 rounded-2xl flex items-center justify-center mb-8 transform group-hover:scale-110 transition-transform duration-500 shadow-lg relative border border-sky-200/50" aria-hidden="true">
+                      <div class="absolute inset-0.5 bg-gradient-to-br from-white to-sky-50 rounded-2xl"></div>
+                      <i class="fa-solid fa-map-location-dot fa-3x text-sky-600 relative z-10 group-hover:text-indigo-600 transition-colors duration-300"></i>
+                    </div>
+                  </div>
+                  <h3 class="text-2xl font-bold mb-4 bg-clip-text bg-gradient-to-r from-sky-600 to-indigo-600 group-hover:from-indigo-600 group-hover:to-sky-600 transition-colors duration-300">Tour Packages</h3>
+                  <ul class="space-y-3 text-slate-600">
+                    <li class="flex items-center gap-3 p-2 hover:bg-sky-50/50 rounded-lg transition-colors group">
+                      <div class="w-8 h-8 rounded-lg bg-emerald-100 flex items-center justify-center text-emerald-500 group-hover:scale-110 transition-transform">
+                        <i class="fas fa-check text-sm"></i>
+                      </div>
+                      <span class="text-slate-700 group-hover:text-slate-900">Customized All-India Tour Packages</span>
+                    </li>
+                    <li class="flex items-center gap-3 p-2 hover:bg-sky-50/50 rounded-lg transition-colors group">
+                      <div class="w-8 h-8 rounded-lg bg-emerald-100 flex items-center justify-center text-emerald-500 group-hover:scale-110 transition-transform">
+                        <i class="fas fa-check text-sm"></i>
+                      </div>
+                      <span class="text-slate-700 group-hover:text-slate-900">Golden Triangle Tours (Delhi-Agra-Jaipur)</span>
+                    </li>
+                    <li class="flex items-center gap-3 p-2 hover:bg-sky-50/50 rounded-lg transition-colors group">
+                      <div class="w-8 h-8 rounded-lg bg-emerald-100 flex items-center justify-center text-emerald-500 group-hover:scale-110 transition-transform">
+                        <i class="fas fa-check text-sm"></i>
+                      </div>
+                      <span class="text-slate-700 group-hover:text-slate-900">Religious Circuit Tours</span>
+                    </li>
+                    <li class="flex items-center gap-3 p-2 hover:bg-sky-50/50 rounded-lg transition-colors group">
+                      <div class="w-8 h-8 rounded-lg bg-emerald-100 flex items-center justify-center text-emerald-500 group-hover:scale-110 transition-transform">
+                        <i class="fas fa-check text-sm"></i>
+                      </div>
+                      <span class="text-slate-700 group-hover:text-slate-900">Kerala Backwaters Experience</span>
+                    </li>
+                    <li class="flex items-center gap-3 p-2 hover:bg-sky-50/50 rounded-lg transition-colors group">
+                      <div class="w-8 h-8 rounded-lg bg-emerald-100 flex items-center justify-center text-emerald-500 group-hover:scale-110 transition-transform">
+                        <i class="fas fa-check text-sm"></i>
+                      </div>
+                      <span class="text-slate-700 group-hover:text-slate-900">Rajasthan Heritage Tours</span>
+                    </li>
+                  </ul>
+                  <div class="mt-8">
+                    <a href="packagedetails.html" class="inline-flex items-center gap-3 btn-primary">
+                      <span class="font-medium">View Packages</span>
+                      <i class="fas fa-arrow-right text-sm transition-transform duration-300 group-hover:translate-x-1"></i>
+                    </a>
+                  </div>
                 </div>
-                <h3 class="text-xl font-semibold mb-3">Premium Fleet</h3>
-                <ul class="space-y-2 text-slate-600">
-                  <li class="flex items-center gap-2">
-                    <i class="fas fa-check text-emerald-500"></i>
-                    Tata Etios - Comfort & Economy
-                  </li>
-                  <li class="flex items-center gap-2">
-                    <i class="fas fa-check text-emerald-500"></i>
-                    Maruti Dzire - Reliable & Spacious
-                  </li>
-                  <li class="flex items-center gap-2">
-                    <i class="fas fa-check text-emerald-500"></i>
-                    Toyota Innova - Premium Travel
-                  </li>
-                  <li class="flex items-center gap-2">
-                    <i class="fas fa-check text-emerald-500"></i>
-                    Tempo Traveller - Group Tours (9+1)
-                  </li>
-                </ul>
               </div>
             </div>
 
-            <!-- Tour Packages Card -->
-            <div
-              class="bg-white rounded-xl shadow-md hover:shadow-xl transition-all duration-300 group hover:-translate-y-1"
-            >
-              <div class="p-6">
-                <div
-                  class="w-12 h-12 bg-sky-100 rounded-lg flex items-center justify-center mb-4 group-hover:scale-110 transition-transform"
-                >
-                  <i class="fas fa-om text-xl text-sky-600"></i>
+            <!-- Car Rental Services -->
+            <div class="bg-white/90 rounded-2xl shadow-xl hover:shadow-2xl transition-all duration-500 group hover:-translate-y-1 backdrop-blur-sm animate-slide-up animate-delay-1">
+              <div class="p-8 relative overflow-hidden">
+                <div class="absolute inset-0 bg-gradient-to-br from-sky-50 to-indigo-50 opacity-50"></div>
+                <div class="relative">
+                  <div class="w-16 h-16 bg-gradient-to-br from-sky-500 to-indigo-500 rounded-2xl flex items-center justify-center mb-6 transform group-hover:scale-110 transition-transform duration-500 shadow-lg">
+                    <i class="fa-solid fa-car fa-2xl" style="color: #74C0FC;"></i>
+                  </div>
+                  <h3 class="text-2xl font-bold mb-4 text-slate-800">Car Rental Services</h3>
+                  <ul class="space-y-3 text-slate-600">
+                    <li class="flex items-center gap-3">
+                      <i class="fas fa-check-circle text-emerald-500"></i>
+                      Luxury & Premium Cars Available
+                    </li>
+                    <li class="flex items-center gap-3">
+                      <i class="fas fa-check-circle text-emerald-500"></i>
+                      Professional Trained Drivers
+                    </li>
+                    <li class="flex items-center gap-3">
+                      <i class="fas fa-check-circle text-emerald-500"></i>
+                      24/7 Customer Support
+                    </li>
+                    <li class="flex items-center gap-3">
+                      <i class="fas fa-check-circle text-emerald-500"></i>
+                      Intercity & Local Travel Options
+                    </li>
+                    <li class="flex items-center gap-3">
+                      <i class="fas fa-check-circle text-emerald-500"></i>
+                      Airport Pickup & Drop Services
+                    </li>
+                  </ul>
+                  <div class="mt-6">
+                    <a href="carDetails.html" class="inline-flex items-center gap-2 text-sky-600 hover:text-indigo-600 transition-colors">
+                      View Fleet
+                      <i class="fas fa-arrow-right text-sm transition-transform group-hover:translate-x-1"></i>
+                    </a>
+                  </div>
                 </div>
-                <h3 class="text-xl font-semibold mb-3">Spiritual Tours</h3>
-                <ul class="space-y-2 text-slate-600">
-                  <li class="flex items-center gap-2">
-                    <i class="fas fa-check text-emerald-500"></i>
-                    Kashi Vishwanath Temple Visits
+              </div>
+            </div>
+
+            <!-- Additional Services -->
+            <div class="bg-white/90 rounded-2xl shadow-xl hover:shadow-2xl transition-all duration-500 group hover:-translate-y-1 backdrop-blur-sm animate-slide-up animate-delay-2">
+              <div class="p-8 relative overflow-hidden">
+                <div class="absolute inset-0 bg-gradient-to-br from-sky-50 to-indigo-50 opacity-50"></div>
+                <div class="relative">
+                  <div class="w-16 h-16 bg-gradient-to-br from-sky-500 to-indigo-500 rounded-2xl flex items-center justify-center mb-6 transform group-hover:scale-110 transition-transform duration-500 shadow-lg">
+                    <i class="fa-solid fa-bell-concierge fa-2xl" style="color: #74C0FC;"></i>
+                  </div>
+                  <h3 class="text-2xl font-bold mb-4 text-slate-800">Additional Services</h3>
+                  <ul class="space-y-3 text-slate-600">
+                    <li class="flex items-center gap-3">
+                      <i class="fas fa-check-circle text-emerald-500"></i>
+                      Hotel Bookings & Recommendations
+                    </li>
+                    <li class="flex items-center gap-3">
+                      <i class="fas fa-check-circle text-emerald-500"></i>
+                      Expert Local Guides
+                    </li>
+                    <li class="flex items-center gap-3">
+                      <i class="fas fa-check-circle text-emerald-500"></i>
+                      Special Event Planning
+                    </li>
+                    <li class="flex items-center gap-3">
+                      <i class="fas fa-check-circle text-emerald-500"></i>
+                      Travel Insurance Assistance
+                    </li>
+                    <li class="flex items-center gap-3">
+                      <i class="fas fa-check-circle text-emerald-500"></i>
+                      Visa Application Support
+                    </li>
+                  </ul>
+                  <div class="mt-6">
+                    <a href="index.html" class="inline-flex items-center gap-2 text-sky-600 hover:text-indigo-600 transition-colors">
+                      Learn More
+                      <i class="fas fa-arrow-right text-sm transition-transform group-hover:translate-x-1"></i>
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+
+            <!-- Tour Packages Card -->
+            <div class="bg-white/90 rounded-2xl p-8 shadow-lg hover:shadow-2xl transition-all duration-500 group hover:-translate-y-1 backdrop-blur-sm animate-scale-in relative overflow-hidden">
+              <div class="absolute inset-0 bg-gradient-to-br from-indigo-50 to-sky-50 opacity-0 group-hover:opacity-50 transition-opacity duration-500"></div>
+              <div class="relative">
+                <div class="relative">
+                  <div class="absolute -inset-1 bg-gradient-to-r from-indigo-500 to-sky-500 rounded-2xl blur opacity-60 group-hover:opacity-80 transition-opacity duration-500"></div>
+                  <div class="w-20 h-20 bg-gradient-to-br from-indigo-100 to-sky-50 rounded-2xl flex items-center justify-center mb-6 transform group-hover:scale-110 transition-transform duration-500 shadow-lg relative border border-indigo-200/50">
+                    <div class="absolute inset-0.5 bg-gradient-to-br from-white to-sky-50 rounded-2xl"></div>
+                    <i class="fas fa-om text-3xl text-indigo-600 relative z-10 group-hover:text-sky-600 transition-colors"></i>
+                  </div>
+                </div>
+                <h3 class="text-2xl font-bold mb-4 bg-clip-text text-transparent bg-gradient-to-r from-indigo-600 to-sky-600">Spiritual Tours</h3>
+                <ul class="space-y-3">
+                  <li class="flex items-center gap-3 p-2 hover:bg-indigo-50/50 rounded-lg transition-colors group/item">
+                    <div class="w-8 h-8 rounded-lg bg-emerald-100 flex items-center justify-center text-emerald-500 group-hover/item:scale-110 transition-transform">
+                      <i class="fas fa-check text-sm"></i>
+                    </div>
+                    <span class="text-slate-700 group-hover/item:text-slate-900">Kashi Vishwanath Temple Visits</span>
                   </li>
-                  <li class="flex items-center gap-2">
-                    <i class="fas fa-check text-emerald-500"></i>
-                    Evening Ganga Aarti Experience
+                  <li class="flex items-center gap-3 p-2 hover:bg-indigo-50/50 rounded-lg transition-colors group/item">
+                    <div class="w-8 h-8 rounded-lg bg-emerald-100 flex items-center justify-center text-emerald-500 group-hover/item:scale-110 transition-transform">
+                      <i class="fas fa-check text-sm"></i>
+                    </div>
+                    <span class="text-slate-700 group-hover/item:text-slate-900">Evening Ganga Aarti Experience</span>
                   </li>
-                  <li class="flex items-center gap-2">
-                    <i class="fas fa-check text-emerald-500"></i>
-                    Morning Boat Rides
+                  <li class="flex items-center gap-3 p-2 hover:bg-indigo-50/50 rounded-lg transition-colors group/item">
+                    <div class="w-8 h-8 rounded-lg bg-emerald-100 flex items-center justify-center text-emerald-500 group-hover/item:scale-110 transition-transform">
+                      <i class="fas fa-check text-sm"></i>
+                    </div>
+                    <span class="text-slate-700 group-hover/item:text-slate-900">Morning Boat Rides</span>
                   </li>
-                  <li class="flex items-center gap-2">
-                    <i class="fas fa-check text-emerald-500"></i>
-                    Multi-Temple Pilgrimage Tours
+                  <li class="flex items-center gap-3 p-2 hover:bg-indigo-50/50 rounded-lg transition-colors group/item">
+                    <div class="w-8 h-8 rounded-lg bg-emerald-100 flex items-center justify-center text-emerald-500 group-hover/item:scale-110 transition-transform">
+                      <i class="fas fa-check text-sm"></i>
+                    </div>
+                    <span class="text-slate-700 group-hover/item:text-slate-900">Multi-Temple Pilgrimage Tours</span>
                   </li>
                 </ul>
+                <div class="mt-8">
+                  <a href="packagedetails.html" class="inline-flex items-center gap-3 btn-primary">
+                    <span class="font-medium">View Tours</span>
+                    <i class="fas fa-arrow-right text-sm transition-transform duration-300 group-hover:translate-x-1"></i>
+                  </a>
+                </div>
               </div>
             </div>
 
             <!-- Additional Services Card -->
-            <div
-              class="bg-white rounded-xl shadow-md hover:shadow-xl transition-all duration-300 group hover:-translate-y-1"
-            >
-              <div class="p-6">
-                <div
-                  class="w-12 h-12 bg-sky-100 rounded-lg flex items-center justify-center mb-4 group-hover:scale-110 transition-transform"
-                >
-                  <i class="fas fa-concierge-bell text-xl text-sky-600"></i>
+            <div class="bg-white/90 rounded-2xl p-8 shadow-lg hover:shadow-2xl transition-all duration-500 group hover:-translate-y-1 backdrop-blur-sm animate-scale-in animate-delay-1 relative overflow-hidden">
+              <div class="absolute inset-0 bg-gradient-to-br from-sky-50 to-emerald-50 opacity-0 group-hover:opacity-50 transition-opacity duration-500"></div>
+              <div class="relative">
+                <div class="relative">
+                  <div class="absolute -inset-1 bg-gradient-to-r from-sky-500 to-emerald-500 rounded-2xl blur opacity-60 group-hover:opacity-80 transition-opacity duration-500"></div>
+                  <div class="w-20 h-20 bg-gradient-to-br from-sky-100 to-emerald-50 rounded-2xl flex items-center justify-center mb-6 transform group-hover:scale-110 transition-transform duration-500 shadow-lg relative border border-sky-200/50">
+                    <div class="absolute inset-0.5 bg-gradient-to-br from-white to-emerald-50 rounded-2xl"></div>
+                    <i class="fas fa-concierge-bell text-3xl text-sky-600 relative z-10 group-hover:text-emerald-600 transition-colors"></i>
+                  </div>
                 </div>
-                <h3 class="text-xl font-semibold mb-3">Extra Services</h3>
-                <ul class="space-y-2 text-slate-600">
-                  <li class="flex items-center gap-2">
-                    <i class="fas fa-check text-emerald-500"></i>
-                    24/7 Customer Support
+                <h3 class="text-2xl font-bold mb-4 bg-clip-text text-transparent bg-gradient-to-r from-sky-600 to-emerald-600">Extra Services</h3>
+                <ul class="space-y-3">
+                  <li class="flex items-center gap-3 p-2 hover:bg-sky-50/50 rounded-lg transition-colors group/item">
+                    <div class="w-8 h-8 rounded-lg bg-emerald-100 flex items-center justify-center text-emerald-500 group-hover/item:scale-110 transition-transform">
+                      <i class="fas fa-check text-sm"></i>
+                    </div>
+                    <span class="text-slate-700 group-hover/item:text-slate-900">24/7 Customer Support</span>
                   </li>
-                  <li class="flex items-center gap-2">
-                    <i class="fas fa-check text-emerald-500"></i>
-                    Professional Tour Guides
+                  <li class="flex items-center gap-3 p-2 hover:bg-sky-50/50 rounded-lg transition-colors group/item">
+                    <div class="w-8 h-8 rounded-lg bg-emerald-100 flex items-center justify-center text-emerald-500 group-hover/item:scale-110 transition-transform">
+                      <i class="fas fa-check text-sm"></i>
+                    </div>
+                    <span class="text-slate-700 group-hover/item:text-slate-900">Professional Tour Guides</span>
                   </li>
-                  <li class="flex items-center gap-2">
-                    <i class="fas fa-check text-emerald-500"></i>
-                    Hotel Bookings
+                  <li class="flex items-center gap-3 p-2 hover:bg-sky-50/50 rounded-lg transition-colors group/item">
+                    <div class="w-8 h-8 rounded-lg bg-emerald-100 flex items-center justify-center text-emerald-500 group-hover/item:scale-110 transition-transform">
+                      <i class="fas fa-check text-sm"></i>
+                    </div>
+                    <span class="text-slate-700 group-hover/item:text-slate-900">Hotel Bookings</span>
                   </li>
-                  <li class="flex items-center gap-2">
-                    <i class="fas fa-check text-emerald-500"></i>
-                    Custom Travel Planning
+                  <li class="flex items-center gap-3 p-2 hover:bg-sky-50/50 rounded-lg transition-colors group/item">
+                    <div class="w-8 h-8 rounded-lg bg-emerald-100 flex items-center justify-center text-emerald-500 group-hover/item:scale-110 transition-transform">
+                      <i class="fas fa-check text-sm"></i>
+                    </div>
+                    <span class="text-slate-700 group-hover/item:text-slate-900">Custom Travel Planning</span>
                   </li>
                 </ul>
+                <div class="mt-8">
+                  <a href="contact.html" class="inline-flex items-center gap-3 btn-primary bg-gradient-to-r from-sky-600 to-emerald-600 hover:from-sky-500 hover:to-emerald-500">
+                    <span class="font-medium">Contact Us</span>
+                    <i class="fas fa-arrow-right text-sm transition-transform duration-300 group-hover:translate-x-1"></i>
+                  </a>
+                </div>
               </div>
             </div>
           </div>
@@ -234,107 +543,270 @@
       </section>
 
       <!-- Why Choose Us -->
-      <section class="py-16 bg-slate-50">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8" data-reveal>
-          <h2
-            class="text-3xl font-bold text-center mb-12 bg-clip-text text-transparent bg-gradient-to-r from-sky-600 to-indigo-600"
-          >
-            Why Choose Kashika Travel
-          </h2>
+      <section class="py-24 relative overflow-hidden">
+        <div class="absolute inset-0 bg-gradient-to-br from-slate-50 to-white/80 backdrop-blur-sm"></div>
+        <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8" data-reveal>
+          <div class="text-center max-w-3xl mx-auto mb-16">
+            <h2 class="text-4xl font-bold bg-clip-text  bg-gradient-to-r from-sky-600 to-indigo-600 mb-6">
+              Why Choose Kashika Travel
+            </h2>
+            <p class="text-slate-600 text-lg">
+              With years of experience and dedication to customer satisfaction, we ensure your journey is comfortable, safe, and memorable.
+            </p>
+          </div>
           <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-            <div class="text-center">
-              <div
-                class="w-16 h-16 mx-auto bg-sky-100 rounded-xl flex items-center justify-center mb-4"
-              >
-                <i class="fas fa-shield-alt text-2xl text-sky-600"></i>
+            <div class="relative group">
+              <div class="absolute -inset-2 bg-gradient-to-r from-sky-500 to-indigo-500 rounded-3xl blur-xl opacity-0 group-hover:opacity-30 transition-all duration-500"></div>
+              <div class="bg-white/90 rounded-2xl p-8 text-center shadow-lg hover:shadow-2xl transition-all duration-500 group-hover:-translate-y-1 backdrop-blur-sm animate-scale-in relative overflow-hidden">
+                <div class="absolute inset-0 bg-gradient-to-br from-sky-50 to-indigo-50 opacity-0 group-hover:opacity-50 transition-opacity duration-500"></div>
+                <div class="relative">
+                  <div class="relative">
+                    <div class="absolute -inset-1 bg-gradient-to-r from-sky-500 to-indigo-500 rounded-2xl blur opacity-60 group-hover:opacity-80 transition-opacity duration-500"></div>
+                    <div class="w-24 h-24 mx-auto bg-gradient-to-br from-emerald-100 to-sky-50 rounded-2xl flex items-center justify-center mb-8 transform group-hover:scale-110 transition-transform duration-500 shadow-lg relative overflow-hidden border border-emerald-200/50">
+                      <div class="absolute inset-0.5 bg-gradient-to-br from-white to-emerald-50 rounded-2xl"></div>
+                      <div class="absolute inset-0 bg-gradient-to-r from-transparent via-emerald-100/30 to-transparent bg-[length:200%_100%] animate-shimmer"></div>
+                      <i class="fas fa-shield-alt text-3xl text-emerald-600 relative z-10 group-hover:animate-pulse"></i>
+                    </div>
+                  </div>
+                  <h3 class="text-xl font-bold mb-4 bg-clip-text bg-gradient-to-r from-emerald-600 to-sky-600 group-hover:from-sky-600 group-hover:to-emerald-600 transition-colors duration-300">Safe & Reliable</h3>
+                  <p class="text-slate-600 leading-relaxed group-hover:text-slate-700 transition-colors">
+                    Travel with peace of mind knowing our vehicles are regularly maintained and our drivers are thoroughly vetted for your safety.
+                  </p>
+                </div>
               </div>
-              <h3 class="font-semibold mb-2">Safe & Reliable</h3>
-              <p class="text-slate-600">
-                Verified drivers and well-maintained vehicles for your safety
-              </p>
             </div>
-            <div class="text-center">
-              <div
-                class="w-16 h-16 mx-auto bg-sky-100 rounded-xl flex items-center justify-center mb-4"
-              >
-                <i class="fas fa-clock text-2xl text-sky-600"></i>
+
+            <div class="bg-white/90 rounded-2xl p-8 text-center shadow-lg hover:shadow-xl transition-all duration-500 group hover:-translate-y-1 backdrop-blur-sm animate-scale-in animate-delay-1">
+              <div class="relative">
+                <div class="w-20 h-20 mx-auto bg-gradient-to-br from-sky-500 to-indigo-500 rounded-2xl flex items-center justify-center mb-6 transform group-hover:scale-110 transition-transform duration-500 shadow-lg">
+                  <i class="fas fa-clock text-2xl "></i>
+                </div>
+                <h3 class="text-xl font-bold mb-4 text-slate-800">24/7 Support</h3>
+                <p class="text-slate-600 leading-relaxed">
+                  Our dedicated support team is available round-the-clock to assist you with any queries or emergencies during your journey.
+                </p>
+                <div class="absolute -inset-1 bg-gradient-to-r from-sky-500 to-indigo-500 opacity-0 group-hover:opacity-10 rounded-2xl transition-opacity duration-500"></div>
               </div>
-              <h3 class="font-semibold mb-2">24/7 Support</h3>
-              <p class="text-slate-600">
-                Round-the-clock assistance for all your travel needs
-              </p>
             </div>
-            <div class="text-center">
-              <div
-                class="w-16 h-16 mx-auto bg-sky-100 rounded-xl flex items-center justify-center mb-4"
-              >
-                <i class="fas fa-map-marked-alt text-2xl text-sky-600"></i>
+
+            <div class="bg-white/90 rounded-2xl p-8 text-center shadow-lg hover:shadow-xl transition-all duration-500 group hover:-translate-y-1 backdrop-blur-sm animate-scale-in animate-delay-2">
+              <div class="relative">
+                <div class="w-20 h-20 mx-auto bg-gradient-to-br from-sky-500 to-indigo-500 rounded-2xl flex items-center justify-center mb-6 transform group-hover:scale-110 transition-transform duration-500 shadow-lg">
+                  <i class="fas fa-map-marked-alt text-2xl "></i>
+                </div>
+                <h3 class="text-xl font-bold mb-4 text-slate-800">Local Expertise</h3>
+                <p class="text-slate-600 leading-relaxed">
+                  Benefit from our deep knowledge of Indian culture, hidden gems, and insider tips that make your journey truly authentic.
+                </p>
+                <div class="absolute -inset-1 bg-gradient-to-r from-sky-500 to-indigo-500 opacity-0 group-hover:opacity-10 rounded-2xl transition-opacity duration-500"></div>
               </div>
-              <h3 class="font-semibold mb-2">Local Expertise</h3>
-              <p class="text-slate-600">
-                Deep knowledge of Varanasi's culture and heritage
-              </p>
             </div>
-            <div class="text-center">
-              <div
-                class="w-16 h-16 mx-auto bg-sky-100 rounded-xl flex items-center justify-center mb-4"
-              >
-                <i class="fas fa-hand-holding-heart text-2xl text-sky-600"></i>
+
+            <div class="bg-white/90 rounded-2xl p-8 text-center shadow-lg hover:shadow-xl transition-all duration-500 group hover:-translate-y-1 backdrop-blur-sm animate-scale-in animate-delay-3">
+              <div class="relative">
+                <div class="w-20 h-20 mx-auto bg-gradient-to-br from-sky-500 to-indigo-500 rounded-2xl flex items-center justify-center mb-6 transform group-hover:scale-110 transition-transform duration-500 shadow-lg">
+                  <i class="fas fa-hand-holding-heart text-2xl "></i>
+                </div>
+                <h3 class="text-xl font-bold mb-4 text-slate-800">Personalized Care</h3>
+                <p class="text-slate-600 leading-relaxed">
+                  Every journey is unique, and we ensure our services are tailored to match your specific preferences and requirements.
+                </p>
+                <div class="absolute -inset-1 bg-gradient-to-r from-sky-500 to-indigo-500 opacity-0 group-hover:opacity-10 rounded-2xl transition-opacity duration-500"></div>
               </div>
-              <h3 class="font-semibold mb-2">Personalized Care</h3>
-              <p class="text-slate-600">
-                Customized services to meet your specific needs
-              </p>
             </div>
           </div>
         </div>
       </section>
 
       <!-- Contact & Location -->
-      <section class="bg-white py-16">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8" data-reveal>
+      <section class="relative py-24">
+        <div class="absolute inset-0 bg-white/90 backdrop-blur-sm"></div>
+        <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8" data-reveal>
           <div class="grid grid-cols-1 lg:grid-cols-2 gap-12">
-            <div class="space-y-6">
-              <h2
-                class="text-3xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-sky-600 to-indigo-600"
-              >
-                Visit Our Office
-              </h2>
-              <div class="space-y-4 text-slate-600">
-                <p class="flex items-start gap-3">
-                  <i class="fas fa-map-marker-alt mt-1 text-sky-600"></i>
-                  52 Patel Nagar, Near Hotel New Temple Town, Varanasi - 221002
-                </p>
-                <p class="flex items-center gap-3">
-                  <i class="fas fa-phone text-sky-600"></i>
-                  +91 123-456-7890
-                </p>
-                <p class="flex items-center gap-3">
-                  <i class="fas fa-envelope text-sky-600"></i>
-                  contact@kashika.travel
-                </p>
-              </div>
-              <div class="pt-4">
-                <a
-                  href="contact.html"
-                  class="inline-flex items-center gap-2 px-6 py-3 bg-sky-600 text-white rounded-xl hover:bg-sky-700 transition-colors"
-                >
-                  Contact Us <i class="fas fa-arrow-right"></i>
-                </a>
+            <div class="bg-white/90 rounded-2xl p-8 shadow-xl backdrop-blur-sm animate-slide-up relative group">
+              <div class="absolute inset-0 bg-gradient-to-br from-sky-50 to-indigo-50 rounded-2xl opacity-50"></div>
+              <div class="relative">
+                <h2 class="text-4xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-sky-600 to-indigo-600 mb-8">
+                  Visit Our Office
+                </h2>
+                <div class="space-y-6">
+                  <div class="flex items-start gap-6 p-8 bg-white/90 rounded-xl hover:shadow-xl transition-all duration-300 group hover:-translate-y-1 backdrop-blur-sm border border-sky-100">
+                    <div class="relative">
+                      <div class="absolute -inset-2 bg-gradient-to-r from-sky-500/20 to-indigo-500/20 rounded-xl blur-xl opacity-60 group-hover:opacity-100 transition-opacity duration-500"></div>
+                      <div class="w-16 h-16 bg-gradient-to-br from-sky-100 to-indigo-50 rounded-xl flex items-center justify-center flex-shrink-0 relative border border-sky-200/50">
+                        <div class="absolute inset-0.5 bg-gradient-to-br from-white to-sky-50 rounded-xl"></div>
+                        <i class="fas fa-map-marker-alt text-2xl text-sky-600 relative z-10 group-hover:text-indigo-600 group-hover:animate-bounce transition-colors duration-300"></i>
+                      </div>
+                    </div>
+                    <div class="transform group-hover:translate-x-1 transition-transform duration-300">
+                      <h3 class="font-semibold bg-clip-text text-transparent bg-gradient-to-r from-sky-600 to-indigo-600 mb-3 text-lg group-hover:from-indigo-600 group-hover:to-sky-600 transition-colors duration-300">Address</h3>
+                      <p class="text-slate-600 group-hover:text-slate-800">52 Patel Nagar, Near Hotel New Temple Town, Varanasi - 221002</p>
+                    </div>
+                  </div>
+
+                  <div class="flex items-start gap-4 p-4 bg-white/80 rounded-xl hover:shadow-md transition-all duration-300 group">
+                    <div class="w-12 h-12 bg-gradient-to-br from-sky-500 to-indigo-500 rounded-xl flex items-center justify-center flex-shrink-0">
+                      <i class="fas fa-phone text-xl "></i>
+                    </div>
+                    <div>
+                      <h3 class="font-semibold text-slate-800 mb-1">Phone</h3>
+                      <p class="text-slate-600">+91 123-456-7890</p>
+                    </div>
+                  </div>
+
+                  <div class="flex items-start gap-4 p-4 bg-white/80 rounded-xl hover:shadow-md transition-all duration-300 group">
+                    <div class="w-12 h-12 bg-gradient-to-br from-sky-500 to-indigo-500 rounded-xl flex items-center justify-center flex-shrink-0">
+                      <i class="fas fa-envelope text-xl "></i>
+                    </div>
+                    <div>
+                      <h3 class="font-semibold text-slate-800 mb-1">Email</h3>
+                      <p class="text-slate-600">contact@kashika.travel</p>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="mt-8">
+                  <a href="contact.html" class="relative inline-flex group bg-black">
+                    <div class="absolute -inset-0.5 bg-gradient-to-r from-sky-500 to-indigo-500 rounded-xl blur opacity-60 group-hover:opacity-100 transition duration-500"></div>
+                    <div class="relative inline-flex items-center gap-3 px-8 py-4 bg-gradient-to-r from-sky-600 to-indigo-600 text-white rounded-xl hover:from-sky-500 hover:to-indigo-500 transition-all duration-300 transform hover:scale-105 focus:scale-95 shadow-lg shadow-sky-500/25 hover:shadow-indigo-500/25">
+                      <span class="font-medium">Get in Touch</span>
+                      <i class="fas fa-arrow-right transition-transform duration-300 group-hover:translate-x-1.5"></i>
+                      <div class="absolute inset-0 rounded-xl bg-gradient-to-r from-white/20 to-transparent opacity-0 group-hover:opacity-20 transition-opacity duration-300"></div>
+                    </div>
+                  </a>
+                </div>
               </div>
             </div>
-            <div class="h-[400px] rounded-xl overflow-hidden shadow-xl">
-              <iframe
-                class="w-full h-full"
-                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3606.1367874070056!2d82.98397047534226!3d25.333190577623633!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x398e2dc3ffffffff%3A0xde9120df8c61c1b4!2sKashika%20Travel!5e0!3m2!1sen!2sin!4v1760040531091!5m2!1sen!2sin"
-                style="border: 0"
-                allowfullscreen=""
-                loading="lazy"
-              ></iframe>
+
+            <div class="relative group animate-slide-up animate-delay-1">
+              <div class="absolute -inset-2 bg-gradient-to-r from-sky-500 to-indigo-500 rounded-3xl blur-2xl opacity-20 group-hover:opacity-30 transition-opacity duration-500"></div>
+              <div class="relative h-[500px] rounded-2xl overflow-hidden shadow-2xl">
+                <div id="map-loading" class="absolute inset-0 bg-slate-100 animate-pulse flex items-center justify-center">
+                  <div class="text-center">
+                    <div class="w-16 h-16 border-4 border-indigo-500 border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
+                    <p class="text-slate-600">Loading map...</p>
+                  </div>
+                </div>
+                <iframe
+                  class="w-full h-full opacity-0 transition-opacity duration-500"
+                  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3606.1367874070056!2d82.98397047534226!3d25.333190577623633!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x398e2dc3ffffffff%3A0xde9120df8c61c1b4!2sKashika%20Travel!5e0!3m2!1sen!2sin!4v1760040531091!5m2!1sen!2sin"
+                  style="border: 0"
+                  allowfullscreen=""
+                  loading="lazy"
+                  onload="this.style.opacity='1'; document.getElementById('map-loading').style.display='none';"
+                  title="Kashika Travel Office Location"
+                ></iframe>
+              </div>
             </div>
           </div>
         </div>
       </section>
+
+      <script>
+        // Enhanced mobile navigation
+        const navToggle = document.getElementById('nav-toggle');
+        const mobileMenu = document.getElementById('mobile-menu');
+        let isMenuOpen = false;
+
+        function toggleMenu() {
+          isMenuOpen = !isMenuOpen;
+          navToggle.setAttribute('aria-expanded', isMenuOpen);
+
+          if (isMenuOpen) {
+            mobileMenu.classList.remove('-translate-y-full', 'opacity-0', 'invisible');
+            navToggle.innerHTML = '<i class="fas fa-times"></i>';
+          } else {
+            mobileMenu.classList.add('-translate-y-full', 'opacity-0', 'invisible');
+            navToggle.innerHTML = '<i class="fas fa-bars"></i>';
+          }
+        }
+
+        navToggle?.addEventListener('click', toggleMenu);
+
+        // Close menu on wider screens
+        window.addEventListener('resize', () => {
+          if (window.innerWidth >= 768 && isMenuOpen) {
+            toggleMenu();
+          }
+        });
+
+        // Animation and UI enhancement utilities
+        const UI = {
+          prefersReducedMotion: window.matchMedia('(prefers-reduced-motion: reduce)').matches,
+
+          // Handle smooth reveal animations
+          initRevealAnimations() {
+            const reveals = document.querySelectorAll('[data-reveal]');
+            const animationClasses = ['.animate-slide-up', '.animate-fade-in', '.animate-scale-in'];
+
+            const io = new IntersectionObserver((entries) => {
+              entries.forEach(entry => {
+                if (!entry.isIntersecting) return;
+
+                // Add revealed class for general styling
+                entry.target.classList.add('revealed');
+
+                // Handle animations based on user preference
+                if (this.prefersReducedMotion) {
+                  // Simply show elements without animation
+                  entry.target.querySelectorAll(animationClasses.join(',')).forEach(el => {
+                    el.style.opacity = '1';
+                    el.style.transform = 'none';
+                    el.style.animation = 'none';
+                  });
+                } else {
+                  // Apply staggered animations
+                  entry.target.querySelectorAll(animationClasses.join(',')).forEach((el, index) => {
+                    setTimeout(() => {
+                      el.style.opacity = '1';
+                      el.style.transform = 'none';
+                    }, index * 100); // Stagger by 100ms
+                  });
+                }
+
+                // Unobserve after animation
+                io.unobserve(entry.target);
+              });
+            }, {
+              threshold: 0.1,
+              rootMargin: '0px 0px -50px 0px'
+            });
+
+            reveals.forEach(reveal => io.observe(reveal));
+          },
+
+          // Handle image loading
+          initImageLoading() {
+            const images = document.querySelectorAll('img[loading="lazy"]');
+            images.forEach(img => {
+              img.addEventListener('load', () => {
+                img.parentElement?.classList.add('loaded');
+              });
+            });
+          },
+
+          // Initialize all UI enhancements
+          init() {
+            // Set reduced motion if preferred
+            if (this.prefersReducedMotion) {
+              document.documentElement.style.setProperty('--base-duration', '0.01ms');
+            }
+
+            // Initialize features
+            this.initRevealAnimations();
+            this.initImageLoading();
+
+            // Listen for reduced motion preference changes
+            window.matchMedia('(prefers-reduced-motion: reduce)').addEventListener('change', e => {
+              this.prefersReducedMotion = e.matches;
+              document.documentElement.style.setProperty('--base-duration', e.matches ? '0.01ms' : '1s');
+            });
+          }
+        };
+
+        // Initialize UI enhancements when DOM is ready
+        document.addEventListener('DOMContentLoaded', () => UI.init());
+      </script>
 
       <script type="module" src="./assets/js/DynamicNav.js"></script>
       <script type="module" src="./assets/js/tailwind-init.js"></script>
