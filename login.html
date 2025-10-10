@@ -182,7 +182,6 @@
       const submitBtn = loginForm?.querySelector("button");
 
       function showMessage(text, type = 'success') {
-        // Remove existing message if any
         const existingMsg = message.querySelector('div');
         if (existingMsg) {
           existingMsg.classList.remove('animate-slide-up');
@@ -243,7 +242,7 @@
       }
 
       const { logoutRequest } = getLogoutParams();
-
+        console.log("kya bhai kuch dega tu saale",logoutRequest);
       (async function init() {
         if (logoutRequest) {
           try {
