@@ -174,7 +174,7 @@
     </script>
 
     <script type="module">
-      import { loginUser, logoutRequiested } from "./assets/js/services.js";
+      import { loginUser, logoutRequested } from "./assets/js/services.js";
       import { showToast, withLoader } from "./assets/js/tailwind-init.js";
 
       const loginForm = document.getElementById("loginForm");
@@ -246,7 +246,7 @@
       (async function init() {
         if (logoutRequest) {
           try {
-            const data = await logoutRequiested();
+            const data = await logoutRequested();
             if (data.status) {
               // Smooth redirect
               const overlay = document.createElement('div');
