@@ -8,83 +8,309 @@
       href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css"
       rel="stylesheet"
     />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+    />
+    <style>
+      @keyframes float {
+        0% { transform: translateY(0px); }
+        50% { transform: translateY(-10px); }
+        100% { transform: translateY(0px); }
+      }
+      @keyframes slideUp {
+        from { transform: translateY(1rem); opacity: 0; }
+        to { transform: translateY(0); opacity: 1; }
+      }
+      @keyframes pulse {
+        0%, 100% { transform: scale(1); }
+        50% { transform: scale(1.05); }
+      }
+      @keyframes shimmer {
+        from { transform: translateX(-100%); }
+        to { transform: translateX(100%); }
+      }
+      .animate-float { animation: float 3s ease-in-out infinite; }
+      .animate-slide-up { animation: slideUp 0.3s ease-out; }
+      .animate-pulse-slow { animation: pulse 3s ease-in-out infinite; }
+
+      .bg-grid-slate-100 {
+        background-image: linear-gradient(to right, #f1f5f930 1px, transparent 1px),
+                         linear-gradient(to bottom, #f1f5f930 1px, transparent 1px);
+        background-size: 24px 24px;
+      }
+
+      .shimmer {
+        position: relative;
+        overflow: hidden;
+      }
+      .shimmer::after {
+        content: '';
+        position: absolute;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        background: linear-gradient(
+          90deg,
+          rgba(255, 255, 255, 0) 0%,
+          rgba(255, 255, 255, 0.3) 50%,
+          rgba(255, 255, 255, 0) 100%
+        );
+        animation: shimmer 2s infinite;
+      }
+    </style>
   </head>
-  <body
-    class="antialiased bg-gradient-to-b from-slate-50 to-white text-slate-800"
-  >
+  <body class="antialiased text-slate-800">
+    <!-- Background with multiple gradients for depth -->
+    <div class="fixed inset-0 bg-gradient-to-br from-sky-50 via-indigo-50 to-slate-50 opacity-80"></div>
+    <div class="fixed inset-0 bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))] from-sky-100/40 via-transparent to-transparent"></div>
+    <div class="fixed inset-0 bg-[radial-gradient(ellipse_at_bottom_left,_var(--tw-gradient-stops))] from-indigo-100/40 via-transparent to-transparent"></div>
+
     <nav id="navbar" class="sticky top-0 z-40"></nav>
 
-    <main class="min-h-screen flex items-center justify-center p-6">
-      <form
-        id="registerForm"
-        class="max-w-lg w-full bg-white rounded-2xl shadow-lg p-8 space-y-4"
-      >
-        <div class="flex items-center gap-3">
-          <img
-            src="./assets/images/logo.png"
-            class="h-10 w-10 rounded-full shadow-sm"
-            alt="logo"
-          />
-          <h2 class="text-2xl font-semibold">Create Your Account</h2>
+    <main class="min-h-screen flex items-center justify-center p-6 relative">
+      <div class="max-w-4xl w-full grid md:grid-cols-[1fr,1.5fr] gap-8 items-center">
+        <!-- Left Section -->
+        <div class="hidden md:flex flex-col items-center space-y-8 p-8">
+          <div class="relative animate-float">
+            <div class="absolute inset-0 bg-gradient-to-r from-sky-400 to-indigo-400 rounded-3xl blur-2xl opacity-20"></div>
+            <div class="relative">
+              <div class="absolute -inset-1 bg-gradient-to-r from-sky-500 to-indigo-500 rounded-3xl blur opacity-30 group-hover:opacity-40 transition duration-1000"></div>
+              <img
+                src="./assets/images/logo.png"
+                class="relative h-32 w-32 rounded-3xl shadow-lg ring-1 ring-slate-100/90"
+                alt="logo"
+              />
+            </div>
+          </div>
+          <div class="text-center space-y-4">
+            <h1 class="text-3xl font-bold bg-gradient-to-r from-sky-600 to-indigo-600 bg-clip-text text-transparent">
+              Welcome to Kashika Travels
+            </h1>
+            <p class="text-slate-600 max-w-sm leading-relaxed">
+              Join our community and experience the best travel services across
+              India. Your journey begins here!
+            </p>
+            <!-- Features List -->
+            <div class="mt-8 space-y-3 text-left">
+              <div class="flex items-center gap-3 text-slate-600">
+                <i class="fas fa-check-circle text-emerald-500"></i>
+                <span class="text-sm">Exclusive travel packages</span>
+              </div>
+              <div class="flex items-center gap-3 text-slate-600">
+                <i class="fas fa-check-circle text-emerald-500"></i>
+                <span class="text-sm">24/7 customer support</span>
+              </div>
+              <div class="flex items-center gap-3 text-slate-600">
+                <i class="fas fa-check-circle text-emerald-500"></i>
+                <span class="text-sm">Best price guarantee</span>
+              </div>
+            </div>
+          </div>
         </div>
 
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-          <input
-            id="userName"
-            placeholder="Full name"
-            class="px-4 py-2 border rounded-lg focus:ring-2 focus:ring-sky-400 outline-none"
-            required
-          />
-          <input
-            id="email"
-            placeholder="Email address"
-            type="email"
-            class="px-4 py-2 border rounded-lg focus:ring-2 focus:ring-sky-400 outline-none"
-            required
-          />
-          <input
-            id="phone"
-            placeholder="Phone number"
-            class="px-4 py-2 border rounded-lg focus:ring-2 focus:ring-sky-400 outline-none"
-            required
-          />
-          <input
-            id="location"
-            placeholder="City / Location"
-            class="px-4 py-2 border rounded-lg focus:ring-2 focus:ring-sky-400 outline-none"
-          />
-        </div>
-
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-          <input
-            id="password"
-            type="password"
-            placeholder="Password"
-            class="px-4 py-2 border rounded-lg focus:ring-2 focus:ring-sky-400 outline-none"
-            required
-          />
-          <input
-            id="confirmPassword"
-            type="password"
-            placeholder="Confirm Password"
-            class="px-4 py-2 border rounded-lg focus:ring-2 focus:ring-sky-400 outline-none"
-            required
-          />
-        </div>
-
-        <button
-          id="registerBtn"
-          type="submit"
-          class="w-full py-3 bg-gradient-to-r from-sky-600 to-indigo-600 text-white rounded-lg font-semibold"
+        <!-- Right Section - Form -->
+        <form
+          id="registerForm"
+          class="w-full bg-white/95 rounded-2xl shadow-xl p-8 space-y-6 animate-slide-up backdrop-blur-xl ring-1 ring-slate-100/90 relative overflow-hidden group"
         >
-          Create Account
-        </button>
-        <p id="registerMessage" class="text-center text-sm font-medium"></p>
-      </form>
+          <!-- Decorative background elements -->
+          <div class="absolute inset-0 bg-gradient-to-br from-sky-50 to-indigo-50 opacity-50"></div>
+          <div class="absolute inset-0 bg-grid-slate-100/[0.03]"></div>
+          <div class="absolute -left-4 -top-4 w-24 h-24 bg-sky-500/10 rounded-full blur-2xl transform group-hover:scale-150 transition-transform duration-700"></div>
+          <div class="absolute -right-4 -bottom-4 w-24 h-24 bg-indigo-500/10 rounded-full blur-2xl transform group-hover:scale-150 transition-transform duration-700"></div>
+
+          <!-- Form Content -->
+          <div class="relative">
+            <div class="flex items-center gap-4 pb-2">
+              <div class="p-3 rounded-xl bg-gradient-to-br from-sky-500 to-indigo-500 shadow-lg transform hover:scale-105 transition-transform">
+                <i class="fas fa-user-plus text-white text-xl"></i>
+              </div>
+              <div>
+                <h2 class="text-2xl font-bold text-slate-800">
+                  Create Your Account
+                </h2>
+                <p class="text-sm text-slate-600 mt-1">Fill in your details below to get started</p>
+              </div>
+            </div>
+
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div class="space-y-2">
+              <label
+                for="userName"
+                class="text-sm font-medium text-slate-700 flex items-center gap-2"
+              >
+                <i class="fas fa-user text-slate-400"></i>
+                Full Name
+              </label>
+              <input
+                id="userName"
+                placeholder="John Doe"
+                class="w-full px-4 py-2.5 border border-slate-200 rounded-xl focus:ring-2 focus:ring-sky-500/20 focus:border-sky-500 transition-all"
+                required
+              />
+            </div>
+
+            <div class="space-y-2">
+              <label
+                for="email"
+                class="text-sm font-medium text-slate-700 flex items-center gap-2"
+              >
+                <i class="fas fa-envelope text-slate-400"></i>
+                Email Address
+              </label>
+              <input
+                id="email"
+                type="email"
+                placeholder="john@example.com"
+                class="w-full px-4 py-2.5 border border-slate-200 rounded-xl focus:ring-2 focus:ring-sky-500/20 focus:border-sky-500 transition-all"
+                required
+              />
+            </div>
+
+            <div class="space-y-2">
+              <label
+                for="phone"
+                class="text-sm font-medium text-slate-700 flex items-center gap-2"
+              >
+                <i class="fas fa-phone text-slate-400"></i>
+                Phone Number
+              </label>
+              <input
+                id="phone"
+                placeholder="+91 1234567890"
+                class="w-full px-4 py-2.5 border border-slate-200 rounded-xl focus:ring-2 focus:ring-sky-500/20 focus:border-sky-500 transition-all"
+                required
+              />
+            </div>
+
+            <div class="space-y-2">
+              <label
+                for="location"
+                class="text-sm font-medium text-slate-700 flex items-center gap-2"
+              >
+                <i class="fas fa-location-dot text-slate-400"></i>
+                City / Location
+              </label>
+              <input
+                id="location"
+                placeholder="Mumbai"
+                class="w-full px-4 py-2.5 border border-slate-200 rounded-xl focus:ring-2 focus:ring-sky-500/20 focus:border-sky-500 transition-all"
+              />
+            </div>
+
+            <div class="space-y-2">
+              <label
+                for="password"
+                class="text-sm font-medium text-slate-700 flex items-center gap-2"
+              >
+                <i class="fas fa-lock text-slate-400"></i>
+                Password
+              </label>
+              <div class="relative group">
+                <input
+                  id="password"
+                  type="password"
+                  placeholder="••••••••"
+                  class="w-full px-4 py-2.5 border border-slate-200 rounded-xl focus:ring-2 focus:ring-sky-500/20 focus:border-sky-500 transition-all"
+                  required
+                />
+                <button
+                  type="button"
+                  class="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600 transition-colors"
+                  onclick="togglePassword('password')"
+                >
+                  <i class="fas fa-eye"></i>
+                </button>
+              </div>
+            </div>
+
+            <div class="space-y-2">
+              <label
+                for="confirmPassword"
+                class="text-sm font-medium text-slate-700 flex items-center gap-2"
+              >
+                <i class="fas fa-shield-halved text-slate-400"></i>
+                Confirm Password
+              </label>
+              <div class="relative group">
+                <input
+                  id="confirmPassword"
+                  type="password"
+                  placeholder="••••••••"
+                  class="w-full px-4 py-2.5 border border-slate-200 rounded-xl focus:ring-2 focus:ring-sky-500/20 focus:border-sky-500 transition-all"
+                  required
+                />
+                <button
+                  type="button"
+                  class="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600 transition-colors"
+                  onclick="togglePassword('confirmPassword')"
+                >
+                  <i class="fas fa-eye"></i>
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <div class="pt-6">
+            <button
+              id="registerBtn"
+              type="submit"
+              class="w-full py-3.5 px-4 bg-gradient-to-r from-sky-600 to-indigo-600 hover:from-sky-500 hover:to-indigo-500 text-white rounded-xl font-medium transition-all duration-300 transform hover:scale-[1.02] focus:scale-[0.98] flex items-center justify-center gap-2 group shadow-lg shadow-sky-500/20 hover:shadow-indigo-500/20"
+            >
+              <span class="inline-flex items-center gap-2">
+                <i class="fas fa-user-plus group-hover:rotate-12 transition-transform"></i>
+                Create Account
+              </span>
+            </button>
+
+            <!-- Enhanced Message Display -->
+            <div id="registerMessage"
+                class="text-center font-medium mt-6 transition-all duration-300 opacity-0 transform translate-y-2 relative">
+              <div class="absolute inset-x-0 -top-2 h-1 bg-gradient-to-r from-transparent via-slate-200 to-transparent opacity-50"></div>
+            </div>
+          </div>
+
+          <div class="relative pt-6">
+            <div class="absolute inset-0 flex items-center">
+              <div class="w-full border-t border-slate-200"></div>
+            </div>
+            <div class="relative flex justify-center text-sm">
+              <span class="px-4 bg-white text-slate-500">Or</span>
+            </div>
+          </div>
+
+          <div class="text-center text-sm text-slate-600">
+            Already have an account?
+            <a href="login.html"
+               class="inline-flex items-center gap-1 font-medium text-sky-600 hover:text-sky-500 transition-colors ml-1">
+              Sign in
+              <i class="fas fa-arrow-right text-xs transition-transform group-hover:translate-x-1"></i>
+            </a>
+          </div>
+        </form>
+      </div>
     </main>
 
     <script type="module" src="./assets/js/DynamicNav.js"></script>
     <script type="module" src="./assets/js/tailwind-init.js"></script>
+    <script>
+      function togglePassword(inputId) {
+        const input = document.getElementById(inputId);
+        const icon = input.nextElementSibling.querySelector("i");
+
+        if (input.type === "password") {
+          input.type = "text";
+          icon.classList.remove("fa-eye");
+          icon.classList.add("fa-eye-slash");
+        } else {
+          input.type = "password";
+          icon.classList.remove("fa-eye-slash");
+          icon.classList.add("fa-eye");
+        }
+      }
+    </script>
     <script type="module">
       import { registerUser } from "./assets/js/services.js";
       import { showToast, withLoader } from "./assets/js/tailwind-init.js";
@@ -93,10 +319,67 @@
       const msg = document.getElementById("registerMessage");
       const btn = document.getElementById("registerBtn");
 
+      function showMessage(text, type = "success") {
+        // Remove existing message if any
+        const existingMsg = msg.querySelector("div");
+        if (existingMsg) {
+          existingMsg.classList.remove("animate-slide-up");
+          existingMsg.classList.add("opacity-0", "translate-y-4");
+        }
+
+        // Create and insert new message
+        const msgElement = document.createElement("div");
+        msgElement.className = `px-4 py-3 rounded-xl shadow-lg flex items-center gap-3 animate-slide-up
+          ${
+            type === "success"
+              ? "bg-gradient-to-r from-emerald-500 to-teal-500"
+              : "bg-gradient-to-r from-rose-500 to-pink-500"
+          } text-white`;
+        msgElement.innerHTML = `
+          <i class="fas ${
+            type === "success" ? "fa-check-circle" : "fa-exclamation-circle"
+          }
+            ${type === "success" ? "animate-bounce" : "animate-pulse"}"></i>
+          <p class="flex-1">${text}</p>
+        `;
+
+        msg.innerHTML = "";
+        msg.appendChild(msgElement);
+        msg.style.opacity = "1";
+        msg.style.transform = "translateY(0)";
+
+        setTimeout(() => {
+          msg.style.opacity = "0";
+          msg.style.transform = "translateY(8px)";
+        }, 5000);
+      }
+
+      function setLoading(isLoading) {
+        const btnContent = btn.querySelector("span");
+        if (isLoading) {
+          btn.disabled = true;
+          btn.classList.add("opacity-80");
+          btnContent.innerHTML = `
+            <div class="flex items-center gap-3">
+              <svg class="animate-spin h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+              </svg>
+              Creating Account...
+            </div>
+          `;
+        } else {
+          btn.disabled = false;
+          btn.classList.remove("opacity-80");
+          btnContent.innerHTML = `
+            <i class="fas fa-user-plus group-hover:rotate-12 transition-transform"></i>
+            Create Account
+          `;
+        }
+      }
+
       form.addEventListener("submit", async (e) => {
         e.preventDefault();
-        msg.textContent = "";
-        msg.style.color = "";
 
         const userName = document.getElementById("userName").value.trim();
         const email = document.getElementById("email").value.trim();
@@ -105,35 +388,50 @@
         const password = document.getElementById("password").value;
         const confirmPassword =
           document.getElementById("confirmPassword").value;
+
         if (password !== confirmPassword) {
+          showMessage("Passwords do not match", "error");
           showToast("Passwords do not match", "error");
-          msg.textContent = "Passwords do not match";
-          msg.style.color = "red";
           return;
         }
 
         const userData = { userName, email, phone, location, password };
 
-        await withLoader(btn, async () => {
+        try {
+          setLoading(true);
           const result = await registerUser(userData);
+
           if (result.error) {
+            showMessage(result.message || "Registration failed", "error");
             showToast(result.message || "Registration failed", "error");
-            msg.textContent = result.message || "Registration failed";
-            msg.style.color = "red";
           } else if (result.status) {
+            showMessage("🎉 Account created successfully!", "success");
             showToast(result.message || "Account created", "success");
-            msg.textContent = result.message || "Account created";
-            msg.style.color = "green";
             form.reset();
+
+            // Smooth redirect
             setTimeout(() => {
-              window.location.href = "index.html";
+              const overlay = document.createElement("div");
+              overlay.className =
+                "fixed inset-0 bg-white transition-opacity duration-500 z-50";
+              document.body.appendChild(overlay);
+              setTimeout(() => {
+                overlay.style.opacity = "1";
+                setTimeout(() => {
+                  window.location.href = "index.html";
+                }, 500);
+              }, 100);
             }, 1500);
           } else {
+            showMessage("An unexpected error occurred", "error");
             showToast("Unexpected server response", "error");
-            msg.textContent = "Unexpected server response";
-            msg.style.color = "red";
           }
-        });
+        } catch (error) {
+          showMessage("An unexpected error occurred", "error");
+          showToast("Registration failed", "error");
+        } finally {
+          setLoading(false);
+        }
       });
     </script>
   </body>

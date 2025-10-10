@@ -7,57 +7,124 @@
       href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css"
       rel="stylesheet"
     />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+    />
+    <style>
+      @keyframes slideUp {
+        from { transform: translateY(1rem); opacity: 0; }
+        to { transform: translateY(0); opacity: 1; }
+      }
+      .animate-slide-up {
+        animation: slideUp 0.3s ease-out;
+      }
+      .date-input::-webkit-calendar-picker-indicator {
+        background-color: transparent;
+        cursor: pointer;
+        padding: 5px;
+        border-radius: 4px;
+      }
+      .date-input::-webkit-calendar-picker-indicator:hover {
+        background-color: rgba(0, 0, 0, 0.05);
+      }
+      .car-select {
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%236B7280'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M19 9l-7 7-7-7'%3E%3C/path%3E%3C/svg%3E");
+        background-position: right 0.5rem center;
+        background-repeat: no-repeat;
+        background-size: 1.5em 1.5em;
+        padding-right: 2.5rem;
+        -webkit-appearance: none;
+        appearance: none;
+      }
+    </style>
   </head>
-  <body>
+  <body class="bg-gradient-to-br from-slate-50 via-white to-slate-50">
     <nav id="navbar" class="sticky top-0 z-40"></nav>
-    <main
-      class="min-h-screen flex items-center justify-center bg-gradient-to-b from-slate-50 to-white p-6"
-    >
-      <div class="w-full max-w-md bg-white rounded-2xl shadow-lg p-8">
-        <h1 class="text-xl font-semibold text-slate-800 mb-4">Book Your Car</h1>
-        <form id="bookForm" class="space-y-3">
-          <label for="carName" class="text-sm font-medium">Car Name</label>
-          <select
-            id="carName"
-            required
-            class="w-full px-3 py-2 border rounded-lg"
-          ></select>
+    <main class="min-h-screen flex items-center justify-center p-6">
+      <div class="w-full max-w-xl bg-white rounded-2xl shadow-xl p-8 animate-slide-up">
+        <div class="flex items-center gap-3 mb-6">
+          <div class="p-3 rounded-full bg-gradient-to-br from-sky-500 to-indigo-500">
+            <i class="fas fa-car-side text-white text-xl"></i>
+          </div>
+          <h1 class="text-2xl font-semibold text-slate-800">Book Your Car</h1>
+        </div>
 
-          <label for="price" class="text-sm font-medium">Price (₹)</label>
-          <input
-            type="text"
-            id="price"
-            readonly
-            class="w-full px-3 py-2 border rounded-lg bg-slate-50"
-          />
+        <div id="carPreview" class="hidden mb-6 rounded-xl overflow-hidden bg-slate-50 relative group">
+          <img src="" alt="Car Preview" class="w-full h-48 object-cover transition-transform duration-300 group-hover:scale-105"/>
+          <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent"></div>
+          <div class="absolute bottom-0 left-0 right-0 p-4">
+            <p id="previewCarName" class="text-white font-medium"></p>
+            <p id="previewPrice" class="text-white/90 text-sm"></p>
+          </div>
+        </div>
 
-          <label for="duration" class="text-sm font-medium"
-            >Duration (in days)</label
-          >
-          <input
-            type="number"
-            id="duration"
-            min="1"
-            placeholder="e.g., 3"
-            required
-            class="w-full px-3 py-2 border rounded-lg"
-          />
+        <form id="bookForm" class="space-y-5">
+          <div class="space-y-2">
+            <label for="carName" class="text-sm font-medium text-slate-700 flex items-center gap-2">
+              <i class="fas fa-car text-slate-400"></i>
+              Car Name
+            </label>
+            <select
+              id="carName"
+              required
+              class="w-full px-4 py-2.5 border border-slate-200 rounded-xl focus:ring-2 focus:ring-sky-500/20 focus:border-sky-500 transition-shadow car-select bg-white"
+            ></select>
+          </div>
 
-          <label for="date" class="text-sm font-medium">Booking Date</label>
-          <input
-            type="date"
-            id="date"
-            required
-            class="w-full px-3 py-2 border rounded-lg"
-          />
+          <div class="space-y-2">
+            <label for="price" class="text-sm font-medium text-slate-700 flex items-center gap-2">
+              <i class="fas fa-tag text-slate-400"></i>
+              Price (₹)
+            </label>
+            <input
+              type="text"
+              id="price"
+              readonly
+              class="w-full px-4 py-2.5 border border-slate-200 rounded-xl bg-slate-50 text-slate-600"
+            />
+          </div>
+
+          <div class="space-y-2">
+            <label for="duration" class="text-sm font-medium text-slate-700 flex items-center gap-2">
+              <i class="fas fa-clock text-slate-400"></i>
+              Duration (in days)
+            </label>
+            <div class="relative">
+              <input
+                type="number"
+                id="duration"
+                min="1"
+                placeholder="e.g., 3"
+                required
+                class="w-full px-4 py-2.5 border border-slate-200 rounded-xl focus:ring-2 focus:ring-sky-500/20 focus:border-sky-500 transition-shadow"
+              />
+              <div id="totalPrice" class="absolute right-3 top-1/2 -translate-y-1/2 text-sm text-slate-500"></div>
+            </div>
+          </div>
+
+          <div class="space-y-2">
+            <label for="date" class="text-sm font-medium text-slate-700 flex items-center gap-2">
+              <i class="fas fa-calendar text-slate-400"></i>
+              Booking Date
+            </label>
+            <input
+              type="date"
+              id="date"
+              required
+              class="w-full px-4 py-2.5 border border-slate-200 rounded-xl focus:ring-2 focus:ring-sky-500/20 focus:border-sky-500 transition-shadow date-input"
+            />
 
           <button
             type="submit"
-            class="w-full py-3 bg-gradient-to-r from-sky-600 to-indigo-600 text-white rounded-lg"
+            class="w-full py-3.5 px-4 bg-gradient-to-r from-sky-600 to-indigo-600 hover:from-sky-500 hover:to-indigo-500 text-white rounded-xl font-medium transition-all duration-200 transform hover:scale-[1.02] focus:scale-[0.98] flex items-center justify-center gap-2 group"
           >
-            Book Now
+            <span class="inline-flex items-center gap-2">
+              <i class="fas fa-check-circle group-hover:rotate-12 transition-transform"></i>
+              Book Now
+            </span>
           </button>
-          <p id="message" class="text-center font-medium"></p>
+          <div id="message" class="text-center font-medium mt-4 transition-all duration-300 opacity-0 transform translate-y-2"></div>
         </form>
       </div>
     </main>
@@ -78,6 +145,16 @@
       const message = document.getElementById("message");
       const form = document.getElementById("bookForm");
       const submitBtn = form.querySelector("button");
+      const carPreview = document.getElementById("carPreview");
+      const previewImg = carPreview.querySelector("img");
+      const previewCarName = document.getElementById("previewCarName");
+      const previewPrice = document.getElementById("previewPrice");
+      const totalPrice = document.getElementById("totalPrice");
+
+      // Format price with commas
+      function formatPrice(price) {
+        return new Intl.NumberFormat('en-IN').format(price);
+      }
 
       // === Extract Car ID and Delete Flag from URL ===
       function getCarParams() {
@@ -114,22 +191,30 @@
 
           const cars = data.cars || data;
 
+          // Add default option
+          const defaultOption = document.createElement("option");
+          defaultOption.value = "";
+          defaultOption.textContent = "Select a car";
+          carSelect.appendChild(defaultOption);
+
           if (carId) {
             // Prefill selected car
             const selected = cars.find((c) => c._id === carId);
             if (!selected) {
-              message.textContent = "Car not found.";
-              message.style.color = "red";
+              showToast("Car not found", "error");
               return;
             }
 
             const option = document.createElement("option");
             option.value = selected.carName;
             option.textContent = selected.carName;
+            option.dataset.price = selected.price;
+            option.dataset.image = selected.url;
             option.selected = true;
             carSelect.appendChild(option);
             carSelect.disabled = true;
-            priceInput.value = selected.price;
+            priceInput.value = formatPrice(selected.price);
+            updateCarPreview(selected);
           } else {
             // Populate all cars
             cars.forEach((car) => {
@@ -137,14 +222,41 @@
               option.value = car.carName;
               option.textContent = car.carName;
               option.dataset.price = car.price;
+              option.dataset.image = car.url;
               carSelect.appendChild(option);
             });
           }
 
-          // Show price dynamically
+          // Show price dynamically and update preview
           carSelect.addEventListener("change", () => {
             const selectedOption = carSelect.options[carSelect.selectedIndex];
-            priceInput.value = selectedOption.dataset.price || "";
+            if (selectedOption.value) {
+              const price = selectedOption.dataset.price;
+              priceInput.value = formatPrice(price);
+              updateCarPreview({
+                carName: selectedOption.value,
+                price: price,
+                url: selectedOption.dataset.image
+              });
+              // Reset duration to trigger total calculation
+              durationInput.value = durationInput.value;
+            } else {
+              priceInput.value = "";
+              carPreview.classList.add("hidden");
+              totalPrice.textContent = "";
+            }
+          });
+
+          // Calculate total price on duration change
+          durationInput.addEventListener("input", () => {
+            const price = parseInt(priceInput.value.replace(/,/g, "")) || 0;
+            const duration = parseInt(durationInput.value) || 0;
+            if (price && duration) {
+              const total = price * duration;
+              totalPrice.textContent = `Total: ₹${formatPrice(total)}`;
+            } else {
+              totalPrice.textContent = "";
+            }
           });
         }
 
@@ -172,25 +284,75 @@
             userId: userData.user._id,
           };
 
-          const response = await withLoader(submitBtn, () =>
-            bookingCar(bookingData)
-          );
+          try {
+            const response = await withLoader(submitBtn, () =>
+              bookingCar(bookingData)
+            );
 
-          if (response?.error) {
-            showToast(response.message || "Booking failed", "error");
-            message.textContent = response.message || "Booking failed.";
-          } else {
-            showToast("Car booked successfully", "success");
-            message.textContent = "🎉 Car booked successfully!";
-            message.style.color = "green";
-            form.reset();
-            if (carId && carSelect.disabled) carSelect.selectedIndex = 0;
+            if (response?.error) {
+              showErrorMessage(response.message || "Booking failed");
+              showToast(response.message || "Booking failed", "error");
+            } else {
+              showSuccessMessage("🎉 Car booked successfully!");
+              showToast("Car booked successfully!", "success");
+              form.reset();
+              carPreview.classList.add("hidden");
+              totalPrice.textContent = "";
+              if (!carId) {
+                carSelect.selectedIndex = 0;
+              }
+
+              // Scroll to top with smooth animation
+              window.scrollTo({ top: 0, behavior: 'smooth' });
+            }
+          } catch (error) {
+            showErrorMessage("An unexpected error occurred. Please try again.");
+            showToast("An unexpected error occurred", "error");
           }
+        });
+
+        // Function to update car preview
+        function updateCarPreview(car) {
+          if (car && car.url) {
+            previewImg.src = car.url;
+            previewCarName.textContent = car.carName;
+            previewPrice.textContent = `₹${formatPrice(car.price)} per day`;
+            carPreview.classList.remove("hidden");
+          } else {
+            carPreview.classList.add("hidden");
+          }
+        }
+
+        // Functions to show messages with animation
+        function showSuccessMessage(text) {
+          message.innerHTML = `
+            <div class="px-4 py-3 rounded-xl shadow-lg bg-gradient-to-r from-emerald-500 to-teal-500 text-white flex items-center gap-3 animate-slide-up">
+              <i class="fas fa-check-circle"></i>
+              <p>${text}</p>
+            </div>
+          `;
+          animateMessage();
+        }
+
+        function showErrorMessage(text) {
+          message.innerHTML = `
+            <div class="px-4 py-3 rounded-xl shadow-lg bg-gradient-to-r from-rose-500 to-pink-500 text-white flex items-center gap-3 animate-slide-up">
+              <i class="fas fa-exclamation-circle"></i>
+              <p>${text}</p>
+            </div>
+          `;
+          animateMessage();
+        }
+
+        function animateMessage() {
+          message.style.opacity = "1";
+          message.style.transform = "translateY(0)";
 
           setTimeout(() => {
-            message.textContent = "";
-          }, 3000);
-        });
+            message.style.opacity = "0";
+            message.style.transform = "translateY(8px)";
+          }, 5000);
+        }
 
         setupCars();
       })();

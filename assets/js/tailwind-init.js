@@ -51,7 +51,7 @@ export function initScrollReveal(selector = '[data-reveal]') {
   });
 }
 
-// small helper to mount Tailwind animations (if not present)
+  // small helper to mount Tailwind animations (if not present)
 export function mountUtilities() {
   // create some keyframes via style tag for slide-in/out
   if (!document.getElementById('tw-utils-style')) {
@@ -60,15 +60,66 @@ export function mountUtilities() {
     s.innerHTML = `
       @keyframes slide-in-right { from { transform: translateX(24px); opacity: 0 } to { transform: translateX(0); opacity: 1 } }
       @keyframes fade-out { from { opacity: 1 } to { opacity: 0; transform: translateY(-8px) } }
+      @keyframes slide-up { from { transform: translateY(20px); opacity: 0 } to { transform: translateY(0); opacity: 1 } }
+      @keyframes scale-in { from { transform: scale(0.92); opacity: 0 } to { transform: scale(1); opacity: 1 } }
+      @keyframes float {
+        0% { transform: translateY(0px) }
+        50% { transform: translateY(-10px) }
+        100% { transform: translateY(0px) }
+      }
+      @keyframes pulse-soft {
+        0% { transform: scale(1) }
+        50% { transform: scale(1.05) }
+        100% { transform: scale(1) }
+      }
+      @keyframes border-glow {
+        0% { box-shadow: 0 0 0 0 rgba(56, 189, 248, 0.6) }
+        50% { box-shadow: 0 0 0 4px rgba(56, 189, 248, 0) }
+        100% { box-shadow: 0 0 0 0 rgba(56, 189, 248, 0) }
+      }
+      @keyframes nav-slide-down {
+        from { transform: translateY(-100%); opacity: 0 }
+        to { transform: translateY(0); opacity: 1 }
+      }
+      @keyframes menu-fade {
+        from { opacity: 0; transform: scale(0.95) }
+        to { opacity: 1; transform: scale(1) }
+      }
+      @keyframes shine {
+        from { transform: translateX(-100%) rotate(45deg) }
+        to { transform: translateX(100%) rotate(45deg) }
+      }
       .animate-slide-in-right { animation: slide-in-right .35s ease forwards }
       .animate-fade-out { animation: fade-out .35s ease forwards }
-      .animate-fade-in { animation: fade-out .35s reverse both }
+      .animate-fade-in { animation: menu-fade .2s ease-out forwards }
+      .animate-slide-up { animation: slide-up 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards }
+      .animate-scale-in { animation: scale-in 0.4s ease-out forwards }
+      .animate-float { animation: float 3s ease-in-out infinite }
+      .animate-pulse-soft { animation: pulse-soft 2s ease-in-out infinite }
+      .animate-border-glow { animation: border-glow 2s ease-in-out infinite }
+      .animate-nav-slide-down { animation: nav-slide-down 0.5s cubic-bezier(0.16, 1, 0.3, 1) }
+      .nav-item { position: relative; overflow: hidden }
+      .nav-item::after {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 30px;
+        height: 100%;
+        background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
+        animation: shine 3s infinite linear;
+        pointer-events: none;
+      }
+
+      /* Hover states */
+      .hover-lift { transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1) }
+      .hover-lift:hover { transform: translateY(-4px) }
+      .hover-scale { transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1) }
+      .hover-scale:hover { transform: scale(1.05) }
     `;
     document.head.appendChild(s);
   }
-}
-
-// Auto-init
+}// Auto-init
 document.addEventListener('DOMContentLoaded', () => {
   mountUtilities();
   initScrollReveal();

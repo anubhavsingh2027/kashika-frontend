@@ -7,37 +7,134 @@
       href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css"
       rel="stylesheet"
     />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+    />
+    <style>
+      [type="date"]::-webkit-calendar-picker-indicator {
+        opacity: 0.5;
+        cursor: pointer;
+        transition: opacity 0.2s;
+      }
+
+      [type="date"]::-webkit-calendar-picker-indicator:hover {
+        opacity: 1;
+      }
+
+      @keyframes spin {
+        to { transform: rotate(360deg); }
+      }
+
+      .loading-spinner {
+        animation: spin 1s linear infinite;
+      }
+
+      @keyframes slide-in {
+        from { transform: translateY(1rem); opacity: 0; }
+        to { transform: translateY(0); opacity: 1; }
+      }
+
+      .animate-slide-in {
+        animation: slide-in 0.3s ease-out forwards;
+      }
+
+      .animate-fade-in {
+        animation: fade-in 0.2s ease-out forwards;
+      }
+
+      @keyframes fade-in {
+        from { opacity: 0; }
+        to { opacity: 1; }
+      }
+    </style>
   </head>
-  <body>
+  <body class="bg-gradient-to-br from-slate-50 via-white to-slate-50">
     <nav id="navbar"></nav>
-    <main
-      class="min-h-screen flex items-center justify-center bg-gradient-to-b from-slate-50 to-white p-6"
-    >
-      <div class="w-full max-w-md bg-white rounded-2xl shadow-lg p-8">
-        <h1 class="text-xl font-semibold text-slate-800 mb-4">
-          Book Your Package
-        </h1>
-        <form id="bookForm">
-          <label for="packageName">Package Name</label>
-          <select id="packageName" required></select>
-          <label for="guestNo">Number of Guests</label>
-          <input
-            type="number"
-            id="guestNo"
-            min="1"
-            placeholder="e.g., 2"
-            required
-          />
-          <label for="arrivalDate">Arrival Date</label>
-          <input type="date" id="arrivalDate" required />
-          <label for="request">Special Request</label>
-          <textarea
-            id="request"
-            rows="3"
-            placeholder="Any special requests?"
-          ></textarea>
-          <button type="submit">Book Now</button>
-          <p id="message"></p>
+    <main class="min-h-screen flex items-center justify-center p-6">
+      <div class="w-full max-w-xl bg-white rounded-2xl shadow-xl p-8 animate-slide-up">
+        <div class="flex items-center gap-3 mb-6">
+          <div class="p-3 rounded-full bg-gradient-to-br from-rose-500 to-pink-500">
+            <i class="fas fa-suitcase-rolling text-white text-xl"></i>
+          </div>
+          <h1 class="text-2xl font-semibold text-slate-800">Book Your Package</h1>
+        </div>
+
+        <div id="packagePreview" class="hidden mb-6 rounded-xl overflow-hidden bg-slate-50 relative group">
+          <img src="" alt="Package Preview" class="w-full h-48 object-cover transition-transform duration-300 group-hover:scale-105"/>
+          <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent"></div>
+          <div class="absolute bottom-0 left-0 right-0 p-4">
+            <p id="previewPackageName" class="text-white font-medium"></p>
+            <p id="previewPlace" class="text-white/90 text-sm"></p>
+            <p id="previewPrice" class="text-white/90 text-sm mt-1"></p>
+          </div>
+        </div>
+
+        <form id="bookForm" class="space-y-5">
+          <div class="space-y-2">
+            <label for="packageName" class="text-sm font-medium text-slate-700 flex items-center gap-2">
+              <i class="fas fa-map-marked-alt text-slate-400"></i>
+              Package Name
+            </label>
+            <select
+              id="packageName"
+              required
+              class="w-full px-4 py-2.5 border border-slate-200 rounded-xl focus:ring-2 focus:ring-rose-500/20 focus:border-rose-500 transition-all bg-white appearance-none bg-[url('data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2020%2020%22%20fill%3D%22%236B7280%22%3E%3Cpath%20fill-rule%3D%22evenodd%22%20d%3D%22M5.293%207.293a1%201%200%20011.414%200L10%2010.586l3.293-3.293a1%201%200%20111.414%201.414l-4%204a1%201%200%2001-1.414%200l-4-4a1%201%200%20010-1.414z%22%20clip-rule%3D%22evenodd%22%2F%3E%3C%2Fsvg%3E')] bg-[length:1.5em_1.5em] bg-[right_0.5rem_center] bg-no-repeat pr-10"
+            ></select>
+          </div>
+
+          <div class="space-y-2">
+            <label for="guestNo" class="text-sm font-medium text-slate-700 flex items-center gap-2">
+              <i class="fas fa-users text-slate-400"></i>
+              Number of Guests
+            </label>
+            <div class="relative group">
+              <input
+                type="number"
+                id="guestNo"
+                min="1"
+                placeholder="e.g., 2"
+                required
+                class="w-full px-4 py-2.5 border border-slate-200 rounded-xl focus:ring-2 focus:ring-rose-500/20 focus:border-rose-500 transition-all"
+              />
+              <div id="totalPrice" class="absolute right-3 top-1/2 -translate-y-1/2 text-sm font-medium text-rose-600 opacity-0 group-hover:opacity-100 transition-opacity"></div>
+            </div>
+          </div>
+
+          <div class="space-y-2">
+            <label for="arrivalDate" class="text-sm font-medium text-slate-700 flex items-center gap-2">
+              <i class="fas fa-calendar-alt text-slate-400"></i>
+              Arrival Date
+            </label>
+            <input
+              type="date"
+              id="arrivalDate"
+              required
+              class="w-full px-4 py-2.5 border border-slate-200 rounded-xl focus:ring-2 focus:ring-rose-500/20 focus:border-rose-500 transition-shadow date-input"
+            />
+          </div>
+
+          <div class="space-y-2">
+            <label for="request" class="text-sm font-medium text-slate-700 flex items-center gap-2">
+              <i class="fas fa-comment-alt text-slate-400"></i>
+              Special Request
+            </label>
+            <textarea
+              id="request"
+              rows="3"
+              placeholder="Any special requests or preferences?"
+              class="w-full px-4 py-2.5 border border-slate-200 rounded-xl focus:ring-2 focus:ring-rose-500/20 focus:border-rose-500 transition-shadow resize-none textarea-scrollbar"
+            ></textarea>
+          <button
+            type="submit"
+            class="w-full py-3.5 px-4 bg-gradient-to-r from-rose-600 to-pink-600 hover:from-rose-500 hover:to-pink-500 text-white rounded-xl font-medium transition-all duration-200 transform hover:scale-[1.02] focus:scale-[0.98] flex items-center justify-center gap-2 group"
+          >
+            <span class="inline-flex items-center gap-2">
+              <i class="fas fa-check-circle group-hover:rotate-12 transition-transform"></i>
+              Book Package
+            </span>
+          </button>
+          <div id="message" class="text-center font-medium mt-4 transition-all duration-300 opacity-0 transform translate-y-2"></div>
         </form>
       </div>
     </main>
@@ -56,6 +153,17 @@
       const message = document.getElementById("message");
       const form = document.getElementById("bookForm");
       const submitBtn = form.querySelector("button");
+      const packagePreview = document.getElementById("packagePreview");
+      const previewImg = packagePreview.querySelector("img");
+      const previewPackageName = document.getElementById("previewPackageName");
+      const previewPlace = document.getElementById("previewPlace");
+      const previewPrice = document.getElementById("previewPrice");
+      const totalPrice = document.getElementById("totalPrice");
+
+      // Format price with commas
+      function formatPrice(price) {
+        return new Intl.NumberFormat('en-IN').format(price);
+      }
 
       // === Extract Package ID and Delete Flag ===
       function getPackageIdFromURL() {
@@ -87,27 +195,71 @@
 
         const packages = data.packages || data;
 
+        // Add default option
+        const defaultOption = document.createElement("option");
+        defaultOption.value = "";
+        defaultOption.textContent = "Select a package";
+        packageSelect.appendChild(defaultOption);
+
         if (packageId) {
           const selected = packages.find((p) => p._id === packageId);
           if (!selected) {
-            message.textContent = "Package not found.";
-            message.style.color = "red";
+            showToast("Package not found", "error");
             return;
           }
           const option = document.createElement("option");
           option.value = selected.packageName;
           option.textContent = selected.packageName;
+          option.dataset.price = selected.price;
+          option.dataset.place = selected.place;
+          option.dataset.image = selected.url;
           option.selected = true;
           packageSelect.appendChild(option);
           packageSelect.disabled = true;
+          updatePackagePreview(selected);
         } else {
           packages.forEach((pkg) => {
             const option = document.createElement("option");
             option.value = pkg.packageName;
             option.textContent = pkg.packageName;
+            option.dataset.price = pkg.price;
+            option.dataset.place = pkg.place;
+            option.dataset.image = pkg.url;
             packageSelect.appendChild(option);
           });
         }
+
+        // Show preview and update total on package selection
+        packageSelect.addEventListener("change", () => {
+          const selectedOption = packageSelect.options[packageSelect.selectedIndex];
+          if (selectedOption.value) {
+            const packageData = {
+              packageName: selectedOption.value,
+              place: selectedOption.dataset.place,
+              price: selectedOption.dataset.price,
+              url: selectedOption.dataset.image
+            };
+            updatePackagePreview(packageData);
+            // Trigger guest number calculation
+            document.getElementById("guestNo").dispatchEvent(new Event("input"));
+          } else {
+            packagePreview.classList.add("hidden");
+            totalPrice.textContent = "";
+          }
+        });
+
+        // Calculate total price on guest number change
+        document.getElementById("guestNo").addEventListener("input", (e) => {
+          const selectedOption = packageSelect.options[packageSelect.selectedIndex];
+          if (selectedOption.value && e.target.value) {
+            const basePrice = parseInt(selectedOption.dataset.price);
+            const guests = parseInt(e.target.value);
+            const total = basePrice * guests;
+            totalPrice.textContent = `Total: ₹${formatPrice(total)}`;
+          } else {
+            totalPrice.textContent = "";
+          }
+        });
 
         // === Handle Booking ===
         form.addEventListener("submit", async (e) => {
@@ -132,25 +284,109 @@
             userId: userData.user._id,
           };
 
-          const response = await withLoader(submitBtn, () =>
-            bookPackage(bookingData)
-          );
+          try {
+            // Show loading state
+            submitBtn.disabled = true;
+            const btnContent = submitBtn.querySelector('span');
+            const originalContent = btnContent.innerHTML;
+            btnContent.innerHTML = `
+              <div class="flex items-center gap-3">
+                <svg class="loading-spinner h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                  <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                  <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                </svg>
+                Processing Booking...
+              </div>
+            `;
 
-          if (response?.error) {
-            showToast(response.message || "Booking failed", "error");
-            message.textContent = response.message || "Booking failed.";
-            message.style.color = "red";
-          } else {
-            showToast("Booking confirmed", "success");
-            message.textContent = "🎉 Booking successful!";
-            message.style.color = "green";
-            form.reset();
-            setTimeout(() => {
-              message.textContent = "";
-            }, 3000);
+            const response = await bookPackage(bookingData);
+
+            if (response?.error) {
+              showErrorMessage(response.message || "Booking failed");
+              showToast(response.message || "Booking failed", "error");
+            } else {
+              showSuccessMessage("🎉 Package booked successfully!");
+              showToast("Package booked successfully!", "success");
+              form.reset();
+              packagePreview.classList.add("hidden");
+              totalPrice.textContent = "";
+              if (!packageId) {
+                packageSelect.selectedIndex = 0;
+              }
+
+              // Scroll to top with smooth animation
+              window.scrollTo({ top: 0, behavior: 'smooth' });
+            }
+          } catch (error) {
+            showErrorMessage("An unexpected error occurred. Please try again.");
+            showToast("An unexpected error occurred", "error");
+          } finally {
+            // Restore button state
+            submitBtn.disabled = false;
+            const btnContent = submitBtn.querySelector('span');
+            btnContent.innerHTML = `
+              <i class="fas fa-check-circle group-hover:rotate-12 transition-transform"></i>
+              Book Package
+            `;
           }
         });
-      })(); // ✅ close async init
+
+        // Function to update package preview
+        function updatePackagePreview(pkg) {
+          if (pkg && pkg.url) {
+            previewImg.src = pkg.url;
+            previewPackageName.textContent = pkg.packageName;
+            previewPlace.textContent = pkg.place;
+            previewPrice.textContent = `₹${formatPrice(pkg.price)} per person`;
+            packagePreview.classList.remove("hidden");
+          } else {
+            packagePreview.classList.add("hidden");
+          }
+        }
+
+        // Functions to show messages with animation
+        function showSuccessMessage(text) {
+          showMessage(text, 'success');
+        }
+
+        function showErrorMessage(text) {
+          showMessage(text, 'error');
+        }
+
+        function showMessage(text, type = 'success') {
+          // Remove existing message if any
+          const existingMsg = message.querySelector('div');
+          if (existingMsg) {
+            existingMsg.classList.remove('animate-slide-in');
+            existingMsg.classList.add('opacity-0', 'translate-y-4');
+          }
+
+          // Create and insert new message
+          const msgElement = document.createElement('div');
+          msgElement.className = `px-4 py-3 rounded-xl shadow-lg flex items-center gap-3 animate-slide-in
+            ${type === 'success'
+              ? 'bg-gradient-to-r from-emerald-500 to-teal-500'
+              : 'bg-gradient-to-r from-rose-500 to-pink-500'
+            } text-white`;
+          msgElement.innerHTML = `
+            <i class="fas ${type === 'success' ? 'fa-check-circle' : 'fa-exclamation-circle'}
+              ${type === 'success' ? 'animate-bounce' : 'animate-pulse'}"></i>
+            <p class="flex-1">${text}</p>
+          `;
+
+          message.innerHTML = '';
+          message.appendChild(msgElement);
+
+          // Hide message after delay
+          setTimeout(() => {
+            msgElement.classList.remove('animate-slide-in');
+            msgElement.classList.add('opacity-0', 'translate-y-4');
+            msgElement.style.transition = 'all 0.3s ease-out';
+          }, 5000);
+        }
+
+        setupCars();
+      })();
     </script>
     <script type="module" src="./assets/js/tailwind-init.js"></script>
   </body>

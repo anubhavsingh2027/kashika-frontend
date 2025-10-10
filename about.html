@@ -3,44 +3,338 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
+    <title>About Us - Kashika Travel</title>
     <link
       href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css"
       rel="stylesheet"
     />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+    />
   </head>
-  <body>
+  <body class="bg-slate-50">
     <nav id="navbar" class="sticky top-0 z-40"></nav>
 
-    <main class="max-w-5xl mx-auto px-4 py-10">
-      <h1 class="text-3xl font-extrabold mb-4">About Kashika Travel</h1>
-      <p class="text-slate-700 leading-relaxed mb-4">
-        Kashika Travel is a trusted travel operator based in Varanasi, serving
-        pilgrims and travelers across the region. We operate a modern fleet —
-        from compact sedans to tempo travellers — and maintain high standards of
-        safety, cleanliness, and hospitality. Our drivers are professional,
-        experienced, and ready to assist with local knowledge to make your
-        journey comfortable.
-      </p>
+    <!-- Hero Section -->
+    <header
+      class="relative bg-gradient-to-br from-sky-600 via-indigo-600 to-rose-500 text-white overflow-hidden"
+    >
+      <div class="absolute inset-0">
+        <img
+          src="https://varanasitourism.in/images/slider1.jpg"
+          alt="Varanasi Ghats"
+          class="w-full h-full object-cover mix-blend-overlay opacity-20"
+        />
+      </div>
+      <div
+        class="relative max-w-7xl mx-auto px-4 py-20 sm:px-6 lg:px-8"
+        data-reveal
+      >
+        <div class="max-w-3xl">
+          <h1 class="text-4xl sm:text-5xl font-bold mb-6">
+            Discover Varanasi's Spirit with Kashika Travel
+          </h1>
+          <p class="text-xl text-white/90 leading-relaxed">
+            Your trusted companion for spiritual journeys and comfortable
+            travels in the holy city of Varanasi. Experience the perfect blend
+            of tradition and modern comfort.
+          </p>
+        </div>
+      </div>
+    </header>
 
-      <section class="bg-white rounded-lg shadow p-6">
-        <h2 class="font-semibold mb-2">Our Fleet & Services</h2>
-        <p class="text-slate-600">
-          We provide well-maintained vehicles including Tata Etios, Dzire,
-          Toyota Innova and Tempo Traveller (9+1). 24/7 support and personalized
-          itineraries are available on request.
-        </p>
+    <main class="relative">
+      <!-- About Us Overview -->
+      <section class="max-w-7xl mx-auto px-4 py-16 sm:px-6 lg:px-8">
+        <div
+          class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center"
+          data-reveal
+        >
+          <div class="space-y-6">
+            <h2
+              class="text-3xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-sky-600 to-indigo-600"
+            >
+              Your Journey, Our Commitment
+            </h2>
+            <p class="text-slate-600 leading-relaxed">
+              Kashika Travel is a premier travel operator based in Varanasi,
+              dedicated to providing exceptional travel experiences for pilgrims
+              and tourists alike. With years of expertise in the region, we
+              specialize in:
+            </p>
+            <ul class="space-y-4">
+              <li class="flex items-start gap-3">
+                <div
+                  class="flex-shrink-0 w-6 h-6 rounded-full bg-sky-100 flex items-center justify-center text-sky-600"
+                >
+                  <i class="fas fa-om text-sm"></i>
+                </div>
+                <div>
+                  <h3 class="font-semibold text-slate-800">Spiritual Tours</h3>
+                  <p class="text-slate-600">
+                    Curated pilgrim packages covering all major temples and
+                    ghats
+                  </p>
+                </div>
+              </li>
+              <li class="flex items-start gap-3">
+                <div
+                  class="flex-shrink-0 w-6 h-6 rounded-full bg-sky-100 flex items-center justify-center text-sky-600"
+                >
+                  <i class="fas fa-car text-sm"></i>
+                </div>
+                <div>
+                  <h3 class="font-semibold text-slate-800">
+                    Premium Car Rentals
+                  </h3>
+                  <p class="text-slate-600">
+                    Modern fleet with professional drivers and 24/7 support
+                  </p>
+                </div>
+              </li>
+              <li class="flex items-start gap-3">
+                <div
+                  class="flex-shrink-0 w-6 h-6 rounded-full bg-sky-100 flex items-center justify-center text-sky-600"
+                >
+                  <i class="fas fa-route text-sm"></i>
+                </div>
+                <div>
+                  <h3 class="font-semibold text-slate-800">
+                    Custom Itineraries
+                  </h3>
+                  <p class="text-slate-600">
+                    Personalized travel plans tailored to your preferences
+                  </p>
+                </div>
+              </li>
+            </ul>
+          </div>
+          <div class="lg:ml-6">
+            <div class="relative">
+              <div
+                class="absolute inset-0 bg-gradient-to-r from-sky-600/30 to-indigo-600/30 blur-2xl transform rotate-3 rounded-2xl"
+              ></div>
+              <img
+                src="https://varanasitourism.in/images/dashaswamedh-ghat-varanasi.jpg"
+                alt="Varanasi Ghats"
+                class="relative rounded-2xl shadow-xl w-full h-[400px] object-cover"
+              />
+            </div>
+          </div>
+        </div>
       </section>
 
-      <div class="mt-6">
-        <iframe
-          class="w-full h-96 rounded-lg"
-          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3606.1367874070056!2d82.98397047534226!3d25.333190577623633!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x398e2dc3ffffffff%3A0xde9120df8c61c1b4!2sKashika%20Travel!5e0!3m2!1sen!2sin!4v1760040531091!5m2!1sen!2sin"
-          style="border: 0"
-          allowfullscreen=""
-          loading="lazy"
-        ></iframe>
-      </div>
+      <!-- Services Grid -->
+      <section class="bg-white py-16">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8" data-reveal>
+          <h2
+            class="text-3xl font-bold text-center mb-12 bg-clip-text text-transparent bg-gradient-to-r from-sky-600 to-indigo-600"
+          >
+            Our Premium Services
+          </h2>
+          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <!-- Car Rental Card -->
+            <div
+              class="bg-white rounded-xl shadow-md hover:shadow-xl transition-all duration-300 group hover:-translate-y-1"
+            >
+              <div class="p-6">
+                <div
+                  class="w-12 h-12 bg-sky-100 rounded-lg flex items-center justify-center mb-4 group-hover:scale-110 transition-transform"
+                >
+                  <i class="fas fa-car-side text-xl text-sky-600"></i>
+                </div>
+                <h3 class="text-xl font-semibold mb-3">Premium Fleet</h3>
+                <ul class="space-y-2 text-slate-600">
+                  <li class="flex items-center gap-2">
+                    <i class="fas fa-check text-emerald-500"></i>
+                    Tata Etios - Comfort & Economy
+                  </li>
+                  <li class="flex items-center gap-2">
+                    <i class="fas fa-check text-emerald-500"></i>
+                    Maruti Dzire - Reliable & Spacious
+                  </li>
+                  <li class="flex items-center gap-2">
+                    <i class="fas fa-check text-emerald-500"></i>
+                    Toyota Innova - Premium Travel
+                  </li>
+                  <li class="flex items-center gap-2">
+                    <i class="fas fa-check text-emerald-500"></i>
+                    Tempo Traveller - Group Tours (9+1)
+                  </li>
+                </ul>
+              </div>
+            </div>
+
+            <!-- Tour Packages Card -->
+            <div
+              class="bg-white rounded-xl shadow-md hover:shadow-xl transition-all duration-300 group hover:-translate-y-1"
+            >
+              <div class="p-6">
+                <div
+                  class="w-12 h-12 bg-sky-100 rounded-lg flex items-center justify-center mb-4 group-hover:scale-110 transition-transform"
+                >
+                  <i class="fas fa-om text-xl text-sky-600"></i>
+                </div>
+                <h3 class="text-xl font-semibold mb-3">Spiritual Tours</h3>
+                <ul class="space-y-2 text-slate-600">
+                  <li class="flex items-center gap-2">
+                    <i class="fas fa-check text-emerald-500"></i>
+                    Kashi Vishwanath Temple Visits
+                  </li>
+                  <li class="flex items-center gap-2">
+                    <i class="fas fa-check text-emerald-500"></i>
+                    Evening Ganga Aarti Experience
+                  </li>
+                  <li class="flex items-center gap-2">
+                    <i class="fas fa-check text-emerald-500"></i>
+                    Morning Boat Rides
+                  </li>
+                  <li class="flex items-center gap-2">
+                    <i class="fas fa-check text-emerald-500"></i>
+                    Multi-Temple Pilgrimage Tours
+                  </li>
+                </ul>
+              </div>
+            </div>
+
+            <!-- Additional Services Card -->
+            <div
+              class="bg-white rounded-xl shadow-md hover:shadow-xl transition-all duration-300 group hover:-translate-y-1"
+            >
+              <div class="p-6">
+                <div
+                  class="w-12 h-12 bg-sky-100 rounded-lg flex items-center justify-center mb-4 group-hover:scale-110 transition-transform"
+                >
+                  <i class="fas fa-concierge-bell text-xl text-sky-600"></i>
+                </div>
+                <h3 class="text-xl font-semibold mb-3">Extra Services</h3>
+                <ul class="space-y-2 text-slate-600">
+                  <li class="flex items-center gap-2">
+                    <i class="fas fa-check text-emerald-500"></i>
+                    24/7 Customer Support
+                  </li>
+                  <li class="flex items-center gap-2">
+                    <i class="fas fa-check text-emerald-500"></i>
+                    Professional Tour Guides
+                  </li>
+                  <li class="flex items-center gap-2">
+                    <i class="fas fa-check text-emerald-500"></i>
+                    Hotel Bookings
+                  </li>
+                  <li class="flex items-center gap-2">
+                    <i class="fas fa-check text-emerald-500"></i>
+                    Custom Travel Planning
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Why Choose Us -->
+      <section class="py-16 bg-slate-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8" data-reveal>
+          <h2
+            class="text-3xl font-bold text-center mb-12 bg-clip-text text-transparent bg-gradient-to-r from-sky-600 to-indigo-600"
+          >
+            Why Choose Kashika Travel
+          </h2>
+          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+            <div class="text-center">
+              <div
+                class="w-16 h-16 mx-auto bg-sky-100 rounded-xl flex items-center justify-center mb-4"
+              >
+                <i class="fas fa-shield-alt text-2xl text-sky-600"></i>
+              </div>
+              <h3 class="font-semibold mb-2">Safe & Reliable</h3>
+              <p class="text-slate-600">
+                Verified drivers and well-maintained vehicles for your safety
+              </p>
+            </div>
+            <div class="text-center">
+              <div
+                class="w-16 h-16 mx-auto bg-sky-100 rounded-xl flex items-center justify-center mb-4"
+              >
+                <i class="fas fa-clock text-2xl text-sky-600"></i>
+              </div>
+              <h3 class="font-semibold mb-2">24/7 Support</h3>
+              <p class="text-slate-600">
+                Round-the-clock assistance for all your travel needs
+              </p>
+            </div>
+            <div class="text-center">
+              <div
+                class="w-16 h-16 mx-auto bg-sky-100 rounded-xl flex items-center justify-center mb-4"
+              >
+                <i class="fas fa-map-marked-alt text-2xl text-sky-600"></i>
+              </div>
+              <h3 class="font-semibold mb-2">Local Expertise</h3>
+              <p class="text-slate-600">
+                Deep knowledge of Varanasi's culture and heritage
+              </p>
+            </div>
+            <div class="text-center">
+              <div
+                class="w-16 h-16 mx-auto bg-sky-100 rounded-xl flex items-center justify-center mb-4"
+              >
+                <i class="fas fa-hand-holding-heart text-2xl text-sky-600"></i>
+              </div>
+              <h3 class="font-semibold mb-2">Personalized Care</h3>
+              <p class="text-slate-600">
+                Customized services to meet your specific needs
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Contact & Location -->
+      <section class="bg-white py-16">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8" data-reveal>
+          <div class="grid grid-cols-1 lg:grid-cols-2 gap-12">
+            <div class="space-y-6">
+              <h2
+                class="text-3xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-sky-600 to-indigo-600"
+              >
+                Visit Our Office
+              </h2>
+              <div class="space-y-4 text-slate-600">
+                <p class="flex items-start gap-3">
+                  <i class="fas fa-map-marker-alt mt-1 text-sky-600"></i>
+                  52 Patel Nagar, Near Hotel New Temple Town, Varanasi - 221002
+                </p>
+                <p class="flex items-center gap-3">
+                  <i class="fas fa-phone text-sky-600"></i>
+                  +91 123-456-7890
+                </p>
+                <p class="flex items-center gap-3">
+                  <i class="fas fa-envelope text-sky-600"></i>
+                  contact@kashika.travel
+                </p>
+              </div>
+              <div class="pt-4">
+                <a
+                  href="contact.html"
+                  class="inline-flex items-center gap-2 px-6 py-3 bg-sky-600 text-white rounded-xl hover:bg-sky-700 transition-colors"
+                >
+                  Contact Us <i class="fas fa-arrow-right"></i>
+                </a>
+              </div>
+            </div>
+            <div class="h-[400px] rounded-xl overflow-hidden shadow-xl">
+              <iframe
+                class="w-full h-full"
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3606.1367874070056!2d82.98397047534226!3d25.333190577623633!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x398e2dc3ffffffff%3A0xde9120df8c61c1b4!2sKashika%20Travel!5e0!3m2!1sen!2sin!4v1760040531091!5m2!1sen!2sin"
+                style="border: 0"
+                allowfullscreen=""
+                loading="lazy"
+              ></iframe>
+            </div>
+          </div>
+        </div>
+      </section>
 
       <script type="module" src="./assets/js/DynamicNav.js"></script>
       <script type="module" src="./assets/js/tailwind-init.js"></script>
