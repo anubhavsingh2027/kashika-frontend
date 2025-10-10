@@ -249,16 +249,18 @@ export async function userTypeChanged(typeData){
 }
 
 //===API :Log out ===
-export async function logoutRequiested(){
-  try {
-  await fetch("https://your-backend-url.com/logout", {
-  method: "POST",
-  credentials: "include",
-});
 
-  const data = await response.json();
+// === API: User Logout ===
+export async function logoutRequested() {
+  try {
+    const response = await fetch("https://kashika-backend.onrender.com/kashikaTravel/logout", {
+      method: "POST",
+      credentials: "include",
+    });
+
+    const data = await response.json();
     return data;
   } catch (error) {
-    return { error: true, message: "Network Error" };
+    return { status: false, message: "Network Error" };
   }
 }
