@@ -269,7 +269,7 @@
             const email = document.getElementById("email").value.trim();
             const password = document.getElementById("password").value;
             const loginData = { email, password };
-
+            console.log("login form se kuch dega ",loginData);
             try {
               setLoading(true);
               const data = await loginUser(loginData);
@@ -305,6 +305,7 @@
             }
           });
         }
+        console.log("form hi kuch dikhate hai ");
       })();
     </script>
   </body>
