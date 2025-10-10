@@ -25,10 +25,10 @@ function buildLinkHtml(link, isActive) {
 
   return `
     <a href="${link.href}"
-       class="group relative px-5 py-2.5 rounded-xl text-[15px] font-medium tracking-wide transition-all duration-300 overflow-hidden ${
+       class="group relative px-4 py-2 rounded-xl text-[14px] font-medium tracking-wide transition-all duration-300 overflow-hidden ${
          isActive
-           ? 'bg-gradient-to-r from-sky-500 to-indigo-500 text-black shadow-lg shadow-sky-500/20'
-           : 'bg-white/90 text-black hover:bg-sky-500/90 hover:text-black'
+           ? 'active-gradient text-black shadow-md'
+           : 'bg-white text-black hover:bg-gray-100 hover:shadow-md'
        }"
     >
       <span class="relative z-10 flex items-center gap-2.5">
@@ -137,8 +137,8 @@ async function loadNavbar() {
 
             <!-- Enhanced Desktop Navigation -->
             <div class="hidden md:flex md:items-center">
-              <div class="bg-slate-800/80 backdrop-blur-xl rounded-2xl p-2 shadow-xl border border-slate-700">
-                <div class="flex items-center gap-1">
+              <div class="bg-gray-100/80 backdrop-blur-xl rounded-2xl p-2 shadow-md border border-gray-200">
+                <div class="flex items-center gap-2">
                   ${links.map(l => buildLinkHtml(l, l.href.endsWith(current))).join('')}
                 </div>
               </div>
@@ -149,7 +149,7 @@ async function loadNavbar() {
               <button
                 id="mobileMenuBtn"
                 aria-label="Toggle menu"
-                class="relative p-3 rounded-xl text-white transition-all duration-300 hover:scale-105 focus:outline-none group bg-gradient-to-r from-sky-500/10 to-indigo-500/10 border border-white/10"
+                class="relative p-3 rounded-xl text-black transition-all duration-300 hover:scale-105 focus:outline-none group bg-gray-200 hover:bg-gray-300 border border-gray-300 shadow-sm"
               >
                 <!-- Button background effects -->
                 <div class="absolute inset-0 bg-gradient-to-r from-sky-400/20 to-indigo-400/20 rounded-xl blur-lg transform transition-transform group-hover:scale-110"></div>
@@ -170,7 +170,7 @@ async function loadNavbar() {
                   </svg>
 
                   <!-- Hover glow effect -->
-                  <div class="absolute inset-0 bg-white/20 rounded-full blur opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                  <div class="absolute inset-0 bg-black/20 rounded-full blur opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
                 </div>
               </button>
             </div>
@@ -207,7 +207,7 @@ async function loadNavbar() {
 
               return `
                 <a href="${l.href}"
-                  class="nav-item group block p-4 rounded-xl text-base font-medium text-black bg-white/90 hover:text-black transition-all duration-300 hover:bg-sky-500/90 backdrop-blur-sm border border-slate-300 hover:border-sky-500/50"
+                  class="nav-item group block p-3 rounded-xl text-sm font-medium text-black ${l.href.endsWith(current) ? 'active-gradient' : 'bg-gray-100'} hover:text-black transition-all duration-300 hover:bg-gray-200 border border-gray-200 hover:border-gray-300 hover:shadow-md"
                   style="animation: slide-up 0.5s ease forwards ${i * 0.05}s; opacity: 0; transform: translateY(20px)">
                   <div class="relative flex items-center gap-3">
                     <div class="flex items-center justify-center w-8 h-8 rounded-lg bg-slate-800/80 group-hover:bg-sky-500/20 transition-colors duration-300">
@@ -229,6 +229,24 @@ async function loadNavbar() {
       </div>
 
       <style>
+        .active-gradient {
+          background: linear-gradient(
+            135deg,
+            white 0%,
+            #cce7ff 25%,
+            #dfe3eb 50%,
+            #ffd6d6 100%
+          );
+          background-size: 200% 200%;
+          animation: gradient-shift 3s ease infinite;
+        }
+
+        @keyframes gradient-shift {
+          0% { background-position: 0% 50%; }
+          50% { background-position: 100% 50%; }
+          100% { background-position: 0% 50%; }
+        }
+
         @keyframes slide-up {
           from { transform: translateY(20px); opacity: 0; }
           to { transform: translateY(0); opacity: 1; }
