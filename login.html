@@ -257,7 +257,10 @@
                 return;
               }
 
-              showToast(data.message || "Logged in successfully", "success");
+              // Only show success toast if there's a message from server
+              if (data.message) {
+                showToast(data.message, "success");
+              }
               loginForm.reset();
 
               // Smooth redirect
@@ -273,8 +276,7 @@
                 }, 100);
               }, 1200);
             } catch (err) {
-              showMessage("Network error. Please try again.", 'error');
-              showToast("Network error", "error");
+              showToast("Network error. Please try again.", "error");
             } finally {
               setLoading(false);
             }
