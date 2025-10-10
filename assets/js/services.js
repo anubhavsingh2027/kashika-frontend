@@ -73,7 +73,6 @@ export async function loginUser(loginData) {
 
     return data;
   } catch (error) {
-    console.log("error me hu :",error);
     return { status: false, message:error.message };
   }
 }

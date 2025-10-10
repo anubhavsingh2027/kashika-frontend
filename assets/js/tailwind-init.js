@@ -8,21 +8,45 @@ export function showToast(message, type = 'info', timeout = 3500) {
     document.body.appendChild(container);
   }
 
-  const bgColor = type === 'success' ? 'bg-gradient-to-r from-emerald-500 to-teal-500' :
-                  type === 'error' ? 'bg-gradient-to-r from-rose-500 to-pink-500' :
-                  'bg-gradient-to-r from-sky-500 to-indigo-500';
+  const getToastStyles = (type) => {
+    switch(type) {
+      case 'success':
+        return {
+          bg: 'bg-green-500',
+          shadow: 'shadow-lg shadow-green-500/20',
+          ring: 'ring-1 ring-green-400/50'
+        };
+      case 'error':
+        return {
+          bg: 'bg-red-500',
+          shadow: 'shadow-lg shadow-red-500/20',
+          ring: 'ring-1 ring-red-400/50'
+        };
+      default:
+        return {
+          bg: 'bg-blue-500',
+          shadow: 'shadow-lg shadow-blue-500/20',
+          ring: 'ring-1 ring-blue-400/50'
+        };
+    }
+  };
 
+  const styles = getToastStyles(type);
   const toast = document.createElement('div');
-  toast.className = `${bgColor} text-white px-6 py-3 rounded-xl shadow-xl backdrop-blur-sm
-                     ring-1 ring-white/20 animate-slide-in-right flex items-center gap-3`;
+  toast.className = `${styles.bg} text-white px-6 py-3 rounded-xl ${styles.shadow} backdrop-blur-sm
+                     ${styles.ring} animate-slide-in-right flex items-center gap-3
+                     transform hover:scale-102 transition-all duration-300`;
 
   const icon = document.createElement('i');
-  icon.className = `fas ${type === 'success' ? 'fa-check-circle animate-bounce' :
-                         type === 'error' ? 'fa-exclamation-circle animate-pulse' :
-                         'fa-info-circle'} text-white`;
+  icon.className = `fas ${type === 'success' ? 'fa-check-circle text-emerald-100' :
+                         type === 'error' ? 'fa-exclamation-circle text-rose-100' :
+                         'fa-info-circle text-sky-100'} text-lg ${
+                         type === 'success' ? 'animate-bounce' :
+                         type === 'error' ? 'animate-pulse' : ''
+                         }`;
 
   const text = document.createElement('span');
-  text.className = 'font-medium';
+  text.className = 'font-medium text-white/90';
   text.textContent = message;
 
   toast.appendChild(icon);
@@ -92,6 +116,7 @@ export function mountUtilities() {
         50% { box-shadow: 0 0 0 4px rgba(56, 189, 248, 0) }
         100% { box-shadow: 0 0 0 0 rgba(56, 189, 248, 0) }
       }
+      .scale-102 { transform: scale(1.02); }
       @keyframes nav-slide-down {
         from { transform: translateY(-100%); opacity: 0 }
         to { transform: translateY(0); opacity: 1 }
