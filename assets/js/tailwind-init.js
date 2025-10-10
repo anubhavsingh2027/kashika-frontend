@@ -4,14 +4,29 @@ export function showToast(message, type = 'info', timeout = 3500) {
   if (!container) {
     container = document.createElement('div');
     container.id = 'toast-container';
-    container.className = 'fixed top-6 right-6 z-50 flex flex-col gap-3';
+    container.className = 'fixed top-6 right-6 z-50 flex flex-col items-end gap-4 max-w-md';
     document.body.appendChild(container);
   }
 
-  const color = type === 'success' ? 'bg-emerald-500' : type === 'error' ? 'bg-red-500' : 'bg-sky-500';
+  const bgColor = type === 'success' ? 'bg-gradient-to-r from-emerald-500 to-teal-500' :
+                  type === 'error' ? 'bg-gradient-to-r from-rose-500 to-pink-500' :
+                  'bg-gradient-to-r from-sky-500 to-indigo-500';
+
   const toast = document.createElement('div');
-  toast.className = `${color} text-white px-4 py-2 rounded-lg shadow-lg animate-slide-in-right`;
-  toast.textContent = message;
+  toast.className = `${bgColor} text-white px-6 py-3 rounded-xl shadow-xl backdrop-blur-sm
+                     ring-1 ring-white/20 animate-slide-in-right flex items-center gap-3`;
+
+  const icon = document.createElement('i');
+  icon.className = `fas ${type === 'success' ? 'fa-check-circle animate-bounce' :
+                         type === 'error' ? 'fa-exclamation-circle animate-pulse' :
+                         'fa-info-circle'} text-white`;
+
+  const text = document.createElement('span');
+  text.className = 'font-medium';
+  text.textContent = message;
+
+  toast.appendChild(icon);
+  toast.appendChild(text);
   container.appendChild(toast);
 
   setTimeout(() => {
