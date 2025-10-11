@@ -256,9 +256,9 @@ export async function logoutRequested() {
 
 //===api fetch : user hitory ===
 
-export async function userHistory(params) {
+export async function userHistory(id) {
   try {
-    const response = await fetch("https://kashika-backend.onrender.com/kashikaTravel/userHistory/:id", {
+    const response = await fetch(`https://kashika-backend.onrender.com/kashikaTravel/userHistory/${id}`, {
       credentials: "include",
     });
 
