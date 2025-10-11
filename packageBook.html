@@ -176,8 +176,6 @@
 
       const { id: packageId, isDelete } = getPackageIdFromURL();
 
-      console.log(packageId, isDelete);
-
       // === MAIN LOGIC ===
       (async function init() {
         if (isDelete && packageId) {

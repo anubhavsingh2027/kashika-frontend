@@ -95,7 +95,6 @@
                 alert(response.message || "Failed to change user type");
               }
             } catch (err) {
-              console.error("Error updating user type:", err);
             }
             return; // stop here after handling update
           }
@@ -127,7 +126,6 @@
             container.appendChild(card);
           });
         } catch (err) {
-          console.error("Error loading users:", err);
         }
       }
 

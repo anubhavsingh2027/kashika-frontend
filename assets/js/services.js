@@ -33,7 +33,6 @@ export async function addCar(carData) {
     const data = await response.json();
     return data;
   } catch (error) {
-    console.error("API call failed:", error);
     return { error: true, message: "Network Error " };
   }
 }
@@ -51,7 +50,6 @@ export async function registerUser(userData) {
     const data = await response.json();
     return data;
   } catch (error) {
-    console.error("API call failed:", error);
     return { error: true, message: "Network Error " };
   }
 }
@@ -59,7 +57,6 @@ export async function registerUser(userData) {
 
 // === API: User Login ===
 export async function loginUser(loginData) {
-  console.log|("data kya aaraha hai login me hu ",loginData);
 
   try {
     const response = await fetch("https://kashika-backend.onrender.com/kashikaTravel/login", {
@@ -91,7 +88,6 @@ export  async function forgetPass(forgetData){
 
     return data;
   } catch (error) {
-    console.error("API call failed:", error);
     return { error: true, message: "Network Error " };
   }
 }
@@ -104,10 +100,8 @@ export async function getUserSession() {
     });
 
     const data = await response.json();
-    console.log("data :",data)
     return data;
   } catch (error) {
-    console.error("Failed to fetch session:", error);
     return { loggedIn: false, user: { userType: "guest" } };
   }
 }
@@ -128,7 +122,6 @@ export async function bookPackage(bookingData) {
 
     return data;
   } catch (error) {
-    console.error("API call failed:", error);
     return { error: true, message: "Network Error " };
   }
 }
@@ -149,7 +142,6 @@ export async function bookingCar(bookingData) {
 
     return data;
   } catch (error) {
-    console.error("API call failed:", error);
     return { error: true, message: "Network Error " };
   }
 }
@@ -164,7 +156,6 @@ export async function getAllCars() {
     const data = await response.json();
     return data;
   } catch (error) {
-    console.error("Error fetching cars:", error);
     return { error: true,message:"Network Error" };
   }
 }
@@ -179,7 +170,6 @@ export async function getAllPackages() {
     const data = await response.json();
     return data;
   } catch (error) {
-    console.error("Error fetching packages:", error);
     return { error: true,message:"Network Error" };
   }
 }
@@ -195,7 +185,6 @@ export async function deleteCar(id) {
     const data = await response.json();
     return data;
   } catch (error) {
-    console.error("Error fetching packages:", error);
     return { error: true,message:"Network Error" };
   }
 }
@@ -209,7 +198,6 @@ export async function deletePackage(id) {
       credentials: "include"
     });
     const data = await response.json();
-    console.log("here is data :",data);
     return data;
   } catch (error) {
     return { error: true,message:"Network Problem" };
@@ -226,7 +214,6 @@ export async function getUsers(){
     const data = await response.json();
     return data;
   } catch (error) {
-    console.error("Error fetching cars:", error);
     return { error: true,message:"Network Error" };
   }
 }

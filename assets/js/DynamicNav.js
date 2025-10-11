@@ -321,7 +321,6 @@ async function loadNavbar() {
       });
     }
   } catch (err) {
-    console.error('Navbar load failed:', err);
     navbar.innerHTML = '<div class="p-4 bg-slate-800 text-white"><a href="index.html">Home</a></div>';
   }
 }

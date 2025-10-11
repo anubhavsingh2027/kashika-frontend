@@ -27,8 +27,7 @@
       async function loadCars() {
         const userSession = await getUserSession();
         const userType = userSession?.user?.userType || "guest";
-        // console.log("user type by program in car detail :",userType);
-        // console.log("user type by me: ",userSession);
+        
 
         const data = await getAllCars();
         const container = document.getElementById("carContainer");
