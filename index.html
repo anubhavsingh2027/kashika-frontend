@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>jjjjjjjjjjjjjjjjjjjjjjjjjjj</title>
+    <title>Kashika Travel</title>
 
     <!-- Keep your original Tailwind link but update to latest version -->
     <script src="https://cdn.tailwindcss.com"></script>
@@ -165,6 +165,64 @@
         box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
       }
 
+      /* Testimonial Enhancements */
+      .testimonial-slide {
+        opacity: 0;
+        transform: translateX(20px);
+        transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+      }
+
+      .testimonial-slide.active {
+        opacity: 1;
+        transform: translateX(0);
+      }
+
+      .testimonial-indicator {
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        background-color: #e2e8f0;
+        transition: all 0.3s ease;
+        cursor: pointer;
+      }
+
+      .testimonial-indicator.active {
+        width: 24px;
+        border-radius: 9999px;
+        background-image: linear-gradient(to right, #2563eb, #7c3aed);
+      }
+
+      @keyframes quote-bounce {
+        0%,
+        100% {
+          transform: rotate(0deg);
+        }
+        25% {
+          transform: rotate(-3deg);
+        }
+        75% {
+          transform: rotate(3deg);
+        }
+      }
+
+      .animate-quote {
+        animation: quote-bounce 3s ease-in-out infinite;
+      }
+
+      .bg-grid {
+        background-image: linear-gradient(
+            to right,
+            rgba(99, 179, 237, 0.1) 1px,
+            transparent 1px
+          ),
+          linear-gradient(
+            to bottom,
+            rgba(99, 179, 237, 0.1) 1px,
+            transparent 1px
+          );
+        background-size: 24px 24px;
+      }
+
       /* Scroll Animations */
       .fade-in {
         opacity: 0;
@@ -183,35 +241,45 @@
     <!-- Hero Section with Enhanced Styling -->
     <section
       id="home"
-      class="relative min-h-screen bg-gradient-to-br from-blue-900 via-purple-800 to-orange-600 flex items-center justify-center overflow-hidden"
+      class="relative min-h-screen flex items-center justify-center overflow-hidden bg-cover bg-center"
+      style="
+        background-image: url('https://wallpapercave.com/wp/wp6759674.jpg');
+      "
     >
+      <!-- Gradient Overlay for Better Text Visibility -->
+      <div
+        class="absolute inset-0 bg-gradient-to-b from-black/70 via-black/40 to-black/70"
+      ></div>
+
       <!-- Background Animation Elements -->
       <div class="absolute inset-0 overflow-hidden">
         <div
-          class="absolute -top-40 -right-40 w-80 h-80 bg-white bg-opacity-10 rounded-full blur-3xl animate-float"
+          class="absolute -top-40 -right-40 w-80 h-80 bg-gradient-to-r from-blue-500/20 to-purple-500/20 rounded-full blur-3xl animate-float"
         ></div>
         <div
-          class="absolute -bottom-40 -left-40 w-96 h-96 bg-white bg-opacity-10 rounded-full blur-3xl animate-blob"
+          class="absolute -bottom-40 -left-40 w-96 h-96 bg-gradient-to-r from-pink-500/20 to-orange-400/20 rounded-full blur-3xl animate-blob"
         ></div>
       </div>
 
+      <!-- Content -->
       <div
-        class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center"
+        class="relative z-10 max-w-7xl mx-auto px-6 sm:px-8 text-center text-white"
       >
         <div class="fade-in">
           <h1
-            class="text-5xl md:text-7xl font-extrabold text-white mb-6 text-shadow"
+            class="text-5xl md:text-7xl font-extrabold mb-6 leading-tight drop-shadow-lg"
           >
             Discover the
             <span
-              class="bg-gradient-to-r from-yellow-300 to-orange-400 bg-clip-text text-transparent"
+              class="bg-gradient-to-r from-yellow-300 via-orange-400 to-red-400 bg-clip-text text-transparent"
             >
               Sacred City
             </span>
             <br />of Varanasi
           </h1>
+
           <p
-            class="text-xl md:text-2xl text-white opacity-90 mb-8 max-w-3xl mx-auto leading-relaxed text-shadow"
+            class="text-xl md:text-2xl opacity-90 mb-10 max-w-3xl mx-auto leading-relaxed drop-shadow-md"
           >
             Embark on a spiritual journey through ancient temples, sacred ghats,
             and timeless traditions. Experience the mystical charm of Varanasi
@@ -223,38 +291,38 @@
             class="flex flex-wrap justify-center items-center gap-6 mb-12 text-white"
           >
             <div
-              class="flex items-center space-x-3 glass-effect px-6 py-3 rounded-full"
+              class="flex items-center space-x-3 glass-effect px-6 py-3 rounded-full backdrop-blur-md bg-white/10 border border-white/20"
             >
               <i class="fas fa-star text-yellow-400 text-xl"></i>
               <span class="font-semibold">From 2,000+ reviews</span>
             </div>
             <div
-              class="flex items-center space-x-3 glass-effect px-6 py-3 rounded-full"
+              class="flex items-center space-x-3 glass-effect px-6 py-3 rounded-full backdrop-blur-md bg-white/10 border border-white/20"
             >
               <i class="fas fa-shield-alt text-blue-400 text-xl"></i>
               <span class="font-semibold">Verified Services</span>
             </div>
             <div
-              class="flex items-center space-x-3 glass-effect px-6 py-3 rounded-full"
+              class="flex items-center space-x-3 glass-effect px-6 py-3 rounded-full backdrop-blur-md bg-white/10 border border-white/20"
             >
               <i class="fas fa-landmark text-orange-400 text-xl"></i>
               <span class="font-semibold">Ancient Heritage</span>
             </div>
             <div
-              class="flex items-center space-x-3 glass-effect px-6 py-3 rounded-full"
+              class="flex items-center space-x-3 glass-effect px-6 py-3 rounded-full backdrop-blur-md bg-white/10 border border-white/20"
             >
               <i class="fas fa-clock text-purple-400 text-xl"></i>
               <span class="font-semibold">24/7 Available</span>
             </div>
           </div>
 
-          <!-- Enhanced Buttons -->
+          <!-- Buttons -->
           <div
             class="flex flex-col sm:flex-row gap-4 justify-center items-center"
           >
             <a
               href="#special-packages"
-              class="bg-gradient-to-r from-blue-600 to-purple-600 text-white px-8 py-4 rounded-full font-bold text-lg shadow-2xl hover-scale transform transition-all duration-300"
+              class="bg-gradient-to-r from-blue-600 to-purple-600 text-white px-8 py-4 rounded-full font-bold text-lg shadow-2xl transform hover:scale-105 transition-transform duration-300"
             >
               <span class="flex items-center space-x-3">
                 <i class="fas fa-play"></i>
@@ -262,7 +330,7 @@
               </span>
             </a>
             <button
-              class="glass-effect text-white px-8 py-4 rounded-full font-bold text-lg hover-lift border border-white border-opacity-30"
+              class="backdrop-blur-md bg-white/10 hover:bg-white/20 border border-white/30 text-white px-8 py-4 rounded-full font-bold text-lg transition-all duration-300 transform hover:-translate-y-1"
             >
               <span class="flex items-center space-x-3">
                 <i class="fas fa-phone"></i>
@@ -299,27 +367,136 @@
       </div>
     </section>
 
-    <!-- What our travelers say Section -->
-    <section class="py-20 bg-gradient-to-br from-gray-50 to-blue-50 relative">
-      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="text-center mb-16 fade-in">
-          <h2
-            class="text-4xl md:text-5xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent mb-6"
+    <!-- Enhanced Testimonials Section -->
+    <section
+      class="py-24 bg-gradient-to-br from-gray-50 via-blue-50/30 to-indigo-50/20 relative overflow-hidden"
+    >
+      <!-- Decorative Background Elements -->
+      <div class="absolute inset-0">
+        <div
+          class="absolute top-0 left-0 w-96 h-96 bg-gradient-to-br from-blue-200/20 to-purple-200/20 rounded-full blur-3xl transform -translate-x-1/2 -translate-y-1/2"
+        ></div>
+        <div
+          class="absolute bottom-0 right-0 w-96 h-96 bg-gradient-to-br from-indigo-200/20 to-sky-200/20 rounded-full blur-3xl transform translate-x-1/2 translate-y-1/2"
+        ></div>
+        <div class="absolute inset-0 bg-grid opacity-10"></div>
+      </div>
+
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
+        <!-- Enhanced Section Header -->
+        <div class="text-center mb-20 fade-in">
+          <div
+            class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/80 backdrop-blur-sm border border-slate-200 shadow-sm mb-6"
           >
-            What our travelers say
+            <i class="fas fa-quote-left text-indigo-500"></i>
+            <span class="text-slate-800 font-medium">Traveler Stories</span>
+            <i class="fas fa-quote-right text-indigo-500"></i>
+          </div>
+          <h2
+            class="text-4xl md:text-5xl font-bold bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-600 bg-clip-text text-transparent mb-6"
+          >
+            What Our Travelers Say
           </h2>
-          <p class="text-xl text-gray-600 max-w-3xl mx-auto">
+          <p class="text-xl text-slate-600 max-w-3xl mx-auto leading-relaxed">
             Discover the authentic experiences shared by our valued guests who
             have explored the spiritual essence of Varanasi with us
           </p>
         </div>
 
-        <!-- Keep your original testimonial container -->
+        <!-- Enhanced Testimonial Carousel -->
+        <div class="relative">
+          <!-- Previous Button -->
+          <button
+            id="prevTestimonial"
+            class="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-4 lg:-translate-x-12 w-12 h-12 rounded-full bg-white/80 backdrop-blur-sm border border-slate-200 shadow-lg z-10 hover:bg-white transition-all duration-300 group"
+          >
+            <i
+              class="fas fa-arrow-left text-slate-600 group-hover:text-indigo-600 transition-colors"
+            ></i>
+          </button>
+
+          <!-- Testimonial Container -->
+          <div
+            id="testimonialCarousel"
+            class="relative w-full max-w-4xl mx-auto"
+          >
+            <div
+              class="relative bg-white/80 backdrop-blur-lg rounded-2xl p-8 md:p-12 shadow-xl border border-slate-100"
+            >
+              <!-- Quote Icon -->
+              <div
+                class="absolute top-0 right-0 transform translate-x-4 -translate-y-4 w-20 h-20"
+              >
+                <div
+                  class="absolute inset-0 bg-gradient-to-br from-indigo-600 to-purple-600 rounded-2xl transform rotate-6 opacity-20"
+                ></div>
+                <div
+                  class="absolute inset-0 bg-white rounded-2xl flex items-center justify-center"
+                >
+                  <i class="fas fa-quote-right text-3xl text-indigo-600/40"></i>
+                </div>
+              </div>
+
+              <!-- Dynamic Content -->
+              <div class="testimonial-content space-y-6">
+                <!-- Content will be dynamically inserted here -->
+              </div>
+
+              <!-- Rating Stars -->
+              <div class="flex items-center gap-1 mb-8">
+                <i class="fas fa-star text-yellow-400"></i>
+                <i class="fas fa-star text-yellow-400"></i>
+                <i class="fas fa-star text-yellow-400"></i>
+                <i class="fas fa-star text-yellow-400"></i>
+                <i class="fas fa-star text-yellow-400"></i>
+              </div>
+
+              <!-- Indicators -->
+              <div class="flex items-center justify-center gap-2 mt-8">
+                <!-- Will be dynamically populated -->
+              </div>
+            </div>
+          </div>
+
+          <!-- Next Button -->
+          <button
+            id="nextTestimonial"
+            class="absolute right-0 top-1/2 -translate-y-1/2 translate-x-4 lg:translate-x-12 w-12 h-12 rounded-full bg-white/80 backdrop-blur-sm border border-slate-200 shadow-lg z-10 hover:bg-white transition-all duration-300 group"
+          >
+            <i
+              class="fas fa-arrow-right text-slate-600 group-hover:text-indigo-600 transition-colors"
+            ></i>
+          </button>
+        </div>
+
+        <!-- Trust Indicators -->
         <div
-          id="testimonialCarousel"
-          class="relative w-full max-w-4xl mx-auto glass-effect rounded-2xl p-8 shadow-xl"
+          class="grid grid-cols-2 md:grid-cols-4 gap-6 mt-20 max-w-4xl mx-auto"
         >
-          <!-- Dynamic testimonials load here -->
+          <div
+            class="bg-white/80 backdrop-blur-sm rounded-xl p-6 text-center shadow-lg border border-slate-100 hover:-translate-y-1 transition-transform duration-300"
+          >
+            <div class="text-3xl font-bold text-indigo-600 mb-2">500+</div>
+            <div class="text-slate-600">Happy Travelers</div>
+          </div>
+          <div
+            class="bg-white/80 backdrop-blur-sm rounded-xl p-6 text-center shadow-lg border border-slate-100 hover:-translate-y-1 transition-transform duration-300"
+          >
+            <div class="text-3xl font-bold text-sky-600 mb-2">4.9/5</div>
+            <div class="text-slate-600">Average Rating</div>
+          </div>
+          <div
+            class="bg-white/80 backdrop-blur-sm rounded-xl p-6 text-center shadow-lg border border-slate-100 hover:-translate-y-1 transition-transform duration-300"
+          >
+            <div class="text-3xl font-bold text-purple-600 mb-2">98%</div>
+            <div class="text-slate-600">Satisfaction Rate</div>
+          </div>
+          <div
+            class="bg-white/80 backdrop-blur-sm rounded-xl p-6 text-center shadow-lg border border-slate-100 hover:-translate-y-1 transition-transform duration-300"
+          >
+            <div class="text-3xl font-bold text-emerald-600 mb-2">3+ Yrs</div>
+            <div class="text-slate-600">Experience</div>
+          </div>
         </div>
       </div>
     </section>
@@ -409,7 +586,7 @@
           <div class="relative fade-in">
             <div class="relative overflow-hidden rounded-3xl shadow-2xl">
               <img
-                src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80"
+                src="https://images.hindustantimes.com/img/2021/12/20/1600x900/6cd32fe4-61a2-11ec-8bb7-69f77148494e_1640011166463.jpg"
                 alt="Sacred Varanasi"
                 class="w-full h-96 object-cover hover-scale"
               />
@@ -750,13 +927,132 @@
         elements.forEach((el) => observer.observe(el));
       }
 
+      // Enhanced Testimonials Functionality
+      const testimonials = [
+        {
+          content:
+            "Our spiritual journey through Varanasi was absolutely transformative. The attention to detail and deep knowledge of our guide made every moment special. From the morning boat rides to evening aartis, everything was perfectly organized.",
+          author: "Rajesh Sharma",
+          location: "Delhi, India",
+          avatar: "https://i.pravatar.cc/150?img=11",
+          rating: 5,
+        },
+        {
+          content:
+            "The car service was immaculate and our driver was extremely professional. He knew all the shortcuts and best timings to visit temples, which made our pilgrimage so much smoother. Highly recommended!",
+          author: "Sarah Williams",
+          location: "London, UK",
+          avatar: "https://i.pravatar.cc/150?img=5",
+          rating: 5,
+        },
+        {
+          content:
+            "What an incredible experience! The team went above and beyond to ensure we had the most authentic and comfortable stay in Varanasi. The cultural insights and local connections made all the difference.",
+          author: "Priya Patel",
+          location: "Mumbai, India",
+          avatar: "https://i.pravatar.cc/150?img=9",
+          rating: 5,
+        },
+      ];
+
+      function initEnhancedTestimonials() {
+        const carousel = document.getElementById("testimonialCarousel");
+        const content = carousel.querySelector(".testimonial-content");
+        const prevBtn = document.getElementById("prevTestimonial");
+        const nextBtn = document.getElementById("nextTestimonial");
+        let currentIndex = 0;
+
+        // Create indicators
+        const indicators = document.createElement("div");
+        indicators.className = "flex items-center justify-center gap-2 mt-8";
+        testimonials.forEach((_, index) => {
+          const dot = document.createElement("button");
+          dot.className = `testimonial-indicator ${
+            index === 0 ? "active" : ""
+          }`;
+          dot.addEventListener("click", () => goToSlide(index));
+          indicators.appendChild(dot);
+        });
+        carousel.appendChild(indicators);
+
+        function updateTestimonial(index) {
+          const testimonial = testimonials[index];
+          content.innerHTML = `
+            <div class="testimonial-slide ${
+              index === currentIndex ? "active" : ""
+            }">
+              <blockquote class="text-xl md:text-2xl text-slate-700 leading-relaxed mb-8">
+                "${testimonial.content}"
+              </blockquote>
+              <div class="flex items-center gap-4">
+                <img src="${testimonial.avatar}" alt="${
+            testimonial.author
+          }" class="w-14 h-14 rounded-full object-cover border-2 border-indigo-100"/>
+                <div>
+                  <div class="font-semibold text-slate-800">${
+                    testimonial.author
+                  }</div>
+                  <div class="text-slate-500 text-sm">${
+                    testimonial.location
+                  }</div>
+                </div>
+              </div>
+            </div>
+          `;
+
+          // Update indicators
+          const dots = indicators.getElementsByClassName(
+            "testimonial-indicator"
+          );
+          Array.from(dots).forEach((dot, i) => {
+            dot.classList.toggle("active", i === index);
+          });
+        }
+
+        function goToSlide(index) {
+          currentIndex = index;
+          updateTestimonial(currentIndex);
+        }
+
+        prevBtn.addEventListener("click", () => {
+          currentIndex =
+            (currentIndex - 1 + testimonials.length) % testimonials.length;
+          updateTestimonial(currentIndex);
+        });
+
+        nextBtn.addEventListener("click", () => {
+          currentIndex = (currentIndex + 1) % testimonials.length;
+          updateTestimonial(currentIndex);
+        });
+
+        // Auto-advance slides
+        let autoplayInterval = setInterval(() => {
+          currentIndex = (currentIndex + 1) % testimonials.length;
+          updateTestimonial(currentIndex);
+        }, 5000);
+
+        // Pause autoplay on hover
+        carousel.addEventListener("mouseenter", () =>
+          clearInterval(autoplayInterval)
+        );
+        carousel.addEventListener("mouseleave", () => {
+          autoplayInterval = setInterval(() => {
+            currentIndex = (currentIndex + 1) % testimonials.length;
+            updateTestimonial(currentIndex);
+          }, 5000);
+        });
+
+        // Initialize first slide
+        updateTestimonial(0);
+      }
+
       // Initialize everything
       document.addEventListener("DOMContentLoaded", async () => {
         try {
           await mountUtilities();
           initScrollReveal();
-          initTestimonials();
           initScrollAnimations();
+          initEnhancedTestimonials();
 
           await loadPackages();
           await loadCars();
