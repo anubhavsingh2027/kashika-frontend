@@ -6,6 +6,7 @@ async function  checkAccess (){
       }
 );
     const data = await response.json();
+    console.log("data :",data);
     if(!data.access){
       window.location.href="unauthorised403.html";
     }
