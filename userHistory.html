@@ -38,7 +38,7 @@
     <script type="module" src="./assets/js/DynamicNav.js"></script>
     <script type="module" src="./assets/js/tailwind-init.js"></script>
     <script type="module">
-      import { getUserSession } from "./assets/js/services.js";
+      import { getUserSession,userHistory } from "./assets/js/services.js";
 
       async function loadUserData() {
         const data = await getUserSession();
@@ -47,26 +47,26 @@
         const notLoggedDiv = document.querySelector(".notloggin");
 
         if (data.loggedIn) {
-          // ✅ Show logged-in div, hide not-logged-in div
           loggedDiv.style.display = "block";
           notLoggedDiv.style.display = "none";
 
           // Personalize
           document.getElementById("username").textContent = data.user.userName;
-          renderHistory(data.user);
+          const history=await userHistory();
+          renderHistoryCar(history.carHistory);
+          renderHistoryPackage(history.packageHistory);
+
         } else {
-          // ✅ Show not-logged-in div, hide logged-in div
           loggedDiv.style.display = "none";
           notLoggedDiv.style.display = "block";
         }
       }
 
-      function renderHistory(user) {
+      function renderHistoryCar(user) {
         const carDiv = document.getElementById("carHistory");
-        const pkgDiv = document.getElementById("packageHistory");
 
-        carDiv.innerHTML = user.carBooking.length
-          ? user.carBooking
+        carDiv.innerHTML = user.length
+          ? user
               .map(
                 (b) => `
         <p>🚗 ${b.carName} — ${new Date(b.date).toLocaleDateString()}</p>
@@ -74,6 +74,13 @@
               )
               .join("")
           : "Did Not Book Car";
+
+
+      }
+
+      function renderHistoryPackage(user) {
+        const pkgDiv = document.getElementById("packageHistory");
+
 
         pkgDiv.innerHTML = user.packageBook.length
           ? user.packageBook
@@ -88,7 +95,7 @@
           : "Did Not Book Package";
       }
 
-      // ✅ Initialize
+
       loadUserData();
     </script>
   </body>

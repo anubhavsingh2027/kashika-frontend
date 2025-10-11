@@ -253,3 +253,18 @@ export async function logoutRequested() {
     return { status: false, message: "Network Error" };
   }
 }
+
+//===api fetch : user hitory ===
+
+export async function userHistory(params) {
+  try {
+    const response = await fetch("https://kashika-backend.onrender.com/kashikaTravel/userHistory/:id", {
+      credentials: "include",
+    });
+
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    return { message: "Network Error" };
+  }
+}
