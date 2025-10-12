@@ -385,10 +385,7 @@
       const previewPrice = document.getElementById("previewPrice");
       const totalPrice = document.getElementById("totalPrice");
 
-      // Format price with commas
-      function formatPrice(price) {
-        return new Intl.NumberFormat('en-IN').format(price);
-      }
+
 
       // === Extract Car ID and Delete Flag from URL ===
       function getCarParams() {
@@ -447,7 +444,7 @@
             option.selected = true;
             carSelect.appendChild(option);
             carSelect.disabled = true;
-            priceInput.value = formatPrice(selected.price);
+            priceInput.value = selected.price;
             updateCarPreview(selected);
           } else {
             // Populate all cars
