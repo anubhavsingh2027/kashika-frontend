@@ -4,7 +4,8 @@ export function initModal() {
   if (!modal) {
     modal = document.createElement('div');
     modal.id = 'globalModal';
-    modal.className = 'fixed inset-0 z-50 hidden items-center justify-center bg-black/60 backdrop-blur-sm transition-opacity duration-300';
+    modal.className =
+      'fixed inset-0 z-50 hidden items-center justify-center bg-black/60 backdrop-blur-sm transition-opacity duration-300';
     modal.setAttribute('role', 'dialog');
     modal.setAttribute('aria-modal', 'true');
     modal.innerHTML = `
@@ -22,49 +23,42 @@ export function initModal() {
     `;
     document.body.appendChild(modal);
 
-    // close handler with animations
+    // Close handler with animations
     function closeModal() {
       const dialog = modal.querySelector('[role="document"]');
-
-      // Start close animation
       dialog.classList.remove('scale-100', 'opacity-100');
       dialog.classList.add('scale-95', 'opacity-0');
       modal.style.opacity = '0';
 
-      // Wait for animation to complete
       setTimeout(() => {
         modal.classList.add('hidden');
         modal.classList.remove('flex');
         dialog.classList.remove('scale-95', 'opacity-0');
-
-        // Reset any loading states
         const content = document.getElementById('globalModalContent');
         const status = document.getElementById('modalStatus');
         content.classList.remove('opacity-50');
         status.textContent = '';
-
-        // Restore focus
         const prev = modal._previousActive;
         if (prev && typeof prev.focus === 'function') prev.focus();
-      }, 300); // Match duration in CSS
+      }, 300);
 
       document.removeEventListener('keydown', escHandler);
     }
 
-    // escape key
+    // Escape key
     function escHandler(e) {
       if (e.key === 'Escape') closeModal();
     }
 
-    // overlay click to close (only when clicking the backdrop)
+    // Overlay click to close
     modal.addEventListener('click', (e) => {
       if (e.target === modal) closeModal();
     });
 
-    // close button
+    // Close button
     document.getElementById('closeModal').addEventListener('click', closeModal);
 
-    // expose helper
+    // Expose helpers
     modal._closeModal = closeModal;
     modal._escHandler = escHandler;
   }
@@ -77,51 +71,87 @@ export function openModal(contentHtml, options = {}) {
   const status = document.getElementById('modalStatus');
   const dialog = modal.querySelector('[role="document"]');
 
-  // Format content based on type
   let formattedContent = '';
+
+  // === Handle different content types ===
   if (typeof contentHtml === 'object') {
     if (contentHtml instanceof Error) {
-      // Handle Error objects
       formattedContent = `
         <div class="bg-red-50 border-l-4 border-red-500 p-4">
           <div class="flex items-start">
-            <div class="flex-shrink-0">
-              <svg class="h-5 w-5 text-red-400" viewBox="0 0 20 20" fill="currentColor">
-                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clip-rule="evenodd" />
-              </svg>
-            </div>
+            <svg class="h-5 w-5 text-red-400" viewBox="0 0 20 20" fill="currentColor">
+              <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clip-rule="evenodd" />
+            </svg>
             <div class="ml-3">
               <h3 class="text-sm font-medium text-red-800">Error</h3>
-              <div class="mt-2 text-sm text-red-700">
-                <p>${contentHtml.message || contentHtml.toString()}</p>
-                ${contentHtml.stack ? `<pre class="mt-2 text-xs bg-red-50 p-2 rounded overflow-auto">${contentHtml.stack}</pre>` : ''}
-              </div>
+              <p class="mt-2 text-sm text-red-700">${contentHtml.message || contentHtml.toString()}</p>
             </div>
           </div>
         </div>`;
     } else if (contentHtml.error) {
-      // Handle error property in objects
       formattedContent = `
         <div class="bg-red-50 border-l-4 border-red-500 p-4">
           <div class="flex items-start">
-            <div class="flex-shrink-0">
-              <svg class="h-5 w-5 text-red-400" viewBox="0 0 20 20" fill="currentColor">
-                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clip-rule="evenodd" />
-              </svg>
-            </div>
+            <svg class="h-5 w-5 text-red-400" viewBox="0 0 20 20" fill="currentColor">
+              <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clip-rule="evenodd" />
+            </svg>
             <div class="ml-3">
               <h3 class="text-sm font-medium text-red-800">Error</h3>
-              <div class="mt-2 text-sm text-red-700">
-                <p>${contentHtml.error}</p>
-              </div>
+              <p class="mt-2 text-sm text-red-700">${contentHtml.error}</p>
             </div>
           </div>
         </div>`;
+    } else if (contentHtml.packageName || contentHtml.carName) {
+      // Package details
+      if (contentHtml.packageName) {
+        formattedContent = `
+          <div class="space-y-6 text-center">
+            <h2 class="text-3xl font-extrabold text-gray-900 tracking-tight">${contentHtml.packageName}</h2>
+            <div class="flex justify-center items-center text-gray-600">
+              <svg class="w-5 h-5 mr-2 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                  d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+              </svg>
+              <span class="text-lg font-medium">${contentHtml.packageDuration || 'Duration not specified'}</span>
+            </div>
+            <div class="mt-4 bg-gradient-to-br from-slate-50 to-blue-50 p-5 rounded-xl shadow-inner text-left">
+              <h3 class="text-lg font-semibold text-gray-700 mb-2">Description</h3>
+              <p class="text-gray-700 leading-relaxed">${contentHtml.description || 'No description available'}</p>
+            </div>
+          </div>`;
+      }
+      // Car details
+      else if (contentHtml.carName) {
+        formattedContent = `
+          <div class="space-y-6 text-center">
+            <h2 class="text-3xl font-extrabold text-gray-900 tracking-tight">${contentHtml.carName}</h2>
+            <div class="flex justify-center items-center text-gray-600">
+              <svg class="w-5 h-5 mr-2 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                  d="M4 6h16M4 10h16M4 14h10m-6 4h2m6 0h2" />
+              </svg>
+              <span class="text-lg font-medium">${contentHtml.totalSeats ? `${contentHtml.totalSeats} seats` : 'Seats info not available'}</span>
+            </div>
+            <div class="mt-4 bg-gradient-to-br from-slate-50 to-blue-50 p-5 rounded-xl shadow-inner text-left">
+              <h3 class="text-lg font-semibold text-gray-700 mb-2">Description</h3>
+              <p class="text-gray-700 leading-relaxed">${contentHtml.description || 'No description available'}</p>
+            </div>
+          </div>`;
+      }
     } else {
-      // Handle other objects
+      // Other objects
       formattedContent = `
-        <div class="bg-slate-50 border border-slate-200 rounded-lg p-4">
-          <pre class="text-sm text-slate-700 overflow-auto">${JSON.stringify(contentHtml, null, 2)}</pre>
+        <div class="space-y-4">
+          ${Object.entries(contentHtml)
+            .filter(([key]) => ['packageName', 'packageDuration', 'description'].includes(key))
+            .map(
+              ([key, value]) => `
+              <div>
+                <h3 class="text-sm font-medium text-gray-500">${key.charAt(0).toUpperCase() + key.slice(1)}</h3>
+                <p class="mt-1 text-base text-gray-900">${value || 'Not specified'}</p>
+              </div>`
+            )
+            .join('')}
         </div>`;
     }
   } else if (typeof contentHtml === 'string') {
@@ -130,10 +160,10 @@ export function openModal(contentHtml, options = {}) {
     formattedContent = String(contentHtml);
   }
 
-  // Update content
+  // Update modal content
   content.innerHTML = formattedContent;
 
-  // Handle modal states
+  // Handle modal status
   if (options.loading) {
     status.innerHTML = `
       <div class="flex items-center gap-2">
@@ -165,25 +195,22 @@ export function openModal(contentHtml, options = {}) {
     content.classList.remove('opacity-50');
   }
 
-  // Store previously focused element to restore later
   modal._previousActive = document.activeElement;
 
   // Show modal with animation
   modal.classList.remove('hidden');
   modal.classList.add('flex');
 
-  // Animate in
   requestAnimationFrame(() => {
     modal.style.opacity = '1';
     dialog.classList.remove('scale-95', 'opacity-0');
     dialog.classList.add('scale-100', 'opacity-100');
   });
 
-  // Handle focus
-  const focusable = modal.querySelector('button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])');
+  const focusable =
+    modal.querySelector('button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])');
   (focusable || modal.querySelector('#closeModal') || modal).focus();
 
-  // Bind keyboard handlers
   document.addEventListener('keydown', modal._escHandler);
 }
 
@@ -198,31 +225,47 @@ export function initTestimonials(containerId) {
   ];
 
   let idx = 0;
+
   function render() {
     container.innerHTML = `
       <div class="relative bg-transparent">
         <div id="testViewport" class="min-h-[120px] p-4">
-          <blockquote class="bg-white p-6 rounded-lg shadow"> <p class=\"text-slate-700\">${items[idx].text}</p><footer class=\"mt-3 text-sm text-slate-500\">— ${items[idx].name}</footer></blockquote>
+          <blockquote class="bg-white p-6 rounded-lg shadow">
+            <p class="text-slate-700">${items[idx].text}</p>
+            <footer class="mt-3 text-sm text-slate-500">— ${items[idx].name}</footer>
+          </blockquote>
         </div>
         <div class="mt-4 flex items-center justify-center gap-3">
           <button id="prevTest" class="px-3 py-1 bg-slate-100 rounded">Prev</button>
           <div id="dots" class="flex gap-2"></div>
           <button id="nextTest" class="px-3 py-1 bg-slate-100 rounded">Next</button>
         </div>
-      </div>
-    `;
+      </div>`;
 
     const dots = container.querySelector('#dots');
     items.forEach((it, i) => {
       const d = document.createElement('button');
-      d.className = `w-3 h-3 rounded-full ${i===idx? 'bg-sky-600' : 'bg-slate-300'}`;
-      d.setAttribute('aria-label', `Show testimonial ${i+1}`);
-      d.addEventListener('click', () => { idx = i; restart(); });
+      d.className = `w-3 h-3 rounded-full ${i === idx ? 'bg-sky-600' : 'bg-slate-300'}`;
+      d.setAttribute('aria-label', `Show testimonial ${i + 1}`);
+      d.addEventListener('click', () => {
+        idx = i;
+        restart();
+      });
       dots.appendChild(d);
     });
 
-    container.querySelector('#prevTest').addEventListener('click', () => { idx = (idx - 1 + items.length) % items.length; restart(); });
-    container.querySelector('#nextTest').addEventListener('click', () => { idx = (idx + 1) % items.length; restart(); });
+    container
+      .querySelector('#prevTest')
+      .addEventListener('click', () => {
+        idx = (idx - 1 + items.length) % items.length;
+        restart();
+      });
+    container
+      .querySelector('#nextTest')
+      .addEventListener('click', () => {
+        idx = (idx + 1) % items.length;
+        restart();
+      });
   }
 
   function advance() {
@@ -236,10 +279,12 @@ export function initTestimonials(containerId) {
     container._interval = setInterval(advance, 4500);
   }
 
-  // start
   restart();
 
-  // pause on hover
-  container.addEventListener('mouseenter', () => { if (container._interval) clearInterval(container._interval); });
-  container.addEventListener('mouseleave', () => { container._interval = setInterval(advance, 4500); });
+  container.addEventListener('mouseenter', () => {
+    if (container._interval) clearInterval(container._interval);
+  });
+  container.addEventListener('mouseleave', () => {
+    container._interval = setInterval(advance, 4500);
+  });
 }
