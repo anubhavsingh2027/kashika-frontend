@@ -1,9 +1,20 @@
 {
   "redirects": [
-    { "source": "/", "destination": "/index.html" },
-    { "source": "/login", "destination": "/login.html" },
-    { "source": "/signUp", "destination": "/signUp.html" },
-    { "source": "/about", "destination": "/about.html" },
-    { "source": "/contact", "destination": "/contact.html" }
+    { "source": "/", "destination": "index.html" },
+    { "source": "/login", "destination": "login.html" },
+    { "source": "/signUp", "destination": "signup.html" },
+    { "source": "/about", "destination": "about.html" },
+    { "source": "/CarAdd", "destination": "adminCarSet.html" },
+    { "source": "/PackageAdd", "destination": "adminPackageSet.html" },
+    { "source": "/userHistory", "destination": "allBookingHistory.html" },
+    { "source": "/carBook", "destination": "carBook.html" },
+    { "source": "/carDetails", "destination": "carDetails.html" },
+    { "source": "/contact", "destination": "contact.html" },
+    { "source": "/forgetPassword", "destination": "forgetPassword.html" },
+    { "source": "/packageBook", "destination": "packageBook.html" },
+    { "source": "/packageDetails", "destination": "packagedetails.html" },
+    { "source": "/unauthorsisedAccess", "destination": "unauthorised403.html" },
+    { "source": "/history", "destination": "userHistory.html" },
+    { "source": "/typeChange", "destination": "userTypeAccess.html" }
   ]
 }
