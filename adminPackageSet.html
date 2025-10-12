@@ -79,6 +79,30 @@
               </div>
             </div>
 
+        <!-- packageDuration Input -->
+            <div class="space-y-2">
+              <label
+                for="price"
+                class="block text-sm font-medium text-slate-700"
+                >Package Duration in Days</label
+              >
+              <div class="relative">
+                <div
+                  class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none"
+                >
+                  <i class="fas fa-indian-rupee-sign text-slate-400"></i>
+                </div>
+                <input
+                  type="number"
+                  name="packageDuration"
+                  id="packageDuration"
+                  placeholder="Enter package Duration in days"
+                  required
+                  min="0"
+                  class="w-full pl-11 pr-4 py-3 border border-slate-200 rounded-xl focus:ring-2 focus:ring-indigo-600 focus:border-transparent outline-none transition-all"
+                />
+              </div>
+            </div>
             <!-- Price Input -->
             <div class="space-y-2">
               <label
@@ -297,6 +321,7 @@
               place: document.getElementById("place").value.trim(),
               url: document.getElementById("url").value.trim(),
               price: document.getElementById("price").value.trim(),
+              packageDuration: document.getElementById("packageDuration").value.trim(),
               description: document.getElementById("description").value.trim(),
             };
 

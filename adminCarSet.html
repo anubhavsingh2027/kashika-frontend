@@ -54,6 +54,31 @@
                 />
               </div>
             </div>
+totalSeats
+            <!-- No of Seats Input -->
+            <div class="space-y-2">
+              <label
+                for="price"
+                class="block text-sm font-medium text-slate-700"
+                >No of Seats</label
+              >
+              <div class="relative">
+                <div
+                  class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none"
+                >
+                  <i class="fas fa-indian-rupee-sign text-slate-400"></i>
+                </div>
+                <input
+                  type="number"
+                  name="totalSeats"
+                  id="totalSeats"
+                  placeholder="Enter the number of Seats in Car"
+                  required
+                  min="0"
+                  class="w-full pl-11 pr-4 py-3 border border-slate-200 rounded-xl focus:ring-2 focus:ring-sky-600 focus:border-transparent outline-none transition-all"
+                />
+              </div>
+            </div>
 
             <!-- Price Input -->
             <div class="space-y-2">
@@ -262,6 +287,7 @@
           try {
             const carData = {
               carName: document.getElementById("carName").value.trim(),
+              totalSeats: document.getElementById("totalSeats").value.trim(),
               price: document.getElementById("price").value.trim(),
               url: document.getElementById("url").value.trim(),
               description: document.getElementById("description").value.trim(),
