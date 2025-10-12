@@ -240,14 +240,20 @@
       <div
         class="w-full max-w-xl glass-card rounded-2xl shadow-xl p-8 animate-fade-in"
       >
-            <!-- Car Preview (Add below the form) -->
-      <div id="carPreview" class="hidden mt-6 rounded-xl overflow-hidden shadow-lg glass-card animate-fade-in">
-        <img src="" alt="Car Preview" class="w-full h-48 object-cover">
-        <div class="p-4 text-center">
-          <h2 id="previewCarName" class="text-lg font-semibold text-slate-800"></h2>
-          <p id="previewPrice" class="text-slate-500"></p>
+        <!-- Car Preview (Add below the form) -->
+        <div
+          id="carPreview"
+          class="hidden mt-6 rounded-xl overflow-hidden shadow-lg glass-card animate-fade-in"
+        >
+          <img src="" alt="Car Preview" class="w-full h-48 object-cover" />
+          <div class="p-4 text-center">
+            <h2
+              id="previewCarName"
+              class="text-lg font-semibold text-slate-800"
+            ></h2>
+            <p id="previewPrice" class="text-slate-500"></p>
+          </div>
         </div>
-      </div>
 
         <div class="flex items-center gap-3 mb-6 animate-slide-in-left">
           <div class="p-3 rounded-full icon-gradient animate-float">
@@ -385,7 +391,15 @@
       const previewPrice = document.getElementById("previewPrice");
       const totalPrice = document.getElementById("totalPrice");
 
+      // Format price with commas for display
+      function formatPrice(price) {
+        return new Intl.NumberFormat("en-IN").format(price);
+      }
 
+      // Remove formatting to get raw number
+      function unformatPrice(price) {
+        return Number(price.toString().replace(/[^0-9.-]+/g, ""));
+      }
 
       // === Extract Car ID and Delete Flag from URL ===
       function getCarParams() {
@@ -462,15 +476,19 @@
           carSelect.addEventListener("change", () => {
             const selectedOption = carSelect.options[carSelect.selectedIndex];
             if (selectedOption.value) {
-              const price = selectedOption.dataset.price;
-              priceInput.value = formatPrice(price);
+              const price = Number(selectedOption.dataset.price); // Ensure price is a number
+              priceInput.value = price; // Store raw number in input
               updateCarPreview({
                 carName: selectedOption.value,
                 price: price,
-                url: selectedOption.dataset.image
+                url: selectedOption.dataset.image,
               });
-              // Reset duration to trigger total calculation
-              durationInput.value = durationInput.value;
+              // Update total price if duration exists
+              if (durationInput.value) {
+                const duration = Number(durationInput.value);
+                const total = price * duration;
+                totalPrice.textContent = `Total: ₹${formatPrice(total)}`;
+              }
             } else {
               priceInput.value = "";
               carPreview.classList.add("hidden");
@@ -480,8 +498,8 @@
 
           // Calculate total price on duration change
           durationInput.addEventListener("input", () => {
-            const price = parseInt(priceInput.value.replace(/,/g, "")) || 0;
-            const duration = parseInt(durationInput.value) || 0;
+            const price = Number(priceInput.value) || 0;
+            const duration = Number(durationInput.value) || 0;
             if (price && duration) {
               const total = price * duration;
               totalPrice.textContent = `Total: ₹${formatPrice(total)}`;
@@ -509,8 +527,8 @@
 
           const bookingData = {
             carName: carSelect.value,
-            price: priceInput.value,
-            duration: durationInput.value,
+            price: Number(priceInput.value), // Ensure price is sent as number
+            duration: Number(durationInput.value), // Ensure duration is sent as number
             date: document.getElementById("date").value,
             userId: userData.user._id,
           };
@@ -534,7 +552,7 @@
               }
 
               // Scroll to top with smooth animation
-              window.scrollTo({ top: 0, behavior: 'smooth' });
+              window.scrollTo({ top: 0, behavior: "smooth" });
             }
           } catch (error) {
             showErrorMessage("An unexpected error occurred. Please try again.");
@@ -547,8 +565,14 @@
           if (car && car.url) {
             previewImg.src = car.url;
             previewCarName.textContent = car.carName;
-            previewPrice.textContent = `₹${formatPrice(car.price)} per day`;
+            const price = Number(car.price); // Ensure price is a number
+            previewPrice.textContent = `₹${formatPrice(price)} per day`;
             carPreview.classList.remove("hidden");
+            carPreview.style.display = "block"; // Force display
+            // Trigger fade-in animation
+            carPreview.classList.remove("animate-fade-in");
+            void carPreview.offsetWidth; // Force reflow
+            carPreview.classList.add("animate-fade-in");
           } else {
             carPreview.classList.add("hidden");
           }
