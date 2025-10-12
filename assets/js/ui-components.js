@@ -4,23 +4,50 @@ export function initModal() {
   if (!modal) {
     modal = document.createElement('div');
     modal.id = 'globalModal';
-    modal.className = 'fixed inset-0 z-50 hidden items-center justify-center bg-black/40';
+    modal.className = 'fixed inset-0 z-50 hidden items-center justify-center bg-black/60 backdrop-blur-sm transition-opacity duration-300';
     modal.setAttribute('role', 'dialog');
     modal.setAttribute('aria-modal', 'true');
     modal.innerHTML = `
-      <div class="bg-white rounded-xl shadow-xl max-w-2xl w-full mx-4 overflow-hidden" role="document">
-        <div class="p-6" id="globalModalContent"></div>
-        <div class="p-4 bg-slate-50 text-right"><button id="closeModal" class="px-4 py-2 bg-sky-600 text-white rounded">Close</button></div>
+      <div class="bg-white/95 backdrop-blur-lg rounded-2xl shadow-2xl max-w-2xl w-full mx-4 overflow-hidden transform transition-all duration-300 scale-95 opacity-0" role="document">
+        <div class="relative">
+          <div class="p-6" id="globalModalContent"></div>
+          <div class="p-4 bg-gradient-to-br from-slate-50 to-blue-50/50 border-t border-slate-100 flex justify-between items-center">
+            <div class="text-sm text-slate-500" id="modalStatus"></div>
+            <button id="closeModal" class="px-4 py-2 bg-gradient-to-r from-sky-600 to-blue-600 text-white rounded-lg shadow-md hover:shadow-lg hover:-translate-y-0.5 active:translate-y-0 transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-sky-500 focus:ring-offset-2">
+              Close
+            </button>
+          </div>
+        </div>
       </div>
     `;
     document.body.appendChild(modal);
 
-    // close handler
+    // close handler with animations
     function closeModal() {
-      modal.classList.add('hidden');
-      modal.classList.remove('flex');
-      const prev = modal._previousActive;
-      if (prev && typeof prev.focus === 'function') prev.focus();
+      const dialog = modal.querySelector('[role="document"]');
+
+      // Start close animation
+      dialog.classList.remove('scale-100', 'opacity-100');
+      dialog.classList.add('scale-95', 'opacity-0');
+      modal.style.opacity = '0';
+
+      // Wait for animation to complete
+      setTimeout(() => {
+        modal.classList.add('hidden');
+        modal.classList.remove('flex');
+        dialog.classList.remove('scale-95', 'opacity-0');
+
+        // Reset any loading states
+        const content = document.getElementById('globalModalContent');
+        const status = document.getElementById('modalStatus');
+        content.classList.remove('opacity-50');
+        status.textContent = '';
+
+        // Restore focus
+        const prev = modal._previousActive;
+        if (prev && typeof prev.focus === 'function') prev.focus();
+      }, 300); // Match duration in CSS
+
       document.removeEventListener('keydown', escHandler);
     }
 
@@ -44,18 +71,43 @@ export function initModal() {
   return modal;
 }
 
-export function openModal(contentHtml) {
+export function openModal(contentHtml, options = {}) {
   const modal = initModal();
   const content = document.getElementById('globalModalContent');
+  const status = document.getElementById('modalStatus');
+  const dialog = modal.querySelector('[role="document"]');
+
+  // Update content
   content.innerHTML = contentHtml;
-  // store previously focused element to restore later
+
+  // Show loading state if specified
+  if (options.loading) {
+    status.textContent = 'Loading...';
+    content.classList.add('opacity-50');
+  } else {
+    status.textContent = '';
+    content.classList.remove('opacity-50');
+  }
+
+  // Store previously focused element to restore later
   modal._previousActive = document.activeElement;
+
+  // Show modal with animation
   modal.classList.remove('hidden');
   modal.classList.add('flex');
-  // focus first focusable element inside modal or the close button
+
+  // Animate in
+  requestAnimationFrame(() => {
+    modal.style.opacity = '1';
+    dialog.classList.remove('scale-95', 'opacity-0');
+    dialog.classList.add('scale-100', 'opacity-100');
+  });
+
+  // Handle focus
   const focusable = modal.querySelector('button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])');
   (focusable || modal.querySelector('#closeModal') || modal).focus();
-  // bind esc handler
+
+  // Bind keyboard handlers
   document.addEventListener('keydown', modal._escHandler);
 }
 
