@@ -3,8 +3,6 @@
   <head>
     <meta charset="UTF-8" />
     <title>Book Car | Kashika Travels</title>
-
-    <!-- Tailwind CSS & Font Awesome -->
     <link
       href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css"
       rel="stylesheet"
@@ -13,167 +11,23 @@
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
     />
-
     <style>
-      @import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap");
-      * {
-        font-family: "Inter", sans-serif;
-      }
-
-      /* Animations */
       @keyframes slideUp {
-        from {
-          transform: translateY(1rem);
-          opacity: 0;
-        }
-        to {
-          transform: translateY(0);
-          opacity: 1;
-        }
+        from { transform: translateY(1rem); opacity: 0; }
+        to { transform: translateY(0); opacity: 1; }
       }
-      @keyframes fadeIn {
-        from {
-          opacity: 0;
-          transform: scale(0.95);
-        }
-        to {
-          opacity: 1;
-          transform: scale(1);
-        }
-      }
-      @keyframes slideInLeft {
-        from {
-          transform: translateX(-1rem);
-          opacity: 0;
-        }
-        to {
-          transform: translateX(0);
-          opacity: 1;
-        }
-      }
-      @keyframes slideInRight {
-        from {
-          transform: translateX(1rem);
-          opacity: 0;
-        }
-        to {
-          transform: translateX(0);
-          opacity: 1;
-        }
-      }
-      @keyframes float {
-        0%,
-        100% {
-          transform: translateY(0);
-        }
-        50% {
-          transform: translateY(-6px);
-        }
-      }
-
       .animate-slide-up {
         animation: slideUp 0.3s ease-out;
       }
-      .animate-fade-in {
-        animation: fadeIn 0.5s ease-out;
+      .date-input::-webkit-calendar-picker-indicator {
+        background-color: transparent;
+        cursor: pointer;
+        padding: 5px;
+        border-radius: 4px;
       }
-      .animate-slide-in-left {
-        animation: slideInLeft 0.5s ease-out;
+      .date-input::-webkit-calendar-picker-indicator:hover {
+        background-color: rgba(0, 0, 0, 0.05);
       }
-      .animate-slide-in-right {
-        animation: slideInRight 0.5s ease-out;
-      }
-      .animate-float {
-        animation: float 3s ease-in-out infinite;
-      }
-
-      /* Input and Button styles */
-      .enhanced-field {
-        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-        background: rgba(255, 255, 255, 0.95);
-      }
-      .enhanced-field:focus {
-        transform: translateY(-2px);
-        box-shadow: 0 12px 28px rgba(14, 165, 233, 0.15);
-        border-color: rgb(14, 165, 233);
-        background: rgba(255, 255, 255, 1);
-      }
-      .enhanced-field:hover {
-        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
-      }
-
-      .btn-enhanced {
-        background: linear-gradient(135deg, rgb(14, 165, 233), rgb(59, 130, 246));
-        transition: all 0.3s ease;
-        position: relative;
-        overflow: hidden;
-      }
-      .btn-enhanced:hover {
-        transform: translateY(-2px);
-        box-shadow: 0 15px 35px rgba(14, 165, 233, 0.4);
-      }
-      .btn-enhanced::before {
-        content: "";
-        position: absolute;
-        top: 0;
-        left: -100%;
-        width: 100%;
-        height: 100%;
-        background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
-        transition: left 0.5s;
-      }
-      .btn-enhanced:hover::before {
-        left: 100%;
-      }
-
-      /* Background & Shapes */
-      .glass-card {
-        background: rgba(255, 255, 255, 0.9);
-        backdrop-filter: blur(20px);
-        border: 1px solid rgba(255, 255, 255, 0.2);
-        box-shadow: 0 25px 50px rgba(0, 0, 0, 0.1);
-      }
-
-      .floating-shapes {
-        position: absolute;
-        width: 100%;
-        height: 100%;
-        overflow: hidden;
-        z-index: -1;
-        opacity: 0.3;
-      }
-      .floating-shape {
-        position: absolute;
-        background: linear-gradient(45deg, rgba(14, 165, 233, 0.1), rgba(59, 130, 246, 0.1));
-        border-radius: 50%;
-        animation: float 6s ease-in-out infinite;
-      }
-      .floating-shape:nth-child(1) {
-        width: 80px;
-        height: 80px;
-        top: 10%;
-        left: 10%;
-        animation-delay: 0s;
-      }
-      .floating-shape:nth-child(2) {
-        width: 120px;
-        height: 120px;
-        top: 70%;
-        right: 10%;
-        animation-delay: 2s;
-      }
-      .floating-shape:nth-child(3) {
-        width: 60px;
-        height: 60px;
-        top: 40%;
-        left: 80%;
-        animation-delay: 4s;
-      }
-
-      .icon-gradient {
-        background: linear-gradient(135deg, rgb(14, 165, 233), rgb(59, 130, 246));
-      }
-
       .car-select {
         background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%236B7280'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M19 9l-7 7-7-7'%3E%3C/path%3E%3C/svg%3E");
         background-position: right 0.5rem center;
@@ -183,187 +37,242 @@
         -webkit-appearance: none;
         appearance: none;
       }
-
-      .date-input::-webkit-calendar-picker-indicator {
-        cursor: pointer;
-        border-radius: 4px;
-        transition: all 0.2s ease;
-      }
-      .date-input::-webkit-calendar-picker-indicator:hover {
-        background-color: rgba(14, 165, 233, 0.1);
-        transform: scale(1.1);
-      }
     </style>
   </head>
-
-  <body class="bg-gradient-to-br from-blue-50 via-white to-slate-50 relative">
-    <div class="floating-shapes">
-      <div class="floating-shape"></div>
-      <div class="floating-shape"></div>
-      <div class="floating-shape"></div>
-    </div>
-
+  <body class="bg-gradient-to-br from-slate-50 via-white to-slate-50">
     <nav id="navbar" class="sticky top-0 z-40"></nav>
-
     <main class="min-h-screen flex items-center justify-center p-6">
-      <div class="w-full max-w-xl glass-card rounded-2xl shadow-xl p-8 animate-fade-in">
-        <div class="flex items-center gap-3 mb-6 animate-slide-in-left">
-          <div class="p-3 rounded-full icon-gradient animate-float">
+      <div class="w-full max-w-xl bg-white rounded-2xl shadow-xl p-8 animate-slide-up">
+        <div class="flex items-center gap-3 mb-6">
+          <div class="p-3 rounded-full bg-gradient-to-br from-sky-500 to-indigo-500">
             <i class="fas fa-car-side text-white text-xl"></i>
           </div>
-          <div>
-            <h1 class="text-2xl font-semibold text-slate-800">Book Your Car</h1>
-            <p class="text-sm text-slate-500 mt-1">Choose your perfect ride</p>
+          <h1 class="text-2xl font-semibold text-slate-800">Book Your Car</h1>
+        </div>
+
+        <div id="carPreview" class="hidden mb-6 rounded-xl overflow-hidden bg-slate-50 relative group">
+          <img src="" alt="Car Preview" class="w-full h-48 object-cover transition-transform duration-300 group-hover:scale-105"/>
+          <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent"></div>
+          <div class="absolute bottom-0 left-0 right-0 p-4">
+            <p id="previewCarName" class="text-white font-medium"></p>
+            <p id="previewPrice" class="text-white/90 text-sm"></p>
           </div>
         </div>
 
-        <!-- Booking Form -->
         <form id="bookForm" class="space-y-5">
-          <div class="space-y-2 animate-slide-in-right" style="animation-delay: 0.1s">
+          <div class="space-y-2">
             <label for="carName" class="text-sm font-medium text-slate-700 flex items-center gap-2">
-              <i class="fas fa-car text-sky-500"></i> Car Name
+              <i class="fas fa-car text-slate-400"></i>
+              Car Name
             </label>
-            <select id="carName" required
-              class="enhanced-field w-full px-4 py-2.5 border border-slate-200 rounded-xl focus:ring-2 focus:ring-sky-500/20 focus:border-sky-500 transition-shadow car-select bg-white"
+            <select
+              id="carName"
+              required
+              class="w-full px-4 py-2.5 border border-slate-200 rounded-xl focus:ring-2 focus:ring-sky-500/20 focus:border-sky-500 transition-shadow car-select bg-white"
             ></select>
           </div>
 
-          <div class="space-y-2 animate-slide-in-left" style="animation-delay: 0.2s">
+          <div class="space-y-2">
             <label for="price" class="text-sm font-medium text-slate-700 flex items-center gap-2">
-              <i class="fas fa-tag text-sky-500"></i> Price (₹)
+              <i class="fas fa-tag text-slate-400"></i>
+              Price (₹)
             </label>
-            <input type="text" id="price" readonly
-              class="enhanced-field w-full px-4 py-2.5 border border-slate-200 rounded-xl bg-slate-50 text-slate-600"
+            <input
+              type="text"
+              id="price"
+              readonly
+              class="w-full px-4 py-2.5 border border-slate-200 rounded-xl bg-slate-50 text-slate-600"
             />
           </div>
 
-          <div class="space-y-2 animate-slide-in-right" style="animation-delay: 0.3s">
+          <div class="space-y-2">
             <label for="duration" class="text-sm font-medium text-slate-700 flex items-center gap-2">
-              <i class="fas fa-clock text-sky-500"></i> Duration (in days)
+              <i class="fas fa-clock text-slate-400"></i>
+              Duration (in days)
             </label>
             <div class="relative">
-              <input type="number" id="duration" min="1" placeholder="e.g., 3" required
-                class="enhanced-field w-full px-4 py-2.5 border border-slate-200 rounded-xl focus:ring-2 focus:ring-sky-500/20 focus:border-sky-500 transition-shadow"
+              <input
+                type="number"
+                id="duration"
+                min="1"
+                placeholder="e.g., 3"
+                required
+                class="w-full px-4 py-2.5 border border-slate-200 rounded-xl focus:ring-2 focus:ring-sky-500/20 focus:border-sky-500 transition-shadow"
               />
               <div id="totalPrice" class="absolute right-3 top-1/2 -translate-y-1/2 text-sm text-slate-500"></div>
             </div>
           </div>
 
-          <div class="space-y-2 animate-slide-in-left" style="animation-delay: 0.4s">
+          <div class="space-y-2">
             <label for="date" class="text-sm font-medium text-slate-700 flex items-center gap-2">
-              <i class="fas fa-calendar text-sky-500"></i> Booking Date
+              <i class="fas fa-calendar text-slate-400"></i>
+              Booking Date
             </label>
-            <input type="date" id="date" required
-              class="enhanced-field w-full px-4 py-2.5 border border-slate-200 rounded-xl focus:ring-2 focus:ring-sky-500/20 focus:border-sky-500 transition-shadow date-input"
+            <input
+              type="date"
+              id="date"
+              required
+              class="w-full px-4 py-2.5 border border-slate-200 rounded-xl focus:ring-2 focus:ring-sky-500/20 focus:border-sky-500 transition-shadow date-input"
             />
-          </div>
 
           <button
             type="submit"
-            class="btn-enhanced w-full py-3.5 px-4 text-white rounded-xl font-medium transition-all duration-200 transform hover:scale-[1.02] focus:scale-[0.98] flex items-center justify-center gap-2 group animate-slide-up"
-            style="animation-delay: 0.5s"
+            class="w-full py-3.5 px-4 bg-gradient-to-r from-sky-600 to-indigo-600 hover:from-sky-500 hover:to-indigo-500 text-white rounded-xl font-medium transition-all duration-200 transform hover:scale-[1.02] focus:scale-[0.98] flex items-center justify-center gap-2 group"
           >
             <span class="inline-flex items-center gap-2">
               <i class="fas fa-check-circle group-hover:rotate-12 transition-transform"></i>
               Book Now
             </span>
           </button>
-
           <div id="message" class="text-center font-medium mt-4 transition-all duration-300 opacity-0 transform translate-y-2"></div>
         </form>
       </div>
     </main>
 
-    <!-- Backend Logic -->
+    <script type="module" src="./assets/js/DynamicNav.js"></script>
     <script type="module">
-      import { getAllCars, getUserSession, bookingCar, deleteCar } from "./assets/js/services.js";
+      import {
+        getAllCars,
+        getUserSession,
+        bookingCar,
+        deleteCar,
+      } from "./assets/js/services.js";
       import { showToast, withLoader } from "./assets/js/tailwind-init.js";
 
       const carSelect = document.getElementById("carName");
       const priceInput = document.getElementById("price");
       const durationInput = document.getElementById("duration");
-      const totalPrice = document.getElementById("totalPrice");
-      const dateInput = document.getElementById("date");
-      const form = document.getElementById("bookForm");
       const message = document.getElementById("message");
+      const form = document.getElementById("bookForm");
       const submitBtn = form.querySelector("button");
+      const carPreview = document.getElementById("carPreview");
+      const previewImg = carPreview.querySelector("img");
+      const previewCarName = document.getElementById("previewCarName");
+      const previewPrice = document.getElementById("previewPrice");
+      const totalPrice = document.getElementById("totalPrice");
 
-      function formatPrice(p) { return new Intl.NumberFormat('en-IN').format(p); }
+      // Format price with commas
+      function formatPrice(price) {
+        return new Intl.NumberFormat('en-IN').format(price);
+      }
 
+      // === Extract Car ID and Delete Flag from URL ===
       function getCarParams() {
         const params = new URLSearchParams(window.location.search);
-        return { id: params.get("id"), isDelete: params.get("delete") === "true" };
+        return {
+          id: params.get("id"),
+          isDelete: params.get("delete") === "true",
+        };
       }
 
       const { id: carId, isDelete } = getCarParams();
 
+      // === MAIN LOGIC ===
       (async function init() {
+        // Handle Delete Mode
         if (isDelete && carId) {
           try {
             const data = await deleteCar(carId);
-            if (data.success) window.location.href = "carDetails.html";
-          } catch {}
+            if (data.success) {
+              window.location.href = "carDetails.html";
+            }
+          } catch (err) {}
           return;
         }
 
-        dateInput.min = new Date().toISOString().split("T")[0];
-
+        // === Populate Car Dropdown ===
         async function setupCars() {
           const data = await getAllCars();
-          if (!data || data.error) return showErrorMessage("Failed to load cars");
+          if (!data || data.error) {
+            message.textContent = "Failed to load cars.";
+            message.style.color = "red";
+            return;
+          }
 
           const cars = data.cars || data;
-          const def = document.createElement("option");
-          def.value = ""; def.textContent = "Select a car";
-          carSelect.appendChild(def);
+
+          // Add default option
+          const defaultOption = document.createElement("option");
+          defaultOption.value = "";
+          defaultOption.textContent = "Select a car";
+          carSelect.appendChild(defaultOption);
 
           if (carId) {
-            const selected = cars.find(c => c._id === carId);
-            if (!selected) return showToast("Car not found", "error");
-            const opt = document.createElement("option");
-            opt.value = selected.carName;
-            opt.textContent = selected.carName;
-            opt.dataset.price = selected.price;
-            opt.selected = true;
-            carSelect.appendChild(opt);
+            // Prefill selected car
+            const selected = cars.find((c) => c._id === carId);
+            if (!selected) {
+              showToast("Car not found", "error");
+              return;
+            }
+
+            const option = document.createElement("option");
+            option.value = selected.carName;
+            option.textContent = selected.carName;
+            option.dataset.price = selected.price;
+            option.dataset.image = selected.url;
+            option.selected = true;
+            carSelect.appendChild(option);
             carSelect.disabled = true;
             priceInput.value = formatPrice(selected.price);
+            updateCarPreview(selected);
           } else {
-            cars.forEach(car => {
-              const opt = document.createElement("option");
-              opt.value = car.carName;
-              opt.textContent = car.carName;
-              opt.dataset.price = car.price;
-              carSelect.appendChild(opt);
+            // Populate all cars
+            cars.forEach((car) => {
+              const option = document.createElement("option");
+              option.value = car.carName;
+              option.textContent = car.carName;
+              option.dataset.price = car.price;
+              option.dataset.image = car.url;
+              carSelect.appendChild(option);
             });
           }
 
+          // Show price dynamically and update preview
           carSelect.addEventListener("change", () => {
-            const sel = carSelect.options[carSelect.selectedIndex];
-            if (sel.value) {
-              priceInput.value = formatPrice(sel.dataset.price);
-              calcTotal();
+            const selectedOption = carSelect.options[carSelect.selectedIndex];
+            if (selectedOption.value) {
+              const price = selectedOption.dataset.price;
+              priceInput.value = formatPrice(price);
+              updateCarPreview({
+                carName: selectedOption.value,
+                price: price,
+                url: selectedOption.dataset.image
+              });
+              // Reset duration to trigger total calculation
+              durationInput.value = durationInput.value;
             } else {
               priceInput.value = "";
+              carPreview.classList.add("hidden");
               totalPrice.textContent = "";
             }
           });
 
-          durationInput.addEventListener("input", calcTotal);
+          // Calculate total price on duration change
+          durationInput.addEventListener("input", () => {
+            const price = parseInt(priceInput.value.replace(/,/g, "")) || 0;
+            const duration = parseInt(durationInput.value) || 0;
+            if (price && duration) {
+              const total = price * duration;
+              totalPrice.textContent = `Total: ₹${formatPrice(total)}`;
+            } else {
+              totalPrice.textContent = "";
+            }
+          });
         }
 
-        function calcTotal() {
-          const price = parseInt(priceInput.value.replace(/,/g, "")) || 0;
-          const days = parseInt(durationInput.value) || 0;
-          totalPrice.textContent = price && days ? `Total: ₹${formatPrice(price * days)}` : "";
-        }
-
+        // === Booking Form Submission ===
         form.addEventListener("submit", async (e) => {
           e.preventDefault();
-          const user = await getUserSession();
-          if (!user || !user.user?._id) {
-            showErrorMessage("Please login to book.");
-            setTimeout(() => (window.location.href = "index.html"), 1500);
+          message.textContent = "";
+          message.style.color = "red";
+
+          const userData = await getUserSession();
+          if (!userData || !userData.user?._id) {
+            message.textContent = "Please login for Booking .";
+            setTimeout(() => {
+              window.location.href = "index.html";
+            }, 2000);
+
             return;
           }
 
@@ -371,54 +280,83 @@
             carName: carSelect.value,
             price: priceInput.value,
             duration: durationInput.value,
-            date: dateInput.value,
-            userId: user.user._id,
+            date: document.getElementById("date").value,
+            userId: userData.user._id,
           };
 
           try {
-            const res = await withLoader(submitBtn, () => bookingCar(bookingData));
-            if (res?.error) {
-              showErrorMessage(res.message || "Booking failed");
-              showToast(res.message || "Booking failed", "error");
+            const response = await withLoader(submitBtn, () =>
+              bookingCar(bookingData)
+            );
+
+            if (response?.error) {
+              showErrorMessage(response.message || "Booking failed");
+              showToast(response.message || "Booking failed", "error");
             } else {
               showSuccessMessage("🎉 Car booked successfully!");
               showToast("Car booked successfully!", "success");
               form.reset();
+              carPreview.classList.add("hidden");
               totalPrice.textContent = "";
-              if (!carId) carSelect.selectedIndex = 0;
-              window.scrollTo({ top: 0, behavior: "smooth" });
+              if (!carId) {
+                carSelect.selectedIndex = 0;
+              }
+
+              // Scroll to top with smooth animation
+              window.scrollTo({ top: 0, behavior: 'smooth' });
             }
-          } catch {
-            showErrorMessage("Unexpected error occurred.");
-            showToast("Unexpected error", "error");
+          } catch (error) {
+            showErrorMessage("An unexpected error occurred. Please try again.");
+            showToast("An unexpected error occurred", "error");
           }
         });
 
-        function showSuccessMessage(txt) {
-          message.innerHTML = `<div class="px-4 py-3 rounded-xl shadow-lg bg-gradient-to-r from-emerald-500 to-teal-500 text-white flex items-center gap-3 animate-slide-up">
-            <i class="fas fa-check-circle"></i><p>${txt}</p></div>`;
-          animateMsg();
+        // Function to update car preview
+        function updateCarPreview(car) {
+          if (car && car.url) {
+            previewImg.src = car.url;
+            previewCarName.textContent = car.carName;
+            previewPrice.textContent = `₹${formatPrice(car.price)} per day`;
+            carPreview.classList.remove("hidden");
+          } else {
+            carPreview.classList.add("hidden");
+          }
         }
 
-        function showErrorMessage(txt) {
-          message.innerHTML = `<div class="px-4 py-3 rounded-xl shadow-lg bg-gradient-to-r from-rose-500 to-pink-500 text-white flex items-center gap-3 animate-slide-up">
-            <i class="fas fa-exclamation-circle"></i><p>${txt}</p></div>`;
-          animateMsg();
+        // Functions to show messages with animation
+        function showSuccessMessage(text) {
+          message.innerHTML = `
+            <div class="px-4 py-3 rounded-xl shadow-lg bg-gradient-to-r from-emerald-500 to-teal-500 text-white flex items-center gap-3 animate-slide-up">
+              <i class="fas fa-check-circle"></i>
+              <p>${text}</p>
+            </div>
+          `;
+          animateMessage();
         }
 
-        function animateMsg() {
+        function showErrorMessage(text) {
+          message.innerHTML = `
+            <div class="px-4 py-3 rounded-xl shadow-lg bg-gradient-to-r from-rose-500 to-pink-500 text-white flex items-center gap-3 animate-slide-up">
+              <i class="fas fa-exclamation-circle"></i>
+              <p>${text}</p>
+            </div>
+          `;
+          animateMessage();
+        }
+
+        function animateMessage() {
           message.style.opacity = "1";
           message.style.transform = "translateY(0)";
+
           setTimeout(() => {
             message.style.opacity = "0";
             message.style.transform = "translateY(8px)";
-          }, 4000);
+          }, 5000);
         }
 
         setupCars();
       })();
     </script>
-
     <script type="module" src="./assets/js/tailwind-init.js"></script>
   </body>
 </html>
