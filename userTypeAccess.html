@@ -65,8 +65,7 @@
       <div id="userList" class="space-y-4"></div>
     </main>
 
-
-    <script src="./assets/js/access.js" ></script>
+    <script src="./assets/js/access.js"></script>
     <script type="module" src="./assets/js/DynamicNav.js"></script>
     <script type="module">
       import { getUsers, userTypeChanged } from "./assets/js/services.js";
@@ -96,8 +95,7 @@
               } else {
                 alert(response.message || "Failed to change user type");
               }
-            } catch (err) {
-            }
+            } catch (err) {}
             return; // stop here after handling update
           }
 
@@ -127,8 +125,7 @@
 
             container.appendChild(card);
           });
-        } catch (err) {
-        }
+        } catch (err) {}
       }
 
       // Run main function
