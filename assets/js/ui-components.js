@@ -77,15 +77,91 @@ export function openModal(contentHtml, options = {}) {
   const status = document.getElementById('modalStatus');
   const dialog = modal.querySelector('[role="document"]');
 
-  // Update content
-  content.innerHTML = contentHtml;
-
-  // Show loading state if specified
-  if (options.loading) {
-    status.textContent = 'Loading...';
-    content.classList.add('opacity-50');
+  // Format content based on type
+  let formattedContent = '';
+  if (typeof contentHtml === 'object') {
+    if (contentHtml instanceof Error) {
+      // Handle Error objects
+      formattedContent = `
+        <div class="bg-red-50 border-l-4 border-red-500 p-4">
+          <div class="flex items-start">
+            <div class="flex-shrink-0">
+              <svg class="h-5 w-5 text-red-400" viewBox="0 0 20 20" fill="currentColor">
+                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clip-rule="evenodd" />
+              </svg>
+            </div>
+            <div class="ml-3">
+              <h3 class="text-sm font-medium text-red-800">Error</h3>
+              <div class="mt-2 text-sm text-red-700">
+                <p>${contentHtml.message || contentHtml.toString()}</p>
+                ${contentHtml.stack ? `<pre class="mt-2 text-xs bg-red-50 p-2 rounded overflow-auto">${contentHtml.stack}</pre>` : ''}
+              </div>
+            </div>
+          </div>
+        </div>`;
+    } else if (contentHtml.error) {
+      // Handle error property in objects
+      formattedContent = `
+        <div class="bg-red-50 border-l-4 border-red-500 p-4">
+          <div class="flex items-start">
+            <div class="flex-shrink-0">
+              <svg class="h-5 w-5 text-red-400" viewBox="0 0 20 20" fill="currentColor">
+                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clip-rule="evenodd" />
+              </svg>
+            </div>
+            <div class="ml-3">
+              <h3 class="text-sm font-medium text-red-800">Error</h3>
+              <div class="mt-2 text-sm text-red-700">
+                <p>${contentHtml.error}</p>
+              </div>
+            </div>
+          </div>
+        </div>`;
+    } else {
+      // Handle other objects
+      formattedContent = `
+        <div class="bg-slate-50 border border-slate-200 rounded-lg p-4">
+          <pre class="text-sm text-slate-700 overflow-auto">${JSON.stringify(contentHtml, null, 2)}</pre>
+        </div>`;
+    }
+  } else if (typeof contentHtml === 'string') {
+    formattedContent = contentHtml;
   } else {
-    status.textContent = '';
+    formattedContent = String(contentHtml);
+  }
+
+  // Update content
+  content.innerHTML = formattedContent;
+
+  // Handle modal states
+  if (options.loading) {
+    status.innerHTML = `
+      <div class="flex items-center gap-2">
+        <svg class="animate-spin h-4 w-4 text-slate-500" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+          <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+          <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+        </svg>
+        <span>Loading...</span>
+      </div>`;
+    content.classList.add('opacity-50');
+  } else if (options.error) {
+    status.innerHTML = `
+      <div class="flex items-center gap-2 text-red-600">
+        <svg class="h-4 w-4" viewBox="0 0 20 20" fill="currentColor">
+          <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clip-rule="evenodd" />
+        </svg>
+        <span>Error occurred</span>
+      </div>`;
+  } else if (options.success) {
+    status.innerHTML = `
+      <div class="flex items-center gap-2 text-green-600">
+        <svg class="h-4 w-4" viewBox="0 0 20 20" fill="currentColor">
+          <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
+        </svg>
+        <span>Success</span>
+      </div>`;
+  } else {
+    status.innerHTML = '';
     content.classList.remove('opacity-50');
   }
 
