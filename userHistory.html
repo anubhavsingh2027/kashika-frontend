@@ -52,6 +52,7 @@
 
           // Personalize
           document.getElementById("username").textContent = data.user.userName;
+          console.log("user id from user history :",data.user._id);
           const history=await userHistory(data.user._id);
           renderHistoryCar(history.carHistory);
           renderHistoryPackage(history.packageHistory);
