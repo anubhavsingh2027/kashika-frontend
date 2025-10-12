@@ -351,11 +351,25 @@
   <body>
     <nav id="navbar" class="sticky top-0 z-40"></nav>
     <main class="max-w-7xl mx-auto px-4 py-10">
-      <h1 class="text-4xl font-extrabold mb-10 header-title relative">
-        <i class="fas fa-car car-icon text-4xl"></i>
-        Available Cars
-        <i class="fas fa-tire wheel-icon text-3xl"></i>
+
+
+        <header class="flex flex-wrap items-center justify-between mb-12 px-6 py-4  rounded-2xl shadow-md border border-gray-200">
+      <h1 class="text-4xl font-extrabold flex items-center gap-3 text-gray-900">
+        <i class="fa-solid fa-car" style="color: #63E6BE;"></i>
+        <span>Available Cars</span>
       </h1>
+
+      <a
+        href="carBook.html"
+        class="inline-flex items-center gap-2 px-5 py-3 text-white rounded-full shadow-md transition duration-200 font-semibold"
+        style="background-color: #63E6BE;"
+      >
+        <i class="fas fa-plus"></i>
+        <span>Book Cars</span>
+      </a>
+    </header>
+
+
       <div
         id="carContainer"
         class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8"
@@ -367,7 +381,7 @@
       </div>
     </main>
 
-    <!-- ✅ EXACT ORIGINAL JAVASCRIPT - ZERO CHANGES + car.totalseats FIXED ✅ -->
+
     <script type="module" src="./assets/js/DynamicNav.js"></script>
     <script type="module">
       import { getAllCars, getUserSession } from "./assets/js/services.js";
