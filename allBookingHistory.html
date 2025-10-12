@@ -17,7 +17,23 @@
       </div>
 
       <div id="bookingList" class="bg-white rounded-lg shadow p-6">Loading booking data...</div>
-      <script src="./assets/js/access.js" ></script>
+        <script type="module">
+  import { getUserSession } from "./assets/js/services.js";
+
+  async function checkAccess() {
+    try {
+      const data = await getUserSession();
+      if (!data?.user || data.user.userType !== "host") {
+        window.location.href = "unauthorised403.html";
+      }
+    } catch (error) {
+      console.error("Error checking access:", error);
+      window.location.href = "unauthorised403.html"; // fallback redirect
+    }
+  }
+
+  document.addEventListener("DOMContentLoaded", checkAccess);
+</script>
       <script type="module" src="./assets/js/DynamicNav.js"></script>
   <script type="module">
   import { getUsers } from './assets/js/services.js';

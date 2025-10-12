@@ -147,7 +147,25 @@
         class="fixed bottom-6 right-6 transition-all duration-300 opacity-0 translate-y-6 pointer-events-none"
       ></div>
     </main>
-    <script src="./assets/js/access.js"></script>
+
+   <script type="module">
+  import { getUserSession } from "./assets/js/services.js";
+
+  async function checkAccess() {
+    try {
+      const data = await getUserSession();
+      if (!data?.user || data.user.userType !== "host") {
+        window.location.href = "unauthorised403.html";
+      }
+    } catch (error) {
+      console.error("Error checking access:", error);
+      window.location.href = "unauthorised403.html"; // fallback redirect
+    }
+  }
+
+  document.addEventListener("DOMContentLoaded", checkAccess);
+</script>
+
     <script type="module" src="./assets/js/DynamicNav.js"></script>
     <script type="module" src="./assets/js/tailwind-init.js"></script>
     <script type="module">
