@@ -13,15 +13,14 @@
       rel="stylesheet"
     />
     <style>
-      /* ✨ FABULOUS CAR ANIMATIONS - NO LOGIC CHANGES ✨ */
       @keyframes shimmer {
         0% { transform: translateX(-100%); }
         100% { transform: translateX(100%); }
       }
 
-      @keyframes carDrive {
-        0%, 100% { transform: translateX(0px) translateY(0px); }
-        50% { transform: translateX(8px) translateY(-6px); }
+      @keyframes carSlide {
+        0%, 100% { transform: translateX(0px); }
+        50% { transform: translateX(5px); }
       }
 
       @keyframes wheelSpin {
@@ -35,24 +34,14 @@
       }
 
       @keyframes sparkle {
-        0%, 100% { opacity: 0.4; transform: scale(0.8); }
-        50% { opacity: 1; transform: scale(1.2); }
+        0%, 100% { opacity: 0.6; transform: scale(0.9); }
+        50% { opacity: 1; transform: scale(1.1); }
       }
 
       @keyframes gradientMove {
         0% { background-position: 0% 50%; }
         50% { background-position: 100% 50%; }
         100% { background-position: 0% 50%; }
-      }
-
-      @keyframes pulseGlow {
-        0%, 100% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.4); }
-        50% { box-shadow: 0 0 0 20px rgba(16, 185, 129, 0); }
-      }
-
-      @keyframes enginePulse {
-        0%, 100% { background-color: rgba(16, 185, 129, 0.03); }
-        50% { background-color: rgba(16, 185, 129, 0.08); }
       }
 
       /* Light Clean Background */
@@ -97,7 +86,7 @@
 
       .car-icon {
         color: #10b981;
-        animation: carDrive 3s ease-in-out infinite;
+        animation: carSlide 3s ease-in-out infinite;
         filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.1));
       }
 
@@ -115,14 +104,14 @@
         animation: sparkle 2s ease-in-out infinite;
       }
 
-      /* ✨ FABULOUS CAR CARDS ✨ */
+      /* ✨ FABULOUS CAR CARDS - HOVER FIXED ✨ */
       .card {
         background: rgba(255, 255, 255, 0.9);
         backdrop-filter: blur(20px);
         border-radius: 24px;
         border: 1px solid rgba(255, 255, 255, 0.8);
         box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
-        transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+        transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
         overflow: hidden;
         position: relative;
         animation: fadeInUp 0.6s ease-out forwards;
@@ -148,23 +137,23 @@
         animation: gradientMove 3s ease infinite;
       }
 
+      /* HOVER ISSUE FIXED - Removed infinite animation on hover */
       .card:hover {
-        transform: translateY(-15px) scale(1.03);
-        box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
-        animation: carDrive 2s ease-in-out infinite;
+        transform: translateY(-12px) scale(1.02);
+        box-shadow: 0 20px 50px rgba(0, 0, 0, 0.15);
       }
 
       .card img {
         width: 100%;
         height: 240px;
         object-fit: cover;
-        transition: all 0.5s ease;
+        transition: all 0.4s ease;
         filter: brightness(1.05) contrast(1.05);
         background: linear-gradient(45deg, #f0f9ff, #e0f2fe);
       }
 
       .card:hover img {
-        transform: scale(1.1);
+        transform: scale(1.08);
         filter: brightness(1.1) contrast(1.1) saturate(1.2);
       }
 
@@ -172,7 +161,6 @@
         padding: 1.5rem;
         position: relative;
         background: linear-gradient(135deg, rgba(255, 255, 255, 0.95) 0%, rgba(255, 255, 255, 0.9) 100%);
-        animation: enginePulse 4s ease-in-out infinite;
       }
 
       .card-content h3 {
@@ -192,7 +180,7 @@
       .card-content h3::before {
         content: '🚗';
         font-size: 1.2rem;
-        animation: carDrive 4s ease-in-out infinite;
+        animation: carSlide 4s ease-in-out infinite;
       }
 
       .card-content h3::after {
@@ -244,6 +232,12 @@
         margin-bottom: 0.25rem;
         font-size: 1.2rem;
         animation: sparkle 3s ease-in-out infinite;
+      }
+
+      .stat-value {
+        font-weight: bold;
+        color: #10b981;
+        font-size: 1.1rem;
       }
 
       .card-content p {
@@ -316,7 +310,6 @@
       .action-btn:hover {
         transform: translateY(-2px) scale(1.05);
         box-shadow: 0 8px 25px rgba(16, 185, 129, 0.5);
-        animation: pulseGlow 2s ease-in-out infinite;
       }
 
       .delete-btn {
@@ -350,7 +343,7 @@
         background-size: 200% 100%;
         animation: shimmer 2s infinite;
         border-radius: 24px;
-        height: 380px;
+        height: 420px;
         border: 1px solid rgba(255, 255, 255, 0.5);
       }
     </style>
@@ -374,7 +367,7 @@
       </div>
     </main>
 
-    <!-- ✅ EXACT ORIGINAL JAVASCRIPT - ZERO CHANGES ✅ -->
+    <!-- ✅ EXACT ORIGINAL JAVASCRIPT - ZERO CHANGES + car.totalseats FIXED ✅ -->
     <script type="module" src="./assets/js/DynamicNav.js"></script>
     <script type="module">
       import { getAllCars, getUserSession } from "./assets/js/services.js";
@@ -411,15 +404,18 @@
             <div class="car-stats">
               <div class="stat-item">
                 <div class="stat-icon"><i class="fas fa-gas-pump"></i></div>
-                <div>Fuel Eff.</div>
+                <div class="stat-value">Efficient</div>
+                <div>Fuel</div>
               </div>
               <div class="stat-item">
                 <div class="stat-icon"><i class="fas fa-users"></i></div>
-                <div>Capacity</div>
+                <div class="stat-value">${car.totalseats}</div>
+                <div>Seats</div>
               </div>
               <div class="stat-item">
                 <div class="stat-icon"><i class="fas fa-shield-alt"></i></div>
-                <div>Safety</div>
+                <div class="stat-value">Safe</div>
+                <div>Rating</div>
               </div>
             </div>
             <p>${car.description}</p>
