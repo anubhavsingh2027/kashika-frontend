@@ -25,10 +25,10 @@ function buildLinkHtml(link, isActive) {
 
   return `
     <a href="${link.href}"
-       class="nav-link group relative px-5 py-3 rounded-2xl text-[14px] font-medium tracking-wide transition-all duration-500 overflow-hidden transform hover:scale-105 ${
+       class="nav-link group relative px-4 py-2 rounded-xl text-[13px] font-medium tracking-wide transition-all duration-500 overflow-hidden transform hover:scale-105 ${
          isActive
-           ? 'active-gradient text-black shadow-xl ring-2 ring-white/30'
-           : 'bg-white/90 text-black hover:bg-white/95 hover:shadow-[0_8px_25px_-5px_rgba(0,0,0,0.1)] backdrop-blur-xl'
+           ? 'active-gradient text-black shadow-lg ring-1 ring-white/30'
+           : 'bg-white/90 text-gray-700 hover:bg-white/95 hover:shadow-md backdrop-blur-xl'
        }"
     >
       <!-- Animated background layers -->
@@ -41,12 +41,12 @@ function buildLinkHtml(link, isActive) {
       <!-- Shimmer effect -->
       <div class="absolute inset-0 bg-gradient-to-r from-transparent via-white/30 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000 ease-out"></div>
 
-      <span class="relative z-20 flex items-center gap-3">
+      <span class="relative z-20 flex items-center gap-2">
         <!-- Enhanced icon with multiple animation layers -->
         <div class="relative">
           <div class="absolute inset-0 bg-gradient-to-r from-cyan-400/40 via-blue-500/40 to-purple-600/40 rounded-full blur-md opacity-0 group-hover:opacity-100 transition-all duration-500 transform group-hover:scale-150"></div>
           <div class="absolute inset-0 bg-gradient-to-r from-blue-400/30 to-purple-500/30 rounded-full blur-sm opacity-0 group-hover:opacity-100 animate-ping"></div>
-          <i class="fas ${icon} ${isActive ? 'animate-pulse-glow' : 'group-hover:animate-float-nav'} text-base relative z-10 transform group-hover:scale-110 transition-all duration-300 text-gradient"></i>
+          <i class="fas ${icon} ${isActive ? 'animate-pulse-glow' : 'group-hover:animate-float-nav'} text-sm relative z-10 transform group-hover:scale-110 transition-all duration-300 text-gradient"></i>
         </div>
 
         <!-- Enhanced text with typing effect -->
@@ -120,7 +120,41 @@ async function loadNavbar() {
 
     const current = window.location.pathname.split('/').pop() || 'index.html';
 
-    // Build navbar markup with CORRECTED mobile menu positioning
+        // Build navbar markup
+    const navContent = `
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex items-center justify-between h-16">
+        <!-- Logo and Brand -->
+        <div class="flex-shrink-0 flex items-center gap-3">
+          <div class="w-10 h-10 rounded-full bg-gradient-to-r from-cyan-400 to-blue-500 flex items-center justify-center shadow-lg">
+            <i class="fas fa-route text-white text-xl"></i>
+          </div>
+          <span class="text-xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-cyan-500 to-blue-600">
+            Kashika Travel
+          </span>
+        </div>
+
+        <!-- Navigation Links -->
+        <div class="hidden md:flex items-center justify-center space-x-1">
+          ${links.map((link, index) => buildLinkHtml(link, link.href.split('/').pop() === current)).join('')}
+        </div>
+
+        <!-- Mobile menu button -->
+        <div class="flex md:hidden">
+          <button id="mobile-menu-button" class="p-2 rounded-md hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-blue-500">
+            <i class="fas fa-bars text-gray-600"></i>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Mobile menu -->
+    <div id="mobile-menu" class="hidden md:hidden bg-white/95 backdrop-blur-lg border-t border-gray-200">
+      <div class="px-2 pt-2 pb-3 space-y-1">
+        ${links.map((link, index) => buildLinkHtml(link, link.href.split('/').pop() === current)).join('')}
+      </div>
+    </div>
+    `;
     navbar.innerHTML = `
       <div class="w-full bg-gradient-to-r from-white/95 via-gray-50/95 to-white/95 text-black backdrop-blur-2xl supports-[backdrop-filter]:bg-opacity-95 animate-nav-slide-down shadow-2xl shadow-black/20 border-b border-gradient relative overflow-hidden">
         <!-- Advanced animated background -->
