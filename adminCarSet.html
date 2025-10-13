@@ -12,25 +12,97 @@
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
     />
+    <style>
+      /* Enhanced visibility styles */
+      .animate-fade-in {
+        animation: fadeIn 0.6s ease-out forwards;
+      }
+
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+          transform: translateY(20px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      /* Gradient text animation */
+      .gradient-text {
+        background-size: 200% 200%;
+        animation: gradientMove 3s ease infinite;
+      }
+
+      @keyframes gradientMove {
+        0% { background-position: 0% 50%; }
+        50% { background-position: 100% 50%; }
+        100% { background-position: 0% 50%; }
+      }
+
+      /* Enhanced focus states */
+      input:focus, textarea:focus {
+        box-shadow: 0 0 0 3px rgba(14, 165, 233, 0.15);
+      }
+
+      /* Button glow effect */
+      button[type="submit"]:hover {
+        box-shadow: 0 8px 25px -5px rgba(14, 165, 233, 0.5);
+      }
+
+      /* Enhanced form field states */
+      .form-input:hover {
+        border-color: #0ea5e9;
+      }
+
+      /* Improved text contrast */
+      label {
+        text-shadow: 0 1px 1px rgba(255, 255, 255, 0.8);
+      }
+
+      /* Mobile optimizations */
+      @media (max-width: 640px) {
+        .text-4xl {
+          font-size: 2rem;
+        }
+
+        .p-8 {
+          padding: 1.5rem;
+        }
+
+        button[type="submit"] {
+          padding: 0.875rem 1.5rem;
+        }
+      }
+    </style>
   </head>
-  <body class="min-h-screen bg-gradient-to-br from-blue-50 via-white to-slate-100">
+  <body class="min-h-screen bg-gray-50">
     <nav id="navbar" class="sticky top-0 z-40"></nav>
 
     <main class="max-w-4xl mx-auto px-4 py-12">
-      <!-- Header -->
-      <div class="text-center mb-10 animate-fade-in" data-reveal>
-        <h1
-          class="text-3xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-sky-600 to-indigo-600 mb-2"
-        >
-          Add New Car
-        </h1>
-        <p class="text-slate-600">Add a new vehicle to your rental fleet</p>
+      <!-- Enhanced Header with better contrast -->
+      <div class="text-center mb-10 animate-fade-in p-6" data-reveal>
+        <div class="relative">
+          <!-- Main content with enhanced visibility -->
+          <div class="relative">
+            <h1 class="text-4xl md:text-5xl font-extrabold mb-4">
+              <span class="inline-block text-gray-900 relative pb-2 hover:scale-105 transition-transform duration-300">
+                Add New Car
+                <div class="absolute bottom-0 left-0 w-full h-1 bg-gradient-to-r from-blue-600 to-indigo-700"></div>
+              </span>
+            </h1>
+            <p class="text-gray-700 text-lg md:text-xl font-medium">
+              Add a new vehicle to your rental fleet
+            </p>
+          </div>
+        </div>
       </div>
 
       <!-- Form Card -->
-      <div class="bg-white/90 backdrop-blur-sm rounded-2xl shadow-xl border border-white/20 overflow-hidden hover:shadow-2xl transition-shadow duration-300" data-reveal>
+      <div class="bg-slate-50 rounded-2xl shadow-lg border border-slate-200 overflow-hidden hover:shadow-xl transition-shadow duration-300" data-reveal>
         <div class="p-8 relative">
-          <div class="absolute inset-0 bg-gradient-to-br from-sky-50/50 via-transparent to-indigo-50/50 pointer-events-none"></div>
+          <div class="absolute inset-0 bg-gradient-to-br from-blue-50/50 via-transparent to-indigo-50/50 pointer-events-none"></div>
           <div class="relative z-10">
           <form id="carSetForm" class="space-y-6">
             <!-- Car Name Input -->
@@ -52,7 +124,7 @@
                   id="carName"
                   placeholder="e.g., Toyota Innova Crysta"
                   required
-                  class="w-full pl-11 pr-4 py-3 border border-slate-200 bg-white/80 backdrop-blur-sm rounded-xl focus:ring-2 focus:ring-sky-600 focus:border-sky-400 hover:border-sky-300 outline-none transition-all shadow-sm hover:shadow-md"
+                  class="w-full pl-11 pr-4 py-3 border border-slate-300 bg-white rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 hover:border-blue-400 outline-none transition-all shadow-sm hover:shadow-md"
                 />
               </div>
             </div>
@@ -151,17 +223,25 @@ totalSeats
               </div>
             </div>
 
-            <!-- Submit Button -->
-            <div class="pt-4">
+            <!-- Enhanced Submit Button -->
+            <div class="pt-8">
               <button
                 type="submit"
                 id="submitBtn"
-                class="w-full py-3.5 px-6 bg-gradient-to-r from-sky-600 to-indigo-600 text-white rounded-xl font-medium shadow-md hover:shadow-xl hover:scale-[1.02] active:scale-[0.98] transition-all duration-300 relative group overflow-hidden"
+                class="w-full py-4 px-8 bg-gradient-to-r from-blue-600 to-indigo-700 text-white text-lg font-semibold
+                       rounded-xl shadow-md hover:shadow-xl hover:scale-[1.02] active:scale-[0.98]
+                       transition-all duration-300 relative group overflow-hidden
+                       border border-blue-400/20"
               >
-                <span class="flex items-center justify-center gap-2">
-                  <i class="fas fa-plus-circle"></i>
-                  <span>Add Car</span>
+                <div class="absolute inset-0 bg-gradient-to-r from-white/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                <div class="absolute inset-0 bg-gradient-to-t from-black/10 via-transparent to-transparent"></div>
+                <span class="relative flex items-center justify-center gap-3 text-white drop-shadow-md">
+                  <i class="fas fa-plus-circle text-xl group-hover:rotate-180 transition-transform duration-500"></i>
+                  <span class="tracking-wide">Add New Car</span>
                 </span>
+                <!-- Button glow effect -->
+                <div class="absolute inset-0 -z-10 bg-gradient-to-r from-sky-500 to-indigo-600 opacity-50 blur-xl
+                            group-hover:opacity-75 transition-opacity duration-300"></div>
               </button>
             </div>
           </form>
@@ -265,18 +345,22 @@ totalSeats
         const btnContent = submitBtn.querySelector("span");
         if (isLoading) {
           submitBtn.disabled = true;
+          submitBtn.classList.add('opacity-90', 'cursor-wait');
           btnContent.innerHTML = `
-            <svg class="animate-spin -ml-1 mr-3 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-              <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
-              <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
-            </svg>
-            Adding Car...
+            <div class="flex items-center justify-center gap-3">
+              <svg class="animate-spin h-6 w-6 text-white filter drop-shadow-md" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+              </svg>
+              <span class="text-lg font-semibold tracking-wide">Adding Car...</span>
+            </div>
           `;
         } else {
           submitBtn.disabled = false;
+          submitBtn.classList.remove('opacity-90', 'cursor-wait');
           btnContent.innerHTML = `
-            <i class="fas fa-plus-circle"></i>
-            <span>Add Car</span>
+            <i class="fas fa-plus-circle text-xl group-hover:rotate-180 transition-transform duration-500"></i>
+            <span class="tracking-wide">Add New Car</span>
           `;
         }
       }
