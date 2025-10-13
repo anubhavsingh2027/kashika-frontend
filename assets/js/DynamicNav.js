@@ -3,7 +3,6 @@ import { getUserSession } from "./services.js";
 const navbar = document.getElementById("navbar");
 
 function buildLinkHtml(link, isActive) {
-  // Define icons for navigation links
   const iconMap = {
     'Home': 'fa-home',
     'About': 'fa-info-circle',
@@ -31,37 +30,27 @@ function buildLinkHtml(link, isActive) {
            : 'bg-white/90 text-gray-700 hover:bg-white/95 hover:shadow-md backdrop-blur-xl'
        }"
     >
-      <!-- Animated background layers -->
       <div class="absolute inset-0 bg-gradient-to-r from-cyan-400/20 via-blue-500/20 to-purple-600/20 opacity-0 group-hover:opacity-100 transition-all duration-700 blur-xl"></div>
       <div class="absolute inset-0 bg-gradient-to-br from-white/40 to-transparent opacity-0 group-hover:opacity-100 transition-all duration-500"></div>
-
-      <!-- Glowing border effect -->
       <div class="absolute inset-0 rounded-2xl bg-gradient-to-r from-cyan-400/50 via-blue-500/50 to-purple-600/50 opacity-0 group-hover:opacity-100 transition-all duration-500 blur-sm"></div>
-
-      <!-- Shimmer effect -->
       <div class="absolute inset-0 bg-gradient-to-r from-transparent via-white/30 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000 ease-out"></div>
 
       <span class="relative z-20 flex items-center gap-2">
-        <!-- Enhanced icon with multiple animation layers -->
         <div class="relative">
           <div class="absolute inset-0 bg-gradient-to-r from-cyan-400/40 via-blue-500/40 to-purple-600/40 rounded-full blur-md opacity-0 group-hover:opacity-100 transition-all duration-500 transform group-hover:scale-150"></div>
           <div class="absolute inset-0 bg-gradient-to-r from-blue-400/30 to-purple-500/30 rounded-full blur-sm opacity-0 group-hover:opacity-100 animate-ping"></div>
           <i class="fas ${icon} ${isActive ? 'animate-pulse-glow' : 'group-hover:animate-float-nav'} text-sm relative z-10 transform group-hover:scale-110 transition-all duration-300 text-gradient"></i>
         </div>
 
-        <!-- Enhanced text with typing effect -->
         <span class="relative font-bold overflow-hidden">
           <span class="block transform group-hover:translate-y-[-2px] transition-transform duration-300">
             ${link.name}
           </span>
-          <!-- Animated underline -->
           <div class="absolute bottom-0 left-0 w-full h-[2px] bg-gradient-to-r from-cyan-400 via-blue-500 to-purple-600 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-left"></div>
-          <!-- Glow effect on text -->
           <div class="absolute inset-0 bg-gradient-to-r from-cyan-400/20 to-purple-600/20 opacity-0 group-hover:opacity-100 transition-opacity duration-500 blur-sm"></div>
         </span>
       </span>
 
-      <!-- Floating particles effect -->
       <div class="absolute inset-0 pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity duration-700">
         <div class="particle particle-1"></div>
         <div class="particle particle-2"></div>

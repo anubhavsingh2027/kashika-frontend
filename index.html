@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Kashika Travel</title>
 
-    <!-- Keep your original Tailwind link but update to latest version -->
     <script src="https://cdn.tailwindcss.com"></script>
     <link
       rel="stylesheet"
@@ -14,8 +13,6 @@
       crossorigin="anonymous"
       referrerpolicy="no-referrer"
     />
-
-    <!-- Enhanced Tailwind Config -->
     <script>
       tailwind.config = {
         theme: {
@@ -31,7 +28,6 @@
     </script>
 
     <style>
-      /* Enhanced Animations - Keep Original + Add New */
       @keyframes float {
         0% {
           transform: translateY(0px);
@@ -238,7 +234,10 @@
   </head>
 
   <body class="bg-gradient-to-br from-slate-50 to-blue-50 min-h-screen">
-     <nav id="navbar" class="sticky top-0 z-40 bg-gray-100 backdrop-blur-md border-b border-white/20 shadow-sm"> </nav>
+    <nav
+      id="navbar"
+      class="sticky top-0 z-40 bg-gray-100 backdrop-blur-md border-b border-white/20 shadow-sm"
+    ></nav>
     <!-- Hero Section with Enhanced Styling -->
     <section
       id="home"
@@ -331,14 +330,14 @@
               </span>
             </a>
             <a href="tel:+917355026966">
-            <button
-              class="backdrop-blur-md bg-white/10 hover:bg-white/20 border border-white/30 text-white px-8 py-4 rounded-full font-bold text-lg transition-all duration-300 transform hover:-translate-y-1"
-            >
-              <span class="flex items-center space-x-3">
-                <i class="fas fa-phone"></i>
-                <span>Call Now</span>
-              </span>
-            </button>
+              <button
+                class="backdrop-blur-md bg-white/10 hover:bg-white/20 border border-white/30 text-white px-8 py-4 rounded-full font-bold text-lg transition-all duration-300 transform hover:-translate-y-1"
+              >
+                <span class="flex items-center space-x-3">
+                  <i class="fas fa-phone"></i>
+                  <span>Call Now</span>
+                </span>
+              </button>
             </a>
           </div>
         </div>
@@ -715,7 +714,7 @@
 
     <!-- Keep ALL Your Original Scripts EXACTLY As They Are -->
     <script type="module" src="./assets/js/DynamicNav.js"></script>
-    <script src="./assets/js/script.js"></script>
+
     <script type="module">
       // Keep your exact original script
       import {
@@ -1059,7 +1058,6 @@
 
           await loadPackages();
           await loadCars();
-
         } catch (error) {
           console.error("❌ Error:", error);
         }

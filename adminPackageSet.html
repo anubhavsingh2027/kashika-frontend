@@ -17,7 +17,6 @@
     <nav id="navbar" class="sticky top-0 z-40"></nav>
 
     <main class="max-w-4xl mx-auto px-4 py-12">
-      <!-- Header -->
       <div class="text-center mb-10 animate-fade-in" data-reveal>
         <h1
           class="text-3xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-indigo-600 to-rose-500 mb-2"
@@ -27,12 +26,10 @@
         <p class="text-slate-600">Add a new travel package to your offerings</p>
       </div>
 
-      <!-- Form Card -->
       <div class="bg-white rounded-2xl shadow-lg border border-gray-100 overflow-hidden hover:shadow-xl transition-shadow duration-300" data-reveal>
         <div class="p-8 relative">
           <div class="relative z-10">
           <form id="packageSetForm" class="space-y-6">
-            <!-- Package Name Input -->
             <div class="space-y-2">
               <label
                 for="packageName"
@@ -56,7 +53,6 @@
               </div>
             </div>
 
-            <!-- Place Input -->
             <div class="space-y-2">
               <label
                 for="place"
@@ -80,7 +76,6 @@
               </div>
             </div>
 
-        <!-- packageDuration Input -->
             <div class="space-y-2">
               <label
                 for="price"
@@ -173,7 +168,6 @@
               </div>
             </div>
 
-            <!-- Submit Button -->
             <div class="pt-4">
               <button
                 type="submit"
@@ -193,7 +187,6 @@
         </div>
       </div>
 
-      <!-- Toast Message -->
       <div
         id="PackageMessage"
         class="fixed bottom-6 right-6 z-50 transition-all duration-300 opacity-0 translate-y-6 pointer-events-none"
@@ -226,7 +219,6 @@
       const message = document.getElementById("PackageMessage");
       const submitBtn = document.getElementById("submitBtn");
 
-      // Preview image on URL input
       const urlInput = document.getElementById("url");
       urlInput.addEventListener("input", debounce(previewImage, 500));
 

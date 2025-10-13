@@ -1,4 +1,3 @@
-// === API: Create Package ===
 export async function createPackage(packageData) {
   try {
     const response = await fetch("https://kashika-backend.onrender.com/kashikaTravel/admin/createPackage", {
@@ -21,7 +20,6 @@ export async function createPackage(packageData) {
 }
 
 
-// === API: Add Car ===
 export async function addCar(carData) {
   try {
     const response = await fetch("https://kashika-backend.onrender.com/kashikaTravel/admin/addCar", {

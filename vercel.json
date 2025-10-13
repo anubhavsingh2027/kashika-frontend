@@ -1,5 +1,5 @@
 {
-  "redirects": [
+  "rewrites": [
     { "source": "/", "destination": "index.html" },
     { "source": "/login", "destination": "login.html" },
     { "source": "/signUp", "destination": "signup.html" },
