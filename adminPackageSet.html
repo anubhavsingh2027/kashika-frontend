@@ -200,11 +200,11 @@
     try {
       const data = await getUserSession();
       if (!data?.user || data.user.userType !== "host") {
-        window.location.href = "unauthorised403.html";
+        window.location.href = "/unauthorsisedAccess";
       }
     } catch (error) {
       console.error("Error checking access:", error);
-      window.location.href = "unauthorised403.html"; // fallback redirect
+      window.location.href = "/unauthorsisedAccess"; // fallback redirect
     }
   }
 

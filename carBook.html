@@ -419,7 +419,7 @@
           try {
             const data = await deleteCar(carId);
             if (data.success) {
-              window.location.href = "carDetails.html";
+              window.location.href = "/carDetails";
             }
           } catch (err) {}
           return;
@@ -519,7 +519,7 @@
           if (!userData || !userData.user?._id) {
             message.textContent = "Please login for Booking .";
             setTimeout(() => {
-              window.location.href = "index.html";
+              window.location.href = "/";
             }, 2000);
 
             return;

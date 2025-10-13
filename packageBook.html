@@ -12,10 +12,10 @@
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
     />
     <style>
-      @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+      @import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap");
 
       * {
-        font-family: 'Inter', sans-serif;
+        font-family: "Inter", sans-serif;
       }
 
       [type="date"]::-webkit-calendar-picker-indicator {
@@ -30,7 +30,9 @@
       }
 
       @keyframes spin {
-        to { transform: rotate(360deg); }
+        to {
+          transform: rotate(360deg);
+        }
       }
 
       .loading-spinner {
@@ -38,28 +40,57 @@
       }
 
       @keyframes slide-in {
-        from { transform: translateY(1rem); opacity: 0; }
-        to { transform: translateY(0); opacity: 1; }
+        from {
+          transform: translateY(1rem);
+          opacity: 0;
+        }
+        to {
+          transform: translateY(0);
+          opacity: 1;
+        }
       }
 
       @keyframes fadeIn {
-        from { opacity: 0; transform: scale(0.95); }
-        to { opacity: 1; transform: scale(1); }
+        from {
+          opacity: 0;
+          transform: scale(0.95);
+        }
+        to {
+          opacity: 1;
+          transform: scale(1);
+        }
       }
 
       @keyframes slideInLeft {
-        from { transform: translateX(-1rem); opacity: 0; }
-        to { transform: translateX(0); opacity: 1; }
+        from {
+          transform: translateX(-1rem);
+          opacity: 0;
+        }
+        to {
+          transform: translateX(0);
+          opacity: 1;
+        }
       }
 
       @keyframes slideInRight {
-        from { transform: translateX(1rem); opacity: 0; }
-        to { transform: translateX(0); opacity: 1; }
+        from {
+          transform: translateX(1rem);
+          opacity: 0;
+        }
+        to {
+          transform: translateX(0);
+          opacity: 1;
+        }
       }
 
       @keyframes float {
-        0%, 100% { transform: translateY(0px); }
-        50% { transform: translateY(-6px); }
+        0%,
+        100% {
+          transform: translateY(0px);
+        }
+        50% {
+          transform: translateY(-6px);
+        }
       }
 
       .animate-slide-in {
@@ -87,8 +118,12 @@
       }
 
       @keyframes fade-in {
-        from { opacity: 0; }
-        to { opacity: 1; }
+        from {
+          opacity: 0;
+        }
+        to {
+          opacity: 1;
+        }
       }
 
       .glass-card {
@@ -127,7 +162,11 @@
       }
 
       .btn-enhanced {
-        background: linear-gradient(135deg, rgb(236, 72, 153) 0%, rgb(251, 146, 60) 100%);
+        background: linear-gradient(
+          135deg,
+          rgb(236, 72, 153) 0%,
+          rgb(251, 146, 60) 100%
+        );
         transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         position: relative;
         overflow: hidden;
@@ -139,13 +178,18 @@
       }
 
       .btn-enhanced::before {
-        content: '';
+        content: "";
         position: absolute;
         top: 0;
         left: -100%;
         width: 100%;
         height: 100%;
-        background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+        background: linear-gradient(
+          90deg,
+          transparent,
+          rgba(255, 255, 255, 0.2),
+          transparent
+        );
         transition: left 0.5s;
       }
 
@@ -154,7 +198,11 @@
       }
 
       .icon-gradient {
-        background: linear-gradient(135deg, rgb(236, 72, 153), rgb(251, 146, 60));
+        background: linear-gradient(
+          135deg,
+          rgb(236, 72, 153),
+          rgb(251, 146, 60)
+        );
       }
 
       .textarea-scrollbar::-webkit-scrollbar {
@@ -186,7 +234,11 @@
 
       .floating-shape {
         position: absolute;
-        background: linear-gradient(45deg, rgba(236, 72, 153, 0.1), rgba(251, 146, 60, 0.1));
+        background: linear-gradient(
+          45deg,
+          rgba(236, 72, 153, 0.1),
+          rgba(251, 146, 60, 0.1)
+        );
         border-radius: 50%;
         animation: float 8s ease-in-out infinite;
       }
@@ -226,20 +278,35 @@
     <nav id="navbar"></nav>
 
     <main class="min-h-screen flex items-center justify-center p-6">
-      <div class="w-full max-w-xl glass-card rounded-2xl shadow-xl p-8 animate-slide-up">
+      <div
+        class="w-full max-w-xl glass-card rounded-2xl shadow-xl p-8 animate-slide-up"
+      >
         <div class="flex items-center gap-3 mb-6 animate-slide-in-left">
           <div class="p-3 rounded-full icon-gradient animate-float">
             <i class="fas fa-suitcase-rolling text-white text-xl"></i>
           </div>
           <div>
-            <h1 class="text-2xl font-semibold text-slate-800">Book Your Package</h1>
-            <p class="text-sm text-slate-500 mt-1">Discover amazing destinations</p>
+            <h1 class="text-2xl font-semibold text-slate-800">
+              Book Your Package
+            </h1>
+            <p class="text-sm text-slate-500 mt-1">
+              Discover amazing destinations
+            </p>
           </div>
         </div>
 
-        <div id="packagePreview" class="hidden mb-6 rounded-xl overflow-hidden preview-enhanced relative group">
-          <img src="" alt="Package Preview" class="w-full h-48 object-cover transition-transform duration-300 group-hover:scale-105"/>
-          <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent"></div>
+        <div
+          id="packagePreview"
+          class="hidden mb-6 rounded-xl overflow-hidden preview-enhanced relative group"
+        >
+          <img
+            src=""
+            alt="Package Preview"
+            class="w-full h-48 object-cover transition-transform duration-300 group-hover:scale-105"
+          />
+          <div
+            class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent"
+          ></div>
           <div class="absolute bottom-0 left-0 right-0 p-4">
             <p id="previewPackageName" class="text-white font-medium"></p>
             <p id="previewPlace" class="text-white/90 text-sm"></p>
@@ -248,8 +315,14 @@
         </div>
 
         <form id="bookForm" class="space-y-5">
-          <div class="space-y-2 animate-slide-in-right" style="animation-delay: 0.1s">
-            <label for="packageName" class="text-sm font-medium text-slate-700 flex items-center gap-2">
+          <div
+            class="space-y-2 animate-slide-in-right"
+            style="animation-delay: 0.1s"
+          >
+            <label
+              for="packageName"
+              class="text-sm font-medium text-slate-700 flex items-center gap-2"
+            >
               <i class="fas fa-map-marked-alt text-rose-500"></i>
               Package Name
             </label>
@@ -260,8 +333,14 @@
             ></select>
           </div>
 
-          <div class="space-y-2 animate-slide-in-left" style="animation-delay: 0.2s">
-            <label for="guestNo" class="text-sm font-medium text-slate-700 flex items-center gap-2">
+          <div
+            class="space-y-2 animate-slide-in-left"
+            style="animation-delay: 0.2s"
+          >
+            <label
+              for="guestNo"
+              class="text-sm font-medium text-slate-700 flex items-center gap-2"
+            >
               <i class="fas fa-users text-rose-500"></i>
               Number of Guests
             </label>
@@ -274,12 +353,21 @@
                 required
                 class="enhanced-field w-full px-4 py-2.5 border border-slate-200 rounded-xl focus:ring-2 focus:ring-rose-500/20 focus:border-rose-500 transition-all"
               />
-              <div id="totalPrice" class="absolute right-3 top-1/2 -translate-y-1/2 text-sm font-medium text-rose-600 opacity-0 group-hover:opacity-100 transition-opacity"></div>
+              <div
+                id="totalPrice"
+                class="absolute right-3 top-1/2 -translate-y-1/2 text-sm font-medium text-rose-600 opacity-0 group-hover:opacity-100 transition-opacity"
+              ></div>
             </div>
           </div>
 
-          <div class="space-y-2 animate-slide-in-right" style="animation-delay: 0.3s">
-            <label for="arrivalDate" class="text-sm font-medium text-slate-700 flex items-center gap-2">
+          <div
+            class="space-y-2 animate-slide-in-right"
+            style="animation-delay: 0.3s"
+          >
+            <label
+              for="arrivalDate"
+              class="text-sm font-medium text-slate-700 flex items-center gap-2"
+            >
               <i class="fas fa-calendar-alt text-rose-500"></i>
               Arrival Date
             </label>
@@ -291,8 +379,14 @@
             />
           </div>
 
-          <div class="space-y-2 animate-slide-in-left" style="animation-delay: 0.4s">
-            <label for="request" class="text-sm font-medium text-slate-700 flex items-center gap-2">
+          <div
+            class="space-y-2 animate-slide-in-left"
+            style="animation-delay: 0.4s"
+          >
+            <label
+              for="request"
+              class="text-sm font-medium text-slate-700 flex items-center gap-2"
+            >
               <i class="fas fa-comment-alt text-rose-500"></i>
               Special Request
             </label>
@@ -310,11 +404,16 @@
             style="animation-delay: 0.5s"
           >
             <span class="inline-flex items-center gap-2">
-              <i class="fas fa-check-circle group-hover:rotate-12 transition-transform"></i>
+              <i
+                class="fas fa-check-circle group-hover:rotate-12 transition-transform"
+              ></i>
               Book Now
             </span>
           </button>
-          <div id="message" class="text-center font-medium mt-4 transition-all duration-300 opacity-0 transform translate-y-2"></div>
+          <div
+            id="message"
+            class="text-center font-medium mt-4 transition-all duration-300 opacity-0 transform translate-y-2"
+          ></div>
         </form>
       </div>
     </main>
@@ -341,7 +440,7 @@
 
       // Format price with commas
       function formatPrice(price) {
-        return new Intl.NumberFormat('en-IN').format(price);
+        return new Intl.NumberFormat("en-IN").format(price);
       }
 
       // === Extract Package ID and Delete Flag ===
@@ -359,7 +458,7 @@
       (async function init() {
         if (isDelete && packageId) {
           const data = await deletePackage(packageId);
-          window.location.href = "packagedetails.html";
+          window.location.href = "/packageDetails";
           return;
         }
 
@@ -408,17 +507,20 @@
 
         // Show preview and update total on package selection
         packageSelect.addEventListener("change", () => {
-          const selectedOption = packageSelect.options[packageSelect.selectedIndex];
+          const selectedOption =
+            packageSelect.options[packageSelect.selectedIndex];
           if (selectedOption.value) {
             const packageData = {
               packageName: selectedOption.value,
               place: selectedOption.dataset.place,
               price: selectedOption.dataset.price,
-              url: selectedOption.dataset.image
+              url: selectedOption.dataset.image,
             };
             updatePackagePreview(packageData);
             // Trigger guest number calculation
-            document.getElementById("guestNo").dispatchEvent(new Event("input"));
+            document
+              .getElementById("guestNo")
+              .dispatchEvent(new Event("input"));
           } else {
             packagePreview.classList.add("hidden");
             totalPrice.textContent = "";
@@ -427,7 +529,8 @@
 
         // Calculate total price on guest number change
         document.getElementById("guestNo").addEventListener("input", (e) => {
-          const selectedOption = packageSelect.options[packageSelect.selectedIndex];
+          const selectedOption =
+            packageSelect.options[packageSelect.selectedIndex];
           if (selectedOption.value && e.target.value) {
             const basePrice = parseInt(selectedOption.dataset.price);
             const guests = parseInt(e.target.value);
@@ -448,7 +551,7 @@
           if (!userData || !userData.user?._id) {
             message.textContent = "Please login for booking.";
             setTimeout(() => {
-              window.location.href = "login.html";
+              window.location.href = "/login";
             }, 2000);
             return;
           }
@@ -464,7 +567,7 @@
           try {
             // Show loading state
             submitBtn.disabled = true;
-            const btnContent = submitBtn.querySelector('span');
+            const btnContent = submitBtn.querySelector("span");
             const originalContent = btnContent.innerHTML;
             btnContent.innerHTML = `
               <div class="flex items-center gap-3">
@@ -492,7 +595,7 @@
               }
 
               // Scroll to top with smooth animation
-              window.scrollTo({ top: 0, behavior: 'smooth' });
+              window.scrollTo({ top: 0, behavior: "smooth" });
             }
           } catch (error) {
             showErrorMessage("An unexpected error occurred. Please try again.");
@@ -500,7 +603,7 @@
           } finally {
             // Restore button state
             submitBtn.disabled = false;
-            const btnContent = submitBtn.querySelector('span');
+            const btnContent = submitBtn.querySelector("span");
             btnContent.innerHTML = `
               <i class="fas fa-check-circle group-hover:rotate-12 transition-transform"></i>
               Book Package
@@ -523,42 +626,45 @@
 
         // Functions to show messages with animation
         function showSuccessMessage(text) {
-          showMessage(text, 'success');
+          showMessage(text, "success");
         }
 
         function showErrorMessage(text) {
-          showMessage(text, 'error');
+          showMessage(text, "error");
         }
 
-        function showMessage(text, type = 'success') {
+        function showMessage(text, type = "success") {
           // Remove existing message if any
-          const existingMsg = message.querySelector('div');
+          const existingMsg = message.querySelector("div");
           if (existingMsg) {
-            existingMsg.classList.remove('animate-slide-in');
-            existingMsg.classList.add('opacity-0', 'translate-y-4');
+            existingMsg.classList.remove("animate-slide-in");
+            existingMsg.classList.add("opacity-0", "translate-y-4");
           }
 
           // Create and insert new message
-          const msgElement = document.createElement('div');
+          const msgElement = document.createElement("div");
           msgElement.className = `px-4 py-3 rounded-xl shadow-lg flex items-center gap-3 animate-slide-in
-            ${type === 'success'
-              ? 'bg-gradient-to-r from-emerald-500 to-teal-500'
-              : 'bg-gradient-to-r from-rose-500 to-pink-500'
+            ${
+              type === "success"
+                ? "bg-gradient-to-r from-emerald-500 to-teal-500"
+                : "bg-gradient-to-r from-rose-500 to-pink-500"
             } text-white`;
           msgElement.innerHTML = `
-            <i class="fas ${type === 'success' ? 'fa-check-circle' : 'fa-exclamation-circle'}
-              ${type === 'success' ? 'animate-bounce' : 'animate-pulse'}"></i>
+            <i class="fas ${
+              type === "success" ? "fa-check-circle" : "fa-exclamation-circle"
+            }
+              ${type === "success" ? "animate-bounce" : "animate-pulse"}"></i>
             <p class="flex-1">${text}</p>
           `;
 
-          message.innerHTML = '';
+          message.innerHTML = "";
           message.appendChild(msgElement);
 
           // Hide message after delay
           setTimeout(() => {
-            msgElement.classList.remove('animate-slide-in');
-            msgElement.classList.add('opacity-0', 'translate-y-4');
-            msgElement.style.transition = 'all 0.3s ease-out';
+            msgElement.classList.remove("animate-slide-in");
+            msgElement.classList.add("opacity-0", "translate-y-4");
+            msgElement.style.transition = "all 0.3s ease-out";
           }, 5000);
         }
 

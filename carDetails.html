@@ -14,34 +14,66 @@
     />
     <style>
       @keyframes shimmer {
-        0% { transform: translateX(-100%); }
-        100% { transform: translateX(100%); }
+        0% {
+          transform: translateX(-100%);
+        }
+        100% {
+          transform: translateX(100%);
+        }
       }
 
       @keyframes carSlide {
-        0%, 100% { transform: translateX(0px); }
-        50% { transform: translateX(5px); }
+        0%,
+        100% {
+          transform: translateX(0px);
+        }
+        50% {
+          transform: translateX(5px);
+        }
       }
 
       @keyframes wheelSpin {
-        0% { transform: rotate(0deg); }
-        100% { transform: rotate(360deg); }
+        0% {
+          transform: rotate(0deg);
+        }
+        100% {
+          transform: rotate(360deg);
+        }
       }
 
       @keyframes fadeInUp {
-        0% { transform: translateY(30px); opacity: 0; }
-        100% { transform: translateY(0); opacity: 1; }
+        0% {
+          transform: translateY(30px);
+          opacity: 0;
+        }
+        100% {
+          transform: translateY(0);
+          opacity: 1;
+        }
       }
 
       @keyframes sparkle {
-        0%, 100% { opacity: 0.6; transform: scale(0.9); }
-        50% { opacity: 1; transform: scale(1.1); }
+        0%,
+        100% {
+          opacity: 0.6;
+          transform: scale(0.9);
+        }
+        50% {
+          opacity: 1;
+          transform: scale(1.1);
+        }
       }
 
       @keyframes gradientMove {
-        0% { background-position: 0% 50%; }
-        50% { background-position: 100% 50%; }
-        100% { background-position: 0% 50%; }
+        0% {
+          background-position: 0% 50%;
+        }
+        50% {
+          background-position: 100% 50%;
+        }
+        100% {
+          background-position: 0% 50%;
+        }
       }
 
       /* Light Clean Background */
@@ -52,15 +84,27 @@
       }
 
       body::before {
-        content: '';
+        content: "";
         position: fixed;
         top: 0;
         left: 0;
         width: 100%;
         height: 100%;
-        background: radial-gradient(circle at 20% 20%, rgba(34, 197, 94, 0.08) 0%, transparent 50%),
-                    radial-gradient(circle at 80% 80%, rgba(59, 130, 246, 0.08) 0%, transparent 50%),
-                    radial-gradient(circle at 40% 40%, rgba(168, 85, 247, 0.06) 0%, transparent 50%);
+        background: radial-gradient(
+            circle at 20% 20%,
+            rgba(34, 197, 94, 0.08) 0%,
+            transparent 50%
+          ),
+          radial-gradient(
+            circle at 80% 80%,
+            rgba(59, 130, 246, 0.08) 0%,
+            transparent 50%
+          ),
+          radial-gradient(
+            circle at 40% 40%,
+            rgba(168, 85, 247, 0.06) 0%,
+            transparent 50%
+          );
         pointer-events: none;
         z-index: 1;
       }
@@ -97,7 +141,7 @@
       }
 
       .header-title::after {
-        content: '🚀';
+        content: "🚀";
         position: absolute;
         right: -50px;
         top: -5px;
@@ -118,15 +162,27 @@
         opacity: 0;
       }
 
-      .card:nth-child(1) { animation-delay: 0.1s; }
-      .card:nth-child(2) { animation-delay: 0.2s; }
-      .card:nth-child(3) { animation-delay: 0.3s; }
-      .card:nth-child(4) { animation-delay: 0.4s; }
-      .card:nth-child(5) { animation-delay: 0.5s; }
-      .card:nth-child(6) { animation-delay: 0.6s; }
+      .card:nth-child(1) {
+        animation-delay: 0.1s;
+      }
+      .card:nth-child(2) {
+        animation-delay: 0.2s;
+      }
+      .card:nth-child(3) {
+        animation-delay: 0.3s;
+      }
+      .card:nth-child(4) {
+        animation-delay: 0.4s;
+      }
+      .card:nth-child(5) {
+        animation-delay: 0.5s;
+      }
+      .card:nth-child(6) {
+        animation-delay: 0.6s;
+      }
 
       .card::before {
-        content: '';
+        content: "";
         position: absolute;
         top: 0;
         left: 0;
@@ -160,7 +216,11 @@
       .card-content {
         padding: 1.5rem;
         position: relative;
-        background: linear-gradient(135deg, rgba(255, 255, 255, 0.95) 0%, rgba(255, 255, 255, 0.9) 100%);
+        background: linear-gradient(
+          135deg,
+          rgba(255, 255, 255, 0.95) 0%,
+          rgba(255, 255, 255, 0.9) 100%
+        );
       }
 
       .card-content h3 {
@@ -178,13 +238,13 @@
       }
 
       .card-content h3::before {
-        content: '🚗';
+        content: "🚗";
         font-size: 1.2rem;
         animation: carSlide 4s ease-in-out infinite;
       }
 
       .card-content h3::after {
-        content: '';
+        content: "";
         position: absolute;
         bottom: -8px;
         left: 0;
@@ -261,13 +321,13 @@
       }
 
       .price::before {
-        content: '💰';
+        content: "💰";
         font-size: 1.3rem;
         animation: sparkle 2s ease-in-out infinite;
       }
 
       .price::after {
-        content: '/day';
+        content: "/day";
         font-size: 0.9rem;
         color: #6b7280;
         font-weight: normal;
@@ -293,13 +353,18 @@
       }
 
       .action-btn::before {
-        content: '';
+        content: "";
         position: absolute;
         top: 0;
         left: -100%;
         width: 100%;
         height: 100%;
-        background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+        background: linear-gradient(
+          90deg,
+          transparent,
+          rgba(255, 255, 255, 0.3),
+          transparent
+        );
         transition: left 0.5s;
       }
 
@@ -339,7 +404,12 @@
 
       /* Loading Shimmer */
       .loading-shimmer {
-        background: linear-gradient(90deg, rgba(255, 255, 255, 0.3) 25%, rgba(255, 255, 255, 0.6) 50%, rgba(255, 255, 255, 0.3) 75%);
+        background: linear-gradient(
+          90deg,
+          rgba(255, 255, 255, 0.3) 25%,
+          rgba(255, 255, 255, 0.6) 50%,
+          rgba(255, 255, 255, 0.3) 75%
+        );
         background-size: 200% 100%;
         animation: shimmer 2s infinite;
         border-radius: 24px;
@@ -351,24 +421,25 @@
   <body>
     <nav id="navbar" class="sticky top-0 z-40"></nav>
     <main class="max-w-7xl mx-auto px-4 py-10">
-
-
-        <header class="flex flex-wrap items-center justify-between mb-12 px-6 py-4  rounded-2xl shadow-md border border-gray-200">
-      <h1 class="text-4xl font-extrabold flex items-center gap-3 text-gray-900">
-        <i class="fa-solid fa-car" style="color: #63E6BE;"></i>
-        <span>Available Cars</span>
-      </h1>
-
-      <a
-        href="carBook.html"
-        class="inline-flex items-center gap-2 px-5 py-3 text-white rounded-full shadow-md transition duration-200 font-semibold"
-        style="background-color: #63E6BE;"
+      <header
+        class="flex flex-wrap items-center justify-between mb-12 px-6 py-4 rounded-2xl shadow-md border border-gray-200"
       >
-        <i class="fas fa-plus"></i>
-        <span>Book Cars</span>
-      </a>
-    </header>
+        <h1
+          class="text-4xl font-extrabold flex items-center gap-3 text-gray-900"
+        >
+          <i class="fa-solid fa-car" style="color: #63e6be"></i>
+          <span>Available Cars</span>
+        </h1>
 
+        <a
+          href="/carBook"
+          class="inline-flex items-center gap-2 px-5 py-3 text-white rounded-full shadow-md transition duration-200 font-semibold"
+          style="background-color: #63e6be"
+        >
+          <i class="fas fa-plus"></i>
+          <span>Book Cars</span>
+        </a>
+      </header>
 
       <div
         id="carContainer"
@@ -376,11 +447,10 @@
       >
         <!-- Fabulous Loading Animation -->
         <div class="loading-shimmer"></div>
-        <div class="loading-shimmer" style="animation-delay: 0.1s;"></div>
-        <div class="loading-shimmer" style="animation-delay: 0.2s;"></div>
+        <div class="loading-shimmer" style="animation-delay: 0.1s"></div>
+        <div class="loading-shimmer" style="animation-delay: 0.2s"></div>
       </div>
     </main>
-
 
     <script type="module" src="./assets/js/DynamicNav.js"></script>
     <script type="module">
@@ -388,7 +458,6 @@
       async function loadCars() {
         const userSession = await getUserSession();
         const userType = userSession?.user?.userType || "guest";
-
 
         const data = await getAllCars();
         const container = document.getElementById("carContainer");
@@ -436,8 +505,8 @@
             <p class="price">₹${car.price}</p>
             ${
               userType === "host"
-                ? `<a href="carBook.html?id=${car._id}&delete=true" class="action-btn delete-btn"><i class="fas fa-trash"></i> Delete</a>`
-                : `<a href="carBook.html?id=${car._id}" class="action-btn"><i class="fas fa-key"></i> Book</a>`
+                ? `<a href="/carBook?id=${car._id}&delete=true" class="action-btn delete-btn"><i class="fas fa-trash"></i> Delete</a>`
+                : `<a href="/carBook?id=${car._id}" class="action-btn"><i class="fas fa-key"></i> Book</a>`
             }
           </div>
         </div>

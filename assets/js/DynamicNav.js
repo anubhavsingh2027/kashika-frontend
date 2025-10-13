@@ -75,39 +75,39 @@ async function loadNavbar() {
 
     if (!LoggedIn) {
       links = [
-        { name: "Home", href: "index.html" },
-        { name: "About", href: "about.html" },
-        { name: "Packages", href: "packagedetails.html" },
-        { name: "Cars", href: "carDetails.html" },
+        { name: "Home", href: "/" },
+        { name: "About", href: "/about" },
+        { name: "Packages", href: "/packageDetails" },
+        { name: "Cars", href: "/carDetails" },
         { name: "Contact", href: "contact.html" },
-        { name: "Sign In", href: "login.html" },
+        { name: "Sign In", href: "/login" },
       ];
     } else if (LoggedIn && userType === "guest") {
       links = [
-        { name: "Home", href: "index.html" },
-        { name: "About", href: "about.html" },
-        { name: "Packages", href: "packagedetails.html" },
-        { name: "Cars", href: "carDetails.html" },
-        { name: "Book Package", href: "packageBook.html" },
-        { name: "Book Car", href: "carBook.html" },
-        { name: "History", href: "userHistory.html" },
+        { name: "Home", href: "/" },
+        { name: "About", href: "/about" },
+        { name: "Packages", href: "/packageDetails" },
+        { name: "Cars", href: "/carDetails" },
+        { name: "Book Package", href: "/packageBook" },
+        { name: "Book Car", href: "/carBook" },
+        { name: "History", href: "/history" },
         { name: "Contact", href: "contact.html" },
-        { name: "Sign Out", href: "login.html?logoutRequest=true" },
+        { name: "Sign Out", href: "/login?logoutRequest=true" },
       ];
     } else if (LoggedIn && userType === "host") {
       links = [
-        { name: "Home", href: "index.html" },
-        { name: "Packages", href: "packagedetails.html" },
-        { name: "Cars", href: "carDetails.html" },
-        { name: "Admin Cars", href: "adminCarSet.html" },
-        { name: "Admin Packages", href: "adminPackageSet.html" },
-        { name: "Bookings", href: "allBookingHistory.html" },
-        { name: "Users", href: "userTypeAccess.html" },
-        { name: "Sign Out", href: "login.html?logoutRequest=true" },
+        { name: "Home", href: "/" },
+        { name: "Packages", href: "/packageDetails" },
+        { name: "Cars", href: "/carDetails" },
+        { name: "Admin Cars", href: "/CarAdd" },
+        { name: "Admin Packages", href: "/PackageAdd" },
+        { name: "Bookings", href: "/userHistory" },
+        { name: "Users", href: "/typeChange" },
+        { name: "Sign Out", href: "/login?logoutRequest=true" },
       ];
     }
 
-    const current = window.location.pathname.split('/').pop() || 'index.html';
+    const current = window.location.pathname.split('/').pop() || '/';
 
         // Build navbar markup
     const navContent = `
@@ -174,7 +174,7 @@ async function loadNavbar() {
         <div class="relative flex items-center justify-between h-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <!-- Ultra-enhanced Logo -->
           <div class="flex-shrink-0">
-            <a href="index.html" class="logo-container group flex items-center gap-4 hover:opacity-95 transition-all duration-500">
+            <a href="/" class="logo-container group flex items-center gap-4 hover:opacity-95 transition-all duration-500">
               <div class="relative">
                 <!-- Multiple glow layers -->
                 <div class="absolute inset-0 bg-gradient-to-r from-cyan-400/40 via-blue-500/40 to-purple-600/40 rounded-full blur-2xl transform group-hover:scale-150 transition-all duration-700 animate-pulse-glow"></div>
@@ -705,7 +705,7 @@ async function loadNavbar() {
 
   } catch (err) {
     console.error('Navbar loading error:', err);
-    navbar.innerHTML = '<div class="p-4 bg-slate-800 text-white"><a href="index.html">Home</a></div>';
+    navbar.innerHTML = '<div class="p-4 bg-slate-800 text-white"><a href="/">Home</a></div>';
   }
 }
 

@@ -65,23 +65,23 @@
       <div id="userList" class="space-y-4"></div>
     </main>
 
-      <script type="module">
-  import { getUserSession } from "./assets/js/services.js";
+    <script type="module">
+      import { getUserSession } from "./assets/js/services.js";
 
-  async function checkAccess() {
-    try {
-      const data = await getUserSession();
-      if (!data?.user || data.user.userType !== "host") {
-        window.location.href = "unauthorised403.html";
+      async function checkAccess() {
+        try {
+          const data = await getUserSession();
+          if (!data?.user || data.user.userType !== "host") {
+            window.location.href = "/unauthorsisedAccess";
+          }
+        } catch (error) {
+          console.error("Error checking access:", error);
+          window.location.href = "/unauthorsisedAccess"; // fallback redirect
+        }
       }
-    } catch (error) {
-      console.error("Error checking access:", error);
-      window.location.href = "unauthorised403.html"; // fallback redirect
-    }
-  }
 
-  document.addEventListener("DOMContentLoaded", checkAccess);
-</script>
+      document.addEventListener("DOMContentLoaded", checkAccess);
+    </script>
     <script type="module" src="./assets/js/DynamicNav.js"></script>
     <script type="module">
       import { getUsers, userTypeChanged } from "./assets/js/services.js";
@@ -107,7 +107,7 @@
               const response = await userTypeChanged({ id, changeType: type });
               if (response.status) {
                 alert("User type changed successfully!");
-                window.location.href = "userTypeAccess.html"; // reload list
+                window.location.href = "/typeChange"; // reload list
               } else {
                 alert(response.message || "Failed to change user type");
               }
@@ -130,7 +130,7 @@
             <p>${user.email}</p>
           </div>
           <div>
-            <a href="userTypeAccess.html?id=${user._id}&type=${
+            <a href="/typeChange?id=${user._id}&type=${
               user.userType === "guest" ? "host" : "guest"
             }&needChange=true"
                class="action-btn host-btn">
