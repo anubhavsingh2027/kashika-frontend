@@ -24,7 +24,7 @@ function buildLinkHtml(link, isActive) {
 
   return `
     <a href="${link.href}"
-       class="nav-link group relative px-4 py-2 rounded-xl text-[13px] font-medium tracking-wide transition-all duration-500 overflow-hidden transform hover:scale-105 ${
+       class="nav-link group relative px-2 py-1.5 rounded-lg text-[12px] font-medium tracking-wide transition-all duration-500 overflow-hidden transform hover:scale-105 ${
          isActive
            ? 'active-gradient text-black shadow-lg ring-1 ring-white/30'
            : 'bg-white/90 text-gray-700 hover:bg-white/95 hover:shadow-md backdrop-blur-xl'
@@ -35,11 +35,11 @@ function buildLinkHtml(link, isActive) {
       <div class="absolute inset-0 rounded-2xl bg-gradient-to-r from-cyan-400/50 via-blue-500/50 to-purple-600/50 opacity-0 group-hover:opacity-100 transition-all duration-500 blur-sm"></div>
       <div class="absolute inset-0 bg-gradient-to-r from-transparent via-white/30 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000 ease-out"></div>
 
-      <span class="relative z-20 flex items-center gap-2">
+      <span class="relative z-20 flex items-center gap-1.5">
         <div class="relative">
           <div class="absolute inset-0 bg-gradient-to-r from-cyan-400/40 via-blue-500/40 to-purple-600/40 rounded-full blur-md opacity-0 group-hover:opacity-100 transition-all duration-500 transform group-hover:scale-150"></div>
           <div class="absolute inset-0 bg-gradient-to-r from-blue-400/30 to-purple-500/30 rounded-full blur-sm opacity-0 group-hover:opacity-100 animate-ping"></div>
-          <i class="fas ${icon} ${isActive ? 'animate-pulse-glow' : 'group-hover:animate-float-nav'} text-sm relative z-10 transform group-hover:scale-110 transition-all duration-300 text-gradient"></i>
+          <i class="fas ${icon} ${isActive ? 'animate-pulse-glow' : 'group-hover:animate-float-nav'} text-xs relative z-10 transform group-hover:scale-110 transition-all duration-300 text-gradient"></i>
         </div>
 
         <span class="relative font-bold overflow-hidden">
@@ -111,20 +111,19 @@ async function loadNavbar() {
 
         // Build navbar markup
     const navContent = `
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="max-w-full mx-auto px-2 sm:px-4 lg:px-6">
       <div class="flex items-center justify-between h-16">
-        <!-- Logo and Brand -->
-        <div class="flex-shrink-0 flex items-center gap-3">
-          <div class="w-10 h-10 rounded-full bg-gradient-to-r from-cyan-400 to-blue-500 flex items-center justify-center shadow-lg">
-            <i class="fas fa-route text-white text-xl"></i>
+        <div class="flex-none flex items-center gap-2 pl-2">
+          <div class="w-8 h-8 rounded-full bg-gradient-to-r from-cyan-400 to-blue-500 flex items-center justify-center shadow-lg">
+            <i class="fas fa-route text-white text-sm"></i>
           </div>
-          <span class="text-xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-cyan-500 to-blue-600">
-            Kashika Travel
+          <span class="text-sm font-bold bg-clip-text text-transparent bg-gradient-to-r from-cyan-500 to-blue-600 whitespace-nowrap">
+            Kashika
           </span>
         </div>
 
         <!-- Navigation Links -->
-        <div class="hidden md:flex items-center justify-center space-x-1">
+        <div class="hidden md:flex items-center justify-end flex-1 overflow-x-auto space-x-0.5 px-2">
           ${links.map((link, index) => buildLinkHtml(link, link.href.split('/').pop() === current)).join('')}
         </div>
 
