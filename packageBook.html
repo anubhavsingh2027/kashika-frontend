@@ -223,6 +223,59 @@
         background: #94a3b8;
       }
 
+      /* Mobile responsive fixes */
+      @media (max-width: 768px) {
+        .glass-card {
+          margin: 0;
+          border-radius: 1rem;
+        }
+
+        .btn-enhanced {
+          padding: 0.75rem 1rem;
+          font-size: 0.95rem;
+        }
+
+        input,
+        select,
+        textarea {
+          font-size: 16px !important; /* Prevents iOS zoom */
+        }
+
+        .enhanced-field {
+          padding: 0.625rem 1rem;
+        }
+
+        /* Fix for iOS input shadows */
+        input,
+        select {
+          -webkit-appearance: none;
+          appearance: none;
+        }
+
+        /* Fix for mobile scrolling */
+        body {
+          -webkit-overflow-scrolling: touch;
+        }
+
+        /* Adjust heading sizes for mobile */
+        h1 {
+          font-size: 1.5rem !important;
+        }
+
+        /* Adjust preview card for mobile */
+        #packagePreview img {
+          height: 160px;
+        }
+
+        .floating-shape {
+          opacity: 0.2;
+        }
+
+        .floating-shapes {
+          display: none;
+        }
+      }
+
       .floating-shapes {
         position: absolute;
         width: 100%;
@@ -275,7 +328,7 @@
       <div class="floating-shape"></div>
     </div>
 
-   <nav
+    <nav
       id="navbar"
       class="sticky top-0 z-40 bg-gray-100 backdrop-blur-md border-b border-white/20 shadow-sm"
     ></nav>
