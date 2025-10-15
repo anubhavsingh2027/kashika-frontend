@@ -346,8 +346,8 @@
       function renderHistoryPackage(user) {
         const pkgDiv = document.getElementById("packageHistory");
 
-        if (user.packageBook.length) {
-          pkgDiv.innerHTML = user.packageBook
+        if (user.length) {
+          pkgDiv.innerHTML = user
             .map(
               (p) => `
             <div class="booking-item">
