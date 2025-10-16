@@ -227,7 +227,7 @@ export async function sendMailPackage(data) {
     to: "anubhavsinghcustomer@gmail.com",
     subject: "New Package Booking Confirmed",
     message: getHostMessage({
-      email: data.email,
+      email: data.to,
       userName: data.userName,
       packageName: data.packageName,
     }),
