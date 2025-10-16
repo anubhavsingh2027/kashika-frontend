@@ -126,7 +126,6 @@ export async function SendMailCar(data) {
 }
 
 
-import { sendMail } from "./services";
 
 // 🎨 USER CONFIRMATION TEMPLATE
 function getUserMessage(packageName) {
