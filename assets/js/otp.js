@@ -1,7 +1,7 @@
   import { sendMail } from "./services.js";
   import { showToast } from "./tailwind-init.js";
-  let globalemail=null;
-  let globalotp=null;
+  let globalemail;
+  let globalotp;
   export async function getGlobalMail() {
       return { globalemail, globalotp };
   }
