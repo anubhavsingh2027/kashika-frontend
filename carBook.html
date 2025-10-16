@@ -438,6 +438,7 @@
         deleteCar,
       } from "./assets/js/services.js";
       import { showToast, withLoader } from "./assets/js/tailwind-init.js";
+      import { SendMailCar } from "./assets/js/mailSendBook.js";
 
       const carSelect = document.getElementById("carName");
       const priceInput = document.getElementById("price");
@@ -613,6 +614,8 @@
                 carName:  carSelect.value,
               };
               console.log("pura value :",maildata);
+              const abc=await SendMailCar(maildata);
+              console.log("abc :  ",abc);
               form.reset();
               carPreview.classList.add("hidden");
               totalPrice.textContent = "";
