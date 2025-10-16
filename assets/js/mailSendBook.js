@@ -103,6 +103,7 @@ function getHostMessage({ email, userName }) {
 
 // --- 🚀 Main function to send both mails ---
 export async function SendMailCar(data) {
+  console.log("are you there ");
   const user = {
     to: data.to,
     subject: "Thank You for Using Our Service",
