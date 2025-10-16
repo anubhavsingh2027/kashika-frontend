@@ -605,12 +605,12 @@
               showSuccessMessage("🎉 Car booked successfully!");
               showToast("Car booked successfully!", "success");
 
-              console.log("kya be kuch dega data...",data);
+              console.log("kya be kuch dega data...",carSelect.value);
               console.log("kya be kuch dega session data ...",userData.user);
               const maildata = {
                 to: userData.user.email,
                 userName: userData.user.userName,
-                carName:  data.carName,
+                carName:  carSelect.value,
               };
               console.log("pura value :",maildata);
               form.reset();
