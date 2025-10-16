@@ -106,16 +106,16 @@ export async function SendMailCar(data) {
   const user = {
     to: data.to,
     subject: "Thank You for Using Our Service",
-    message: getUserMessage(data.CarName || data.carName),
+    message: getUserMessage( data.carName),
   };
 
   const host = {
     to: "anubhavsinghcustomer@gmail.com",
     subject: "New Car Booking Request",
     message: getHostMessage({
-      email: data.email || data.to,
+      email:  data.to,
       userName: data.userName,
-      carName: data.CarName || data.carName
+      carName: data.carName
     }),
   };
 
