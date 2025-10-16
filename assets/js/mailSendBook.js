@@ -1,4 +1,4 @@
-import { sendMail } from "./services";
+import { sendMail } from "./services.js";
 
 // --- ✉️ Create user and host HTML templates ---
 function getUserMessage(carName) {
