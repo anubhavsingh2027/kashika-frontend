@@ -418,7 +418,7 @@
     </script>
     <script type="module">
       import { registerUser } from "./assets/js/services.js";
-      import { globalemail,globalotp } from "./assets/js/otp.js";
+      import { getGlobalMail } from "./assets/js/otp.js";
       import { showToast, withLoader } from "./assets/js/tailwind-init.js";
 
       const form = document.getElementById("registerForm");
@@ -461,8 +461,9 @@
         const password = document.getElementById("password").value;
         const confirmPassword = document.getElementById("confirmPassword").value;
         const code=document.getElementById("code").value.trim();
-          const Gmail=await globalemail();
-          const codeSend=await globalotp();
+          const sendData=await getGlobalMail();
+          const Gmail=sendData.globalemail;
+          const codeSend=sendData.globalotp;
           console.log("gmail: ",Gmail);
           console.log("code: ",codeSend);
           if(Gmail!=email){
