@@ -487,6 +487,31 @@
         document.getElementById("date").min = minDate;
       }
 
+      // Function to validate booking data
+      function validateBooking(bookingData) {
+        if (!bookingData.carName) {
+          showToast("Please select a car", "error");
+          return false;
+        }
+
+        const duration = Number(bookingData.duration);
+        if (!duration || duration < 1 || duration > 30) {
+          showToast("Duration must be between 1 and 30 days", "error");
+          return false;
+        }
+
+        const bookingDate = new Date(bookingData.date);
+        const today = new Date();
+        today.setHours(0, 0, 0, 0);
+
+        if (bookingDate < today) {
+          showToast("Please select a future date", "error");
+          return false;
+        }
+
+        return true;
+      }
+
       // === MAIN LOGIC ===
       (async function init() {
         setMinDate();
@@ -590,6 +615,30 @@
           e.preventDefault();
           message.textContent = "";
           message.style.color = "red";
+
+          // Validate form data
+          if (!carSelect.value) {
+            showErrorMessage("Please select a car");
+            showToast("Car selection required", "error");
+            return;
+          }
+
+          const duration = Number(durationInput.value);
+          if (!duration || duration < 1 || duration > 30) {
+            showErrorMessage("Duration must be between 1 and 30 days");
+            showToast("Invalid duration", "error");
+            return;
+          }
+
+          const selectedDate = new Date(document.getElementById("date").value);
+          const today = new Date();
+          today.setHours(0, 0, 0, 0);
+
+          if (selectedDate < today) {
+            showErrorMessage("Please select a future date");
+            showToast("Invalid date selected", "error");
+            return;
+          }
 
           const userData = await getUserSession();
           if (!userData || !userData.user?._id) {
