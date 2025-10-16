@@ -665,7 +665,7 @@
                         </button>
                     </form>
 
-                    <div id="formMessage"></div>
+
                 </div>
 
                 <!-- Contact Info & Map -->
@@ -742,171 +742,104 @@
     </div>
 
     <!-- Scripts -->
+
+<script type="module">
+  import { sendMail } from "./services.js";
+import { showToast, withLoader } from "./assets/js/tailwind-init.js";
+  const form = document.getElementById("contactForm");
+  const submitBtn = document.getElementById("submitBtn");
+  const btnText = document.getElementById("btnText");
+
+  form.addEventListener("submit", async (e) => {
+    e.preventDefault();
+
+    showToast("sending...", "send");
+    submitBtn.disabled = true;
+
+    const userName = document.getElementById("UserName").value.trim();
+    const userEmail = document.getElementById("email").value.trim();
+    const mobileNo = document.getElementById("mobileNo").value.trim();
+    const subject = document.getElementById("subject").value.trim();
+    const request = document.getElementById("request").value.trim();
+
+    // USER EMAIL HTML TEMPLATE
+    const userHtml = `
+      <div style="font-family:Arial, sans-serif; background:#f5f9ff; padding:30px; color:#333;">
+        <div style="max-width:600px; margin:auto; background:white; border-radius:12px; overflow:hidden; box-shadow:0 4px 12px rgba(0,0,0,0.1);">
+          <div style="background:linear-gradient(135deg,#0284c7,#0ea5e9); padding:20px; text-align:center; color:white;">
+            <h2 style="margin:0;">Thank You for Contacting Kashika Travel ✈️</h2>
+          </div>
+          <div style="padding:25px;">
+            <p>Dear <strong>${userName}</strong>,</p>
+            <p>We’ve received your message and our team will reach out to you shortly.</p>
+            <p>We truly appreciate your interest in <strong>Kashika Travel</strong>! In the meantime, you can explore more about our work and projects here:</p>
+            <ul style="list-style:none; padding:0; line-height:1.8;">
+              <li>🌐 <a href="https://portfolio.anubhavsingh.website/" style="color:#0284c7; text-decoration:none;">My Portfolio</a></li>
+              <li>💼 <a href="https://github.com/anubhavsingh2027" style="color:#0284c7; text-decoration:none;">My GitHub</a></li>
+              <li>🧭 <a href="https://kashika-travel.anubhavsingh.website/" style="color:#0284c7; text-decoration:none;">Visit Kashika Travel</a></li>
+            </ul>
+            <p style="margin-top:20px;">Thank you again for visiting us — we look forward to connecting soon!</p>
+            <p style="margin-top:30px;">Warm regards,<br><strong>Anubhav Singh</strong><br><em>Founder, Kashika Travel</em></p>
+          </div>
+          <div style="background:#f0f4f8; padding:15px; text-align:center; font-size:13px; color:#555;">
+            <p>© 2025 Kashika Travel. All rights reserved.</p>
+          </div>
+        </div>
+      </div>
+    `;
+
+    // HOST EMAIL HTML TEMPLATE
+    const hostHtml = `
+      <div style="font-family:Arial, sans-serif; background:#f8fafc; padding:30px; color:#333;">
+        <div style="max-width:650px; margin:auto; background:white; border-radius:12px; box-shadow:0 3px 10px rgba(0,0,0,0.08);">
+          <div style="background:linear-gradient(135deg,#2563eb,#0284c7); color:white; padding:18px; border-radius:12px 12px 0 0;">
+            <h2 style="margin:0;">📩 New Contact Form Submission</h2>
+          </div>
+          <div style="padding:25px;">
+            <p><strong>Subject:</strong> ${subject}</p>
+            <p><strong>Name:</strong> ${userName}</p>
+            <p><strong>Email:</strong> ${userEmail}</p>
+            <p><strong>Mobile:</strong> ${mobileNo}</p>
+            <p><strong>Message:</strong></p>
+            <p style="background:#f1f5f9; padding:10px 15px; border-radius:8px;">${request}</p>
+          </div>
+          <div style="background:#f9fafb; padding:15px; text-align:center; font-size:13px;">
+            <p style="margin:0;">Kashika Travel — New Inquiry Received</p>
+          </div>
+        </div>
+      </div>
+    `;
+
+    // SEND EMAIL TO USER
+    await sendMail({
+      to: userEmail,
+      subject: "Thank You for Contacting Kashika Travel!",
+      message: userHtml,
+    });
+
+    // SEND EMAIL TO HOST
+    await sendMail({
+      to: "anubhavsinghcustomer@gmail.com",
+      subject: "New User Request — Kashika Travel",
+      message: hostHtml,
+    });
+
+    showToast("Thank you for Contact Us!", "success");
+    form.reset();
+
+
+  });
+
+
+
+
+</script>
+
+
     <script type="module" src="./assets/js/DynamicNav.js"></script>
-
-
-    <script>
-        // Enhanced Contact Form Handler
-        class ContactFormEnhancer {
-            constructor() {
-                this.form = document.getElementById('contactForm');
-                this.submitBtn = document.getElementById('submitBtn');
-                this.btnText = document.getElementById('btnText');
-                this.messageContainer = document.getElementById('formMessage');
-                this.init();
-            }
-
-            init() {
-                // Add event listeners
-                this.form.addEventListener('submit', (e) => this.handleSubmit(e));
-
-                // Add real-time validation
-                const inputs = this.form.querySelectorAll('.form-input');
-                inputs.forEach(input => {
-                    input.addEventListener('blur', () => this.validateField(input));
-                    input.addEventListener('focus', () => this.clearFieldValidation(input));
-                });
-
-                // Add typing animation to textarea
-                const textarea = document.getElementById('request');
-                textarea.addEventListener('input', this.addTypingIndicator.bind(this));
-            }
-
-            validateField(field) {
-                const value = field.value.trim();
-                let isValid = true;
-
-                // Basic validation rules
-                switch (field.type) {
-                    case 'email':
-                        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-                        isValid = emailRegex.test(value);
-                        break;
-                    case 'tel':
-                        const phoneRegex = /^[\+]?[0-9]{10,15}$/;
-                        isValid = phoneRegex.test(value.replace(/\s+/g, ''));
-                        break;
-                    default:
-                        isValid = value.length >= 2;
-                        break;
-                }
-
-                // Apply validation classes
-                if (value && !isValid) {
-                    field.classList.add('invalid');
-                    field.classList.remove('valid');
-                } else if (value && isValid) {
-                    field.classList.add('valid');
-                    field.classList.remove('invalid');
-                }
-
-                return isValid;
-            }
-
-            clearFieldValidation(field) {
-                field.classList.remove('invalid', 'valid');
-            }
-
-            addTypingIndicator(e) {
-                const textarea = e.target;
-                // Add subtle animation while typing
-                textarea.style.transform = 'scale(1.01)';
-                clearTimeout(this.typingTimeout);
-                this.typingTimeout = setTimeout(() => {
-                    textarea.style.transform = 'scale(1)';
-                }, 150);
-            }
-
-            async handleSubmit(e) {
-                e.preventDefault();
-
-                // Validate all fields
-                const inputs = this.form.querySelectorAll('.form-input');
-                let allValid = true;
-
-                inputs.forEach(input => {
-                    if (!this.validateField(input) || !input.value.trim()) {
-                        allValid = false;
-                        input.classList.add('invalid');
-                    }
-                });
-
-                if (!allValid) {
-                    this.showMessage('Please fill in all fields correctly.', 'error');
-                    return;
-                }
-
-                // Show loading state
-                this.setLoadingState(true);
-
-                try {
-                    // Simulate form submission delay
-                    await this.simulateFormSubmission();
-
-                    // Success state
-                    this.showMessage('Thank you! Your message has been sent successfully.', 'success');
-                    this.form.reset();
-
-                    // Clear validation classes
-                    inputs.forEach(input => {
-                        input.classList.remove('valid', 'invalid');
-                    });
-
-                } catch (error) {
-                    this.showMessage('Sorry, there was an error sending your message. Please try again.', 'error');
-                } finally {
-                    this.setLoadingState(false);
-                }
-            }
-
-            setLoadingState(isLoading) {
-                if (isLoading) {
-                    this.submitBtn.disabled = true;
-                    this.btnText.innerHTML = '<span class="loading-spinner"></span>Sending...';
-                    this.submitBtn.style.opacity = '0.8';
-                } else {
-                    this.submitBtn.disabled = false;
-                    this.btnText.innerHTML = 'Send Message';
-                    this.submitBtn.style.opacity = '1';
-                }
-            }
-
-            showMessage(text, type) {
-                this.messageContainer.innerHTML = `
-                    <div class="message ${type}">
-                        <i class="fas ${type === 'success' ? 'fa-check-circle' : 'fa-exclamation-triangle'} mr-2"></i>
-                        ${text}
-                    </div>
-                `;
-
-                // Trigger show animation
-                setTimeout(() => {
-                    const message = this.messageContainer.querySelector('.message');
-                    if (message) message.classList.add('show');
-                }, 100);
-
-                // Auto-hide after 5 seconds
-                setTimeout(() => {
-                    const message = this.messageContainer.querySelector('.message');
-                    if (message) {
-                        message.classList.remove('show');
-                        setTimeout(() => {
-                            this.messageContainer.innerHTML = '';
-                        }, 300);
-                    }
-                }, 5000);
-            }
-
-            async simulateFormSubmission() {
-                // Simulate network delay
-                return new Promise((resolve) => {
-                    setTimeout(resolve, 2000);
-                });
-            }
-        }
-
-        // Animation Controller
-        class AnimationController {
+<!-- <script>
+    // Animation Controller
+    class AnimationController {
             constructor() {
                 this.init();
             }
@@ -1027,7 +960,7 @@
             document.documentElement.style.setProperty('--duration-normal', '150ms');
             document.documentElement.style.setProperty('--duration-fast', '100ms');
         }
-    </script>
+    </script> -->
     <script src="./assets/js/devloper.js"></script>
 </body>
 </html>
