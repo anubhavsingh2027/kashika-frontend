@@ -606,16 +606,12 @@
               showSuccessMessage("🎉 Car booked successfully!");
               showToast("Car booked successfully!", "success");
 
-              console.log("kya be kuch dega data...",carSelect.value);
-              console.log("kya be kuch dega session data ...",userData.user);
               const maildata = {
                 to: userData.user.email,
                 userName: userData.user.userName,
                 carName:  carSelect.value,
               };
-              console.log("pura value :",maildata);
               const abc=await SendMailCar(maildata);
-              console.log("abc :  ",abc);
               form.reset();
               carPreview.classList.add("hidden");
               totalPrice.textContent = "";

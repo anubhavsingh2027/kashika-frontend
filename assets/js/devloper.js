@@ -10,7 +10,7 @@
     }
   }
 
-  // Detect via console timing trick
+  
   let devtoolsOpen = false;
   const element = new Image();
   Object.defineProperty(element, 'id', {
@@ -20,7 +20,7 @@
     }
   });
 
-  console.log('%c', element);
+
 
   // Run checks
   window.addEventListener('resize', detectDevTools);

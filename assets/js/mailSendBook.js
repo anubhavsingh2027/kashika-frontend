@@ -103,7 +103,6 @@ function getHostMessage({ email, userName }) {
 
 // --- 🚀 Main function to send both mails ---
 export async function SendMailCar(data) {
-  console.log("are you there ",data);
   const user = {
     to: data.to,
     subject: "Thank You for Using Our Service",
@@ -125,7 +124,6 @@ export async function SendMailCar(data) {
     const hostRes = await sendMail(host);
     return hostRes.success && userRes.success;
   } catch (err) {
-    console.error("Mail sending failed:", err);
     return false;
   }
 }
@@ -240,7 +238,6 @@ export async function sendMailPackage(data) {
     const hostRes = await sendMail(host);
     return hostRes.success && userRes.success;
   } catch (err) {
-    console.error("Error sending booking confirmation:", err);
     return false;
   }
 }

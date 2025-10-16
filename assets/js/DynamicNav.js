@@ -660,7 +660,7 @@ async function loadNavbar() {
         e.stopPropagation();
 
         isOpen = !isOpen;
-        console.log('Menu toggle clicked, isOpen:', isOpen); // Debug log
+
 
         // Simple hamburger to X animation
         if (isOpen) {
@@ -703,7 +703,6 @@ async function loadNavbar() {
     }
 
   } catch (err) {
-    console.error('Navbar loading error:', err);
     navbar.innerHTML = '<div class="p-4 bg-slate-800 text-white"><a href="/">Home</a></div>';
   }
 }
