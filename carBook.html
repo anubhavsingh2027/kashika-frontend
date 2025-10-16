@@ -405,7 +405,6 @@
               type="date"
               id="date"
               required
-              min=""
               class="enhanced-field w-full px-4 py-2.5 border border-slate-200 rounded-xl focus:ring-2 focus:ring-sky-500/20 focus:border-sky-500 transition-shadow date-input"
             />
           </div>
@@ -439,7 +438,6 @@
         deleteCar,
       } from "./assets/js/services.js";
       import { showToast, withLoader } from "./assets/js/tailwind-init.js";
-      import { SendMailCar } from "./assets/js/mailSendBook.js";
 
       const carSelect = document.getElementById("carName");
       const priceInput = document.getElementById("price");
@@ -606,12 +604,6 @@
             } else {
               showSuccessMessage("🎉 Car booked successfully!");
               showToast("Car booked successfully!", "success");
-              // const dataSend = {
-              //   carName: carSelect.value,
-              //   userName: userData.user.userName,
-              //   to: userData.user.email
-              // };
-              // await SendMailCar(dataSend);
               form.reset();
               carPreview.classList.add("hidden");
               totalPrice.textContent = "";
@@ -681,6 +673,6 @@
       })();
     </script>
     <script type="module" src="./assets/js/tailwind-init.js"></script>
-    <!-- <script src="./assets/js/devloper.js"></script> -->
+    <script src="./assets/js/devloper.js"></script>
   </body>
 </html>
