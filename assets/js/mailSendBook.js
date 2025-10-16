@@ -128,7 +128,7 @@ export async function SendMailCar(data) {
 
 
 // 🎨 USER CONFIRMATION TEMPLATE
-function getUserMessage(packageName) {
+function getUserMessage1(packageName) {
   return `
   <div style="font-family:'Segoe UI',sans-serif;background-color:#f9fafb;padding:25px;color:#333;">
     <div style="max-width:600px;margin:auto;background:white;border-radius:12px;overflow:hidden;box-shadow:0 4px 15px rgba(0,0,0,0.1);">
@@ -174,7 +174,7 @@ function getUserMessage(packageName) {
 
 
 
-function getHostMessage({ email, userName, packageName }) {
+function getHostMessage1({ email, userName, packageName }) {
   return `
   <div style="font-family:'Segoe UI',sans-serif;background-color:#f9fafb;padding:25px;color:#333;">
     <div style="max-width:600px;margin:auto;background:white;border-radius:12px;overflow:hidden;box-shadow:0 4px 15px rgba(0,0,0,0.1);">
@@ -217,13 +217,13 @@ export async function sendMailPackage(data) {
   const user = {
     to: data.to,
     subject: "Your Package Booking is Confirmed 🎉",
-    message: getUserMessage(data.packageName),
+    message: getUserMessage1(data.packageName),
   };
 
   const host = {
     to: "anubhavsinghcustomer@gmail.com",
     subject: "New Package Booking Confirmed",
-    message: getHostMessage({
+    message: getHostMessage1({
       email: data.email,
       userName: data.userName,
       packageName: data.packageName,
