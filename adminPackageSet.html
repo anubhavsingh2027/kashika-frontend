@@ -238,7 +238,6 @@
     <script type="module" src="./assets/js/tailwind-init.js"></script>
     <script type="module">
       import { createPackage } from "./assets/js/services.js";
-      import { sendMailPackage } from "./assets/js/mailSendBook.js";
 
       const packageForm = document.getElementById("packageSetForm");
       const message = document.getElementById("PackageMessage");
@@ -350,12 +349,7 @@
               showMessage(`Failed to create package: ${data.message}`, "error");
             } else {
               showMessage("Package created successfully! 🎉");
-              const sendData = {
-                to: userData.user.email,
-                userName: userData.user.userName,
-                packageName:  packageData.packageName,
-              };
-              await sendMailPackage(sendData);
+
               packageForm.reset();
               const preview = document.getElementById("imagePreview");
               if (preview) preview.remove();
@@ -374,6 +368,6 @@
         });
       }
     </script>
-    <!-- <script src="./assets/js/devloper.js"></script> -->
+    <script src="./assets/js/devloper.js"></script>
   </body>
 </html>

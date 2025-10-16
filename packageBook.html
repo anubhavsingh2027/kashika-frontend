@@ -482,7 +482,7 @@
         deletePackage,
       } from "./assets/js/services.js";
       import { showToast, withLoader } from "./assets/js/tailwind-init.js";
-
+      import { sendMailPackage } from "./assets/js/mailSendBook.js";
       const packageSelect = document.getElementById("packageName");
       const message = document.getElementById("message");
       const form = document.getElementById("bookForm");
@@ -643,6 +643,12 @@
             } else {
               showSuccessMessage("🎉 Package booked successfully!");
               showToast("Package booked successfully!", "success");
+               const sendData = {
+                to: userData.user.email,
+                userName: userData.user.userName,
+                packageName:  packageSelect.value,
+              };
+              await sendMailPackage(sendData);
               form.reset();
               packagePreview.classList.add("hidden");
               totalPrice.textContent = "";
