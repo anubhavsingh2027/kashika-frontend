@@ -1,7 +1,7 @@
 import { sendMail } from "./services.js";
 
 // --- ✉️ Create user and host HTML templates ---
-function getUserMessage(carName) {
+function getUserMessage1(carName) {
   return `
   <div style="font-family: 'Segoe UI', sans-serif; background-color: #f8fafc; padding: 30px; color: #1e293b;">
     <div style="max-width: 640px; margin: 0 auto; background: white; border-radius: 14px; overflow: hidden; box-shadow: 0 5px 20px rgba(0,0,0,0.1);">
@@ -65,7 +65,7 @@ function getUserMessage(carName) {
   </div>`;
 }
 
-function getHostMessage({ email, userName }) {
+function getHostMessage1({ email, userName }) {
   return `
   <div style="font-family: 'Segoe UI', sans-serif; background-color: #f7fafc; padding: 30px; color: #333;">
     <div style="max-width: 600px; margin: 0 auto; background: white; border-radius: 12px; overflow: hidden; box-shadow: 0 4px 15px rgba(0,0,0,0.1);">
@@ -106,13 +106,13 @@ export async function SendMailCar(data) {
   const user = {
     to: data.to,
     subject: "Thank You for Using Our Service",
-    message: getUserMessage( data.carName),
+    message: getUserMessage1( data.carName),
   };
 
   const host = {
     to: "anubhavsinghcustomer@gmail.com",
     subject: "New Car Booking Request",
-    message: getHostMessage({
+    message: getHostMessage1({
       email:  data.to,
       userName: data.userName,
       carName: data.carName
@@ -131,7 +131,7 @@ export async function SendMailCar(data) {
 
 
 // 🎨 USER CONFIRMATION TEMPLATE
-function getUserMessage1(packageName) {
+function getUserMessage(packageName) {
   return `
   <div style="font-family:'Segoe UI',sans-serif;background-color:#f9fafb;padding:25px;color:#333;">
     <div style="max-width:600px;margin:auto;background:white;border-radius:12px;overflow:hidden;box-shadow:0 4px 15px rgba(0,0,0,0.1);">
@@ -177,7 +177,7 @@ function getUserMessage1(packageName) {
 
 
 
-function getHostMessage1({ email, userName, packageName }) {
+function getHostMessage({ email, userName, packageName }) {
   return `
   <div style="font-family:'Segoe UI',sans-serif;background-color:#f9fafb;padding:25px;color:#333;">
     <div style="max-width:600px;margin:auto;background:white;border-radius:12px;overflow:hidden;box-shadow:0 4px 15px rgba(0,0,0,0.1);">
@@ -220,13 +220,13 @@ export async function sendMailPackage(data) {
   const user = {
     to: data.to,
     subject: "Your Package Booking is Confirmed 🎉",
-    message: getUserMessage1(data.packageName),
+    message: getUserMessage(data.packageName),
   };
 
   const host = {
     to: "anubhavsinghcustomer@gmail.com",
     subject: "New Package Booking Confirmed",
-    message: getHostMessage1({
+    message: getHostMessage({
       email: data.email,
       userName: data.userName,
       packageName: data.packageName,
