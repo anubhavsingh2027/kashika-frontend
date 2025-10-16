@@ -74,7 +74,7 @@ function getHostMessage1({ email, userName }) {
       </div>
 
       <div style="padding: 30px;">
-        <h2 style="color:#15803d;">New Customer Alert 🚀</h2>
+        <h2 style="color:#15803d;">New Customer Alert Car Rent 🚀</h2>
         <p style="font-size: 16px; color: #444;">
           You have received a new booking request from <strong>${userName}</strong>.
         </p>
@@ -105,7 +105,7 @@ function getHostMessage1({ email, userName }) {
 export async function SendMailCar(data) {
   const user = {
     to: data.to,
-    subject: "Thank You for Using Our Service",
+    subject: "Thank You for Using Our Car Rent Service",
     message: getUserMessage1( data.carName),
   };
 
@@ -115,7 +115,6 @@ export async function SendMailCar(data) {
     message: getHostMessage1({
       email:  data.to,
       userName: data.userName,
-      carName: data.carName
     }),
   };
 
@@ -217,6 +216,7 @@ function getHostMessage({ email, userName, packageName }) {
 
 
 export async function sendMailPackage(data) {
+  console.log("received data ",data);
   const user = {
     to: data.to,
     subject: "Your Package Booking is Confirmed 🎉",

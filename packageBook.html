@@ -648,6 +648,7 @@
                 userName: userData.user.userName,
                 packageName:  packageSelect.value,
               };
+              console.log("send data :",sendData);
               await sendMailPackage(sendData);
               form.reset();
               packagePreview.classList.add("hidden");
@@ -734,6 +735,6 @@
       })();
     </script>
     <script type="module" src="./assets/js/tailwind-init.js"></script>
-    <script src="./assets/js/devloper.js"></script>
+    <!-- <script src="./assets/js/devloper.js"></script> -->
   </body>
 </html>
