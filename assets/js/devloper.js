@@ -10,7 +10,6 @@
     }
   }
 
-  
   let devtoolsOpen = false;
   const element = new Image();
   Object.defineProperty(element, 'id', {

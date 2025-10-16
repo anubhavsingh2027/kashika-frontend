@@ -222,7 +222,6 @@ export async function sendMailPackage(data) {
     subject: "Your Package Booking is Confirmed 🎉",
     message: getUserMessage(data.packageName),
   };
-
   const host = {
     to: "anubhavsinghcustomer@gmail.com",
     subject: "New Package Booking Confirmed",

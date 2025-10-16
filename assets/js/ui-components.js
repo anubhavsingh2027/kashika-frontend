@@ -1,4 +1,3 @@
-// Lightweight UI components: modal and testimonial carousel
 export function initModal() {
   let modal = document.getElementById('globalModal');
   if (!modal) {

@@ -267,7 +267,6 @@ export async function userHistory(id) {
   }
 }
 
-
 export async function sendMail(data) {
  const payload = {
     to: data.to,

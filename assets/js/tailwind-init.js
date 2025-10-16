@@ -58,7 +58,6 @@ export function showToast(message, type = 'info', timeout = 3500) {
     setTimeout(() => toast.remove(), 400);
   }, timeout);
 }
-
 export function withLoader(button, fn) {
   const original = button.innerHTML;
   button.disabled = true;

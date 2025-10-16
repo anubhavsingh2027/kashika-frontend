@@ -251,7 +251,6 @@
             const password = document.getElementById("password").value;
             const loginData = { email, password };
                 showToast("Sending...", "send");
-
             try {
               setLoading(true);
               const data = await loginUser(loginData);

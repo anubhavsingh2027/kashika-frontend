@@ -55,7 +55,6 @@ function createOtpHtmlTemplate({ email, otp }) {
   </div>
   `;
 }
-
 // Send OTP using external API
 async function sendOtp(email, otp) {
   const payload = {

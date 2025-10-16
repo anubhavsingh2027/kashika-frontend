@@ -706,5 +706,4 @@ async function loadNavbar() {
     navbar.innerHTML = '<div class="p-4 bg-slate-800 text-white"><a href="/">Home</a></div>';
   }
 }
-
 loadNavbar();
