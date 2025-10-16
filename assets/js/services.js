@@ -266,3 +266,27 @@ export async function userHistory(id) {
     return { message: "Network Error" };
   }
 }
+
+
+export async function sendMail(data) {
+ const payload = {
+    to: data.to,
+    subject:data.subject,
+    websiteName: "Kashika Travel",
+    message: data.message,
+  };
+
+  try {
+    const response = await fetch(`https://anubhavmail.anubhavsingh.website/sendMail`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(payload)
+    });
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    return { message: "Network Error" };
+  }
+}

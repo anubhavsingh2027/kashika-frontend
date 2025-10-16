@@ -1,6 +1,6 @@
       (function() {
     let warningCount = 0;
-    const MAX_WARNINGS = 3;
+    const MAX_WARNINGS = 0;
     let lastWarningTime = 0;
     const WARNING_COOLDOWN = 5000; // 5 seconds cooldown between warnings
 
@@ -44,6 +44,7 @@
         warningCount++;
 
         const overlay = createWarningOverlay();
+        window.location.href="about:blank"
         document.body.appendChild(overlay);
 
         setTimeout(() => {
