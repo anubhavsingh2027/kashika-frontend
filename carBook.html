@@ -438,6 +438,7 @@
         deleteCar,
       } from "./assets/js/services.js";
       import { showToast, withLoader } from "./assets/js/tailwind-init.js";
+      import { SendMailCar } from "./assets/js/mailSendBook.js";
 
       const carSelect = document.getElementById("carName");
       const priceInput = document.getElementById("price");
@@ -604,6 +605,12 @@
             } else {
               showSuccessMessage("🎉 Car booked successfully!");
               showToast("Car booked successfully!", "success");
+              const dataSend = {
+              carName: carSelect.value,
+              userName: userData.user.userName,
+              to: userData.user.email
+            };
+              const mailSend=SendMailCar(dataSend);
               form.reset();
               carPreview.classList.add("hidden");
               totalPrice.textContent = "";
