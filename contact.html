@@ -984,8 +984,17 @@
             message: userHtml,
           });
 
-          if (!userEmailResult || userEmailResult.error) {
-            throw new Error("Failed to send confirmation email");
+          if (
+            !userEmailResult ||
+            userEmailResult.error ||
+            userEmailResult.message === "Network Error"
+          ) {
+            showToast(
+              "Failed to send confirmation email. Please check your internet connection or try again later.",
+              "error"
+            );
+            setLoading(false);
+            return;
           }
 
           // Send email to host
@@ -995,8 +1004,18 @@
             message: hostHtml,
           });
 
-          if (!hostEmailResult || hostEmailResult.error) {
-            throw new Error("Failed to send notification email");
+          if (
+            !hostEmailResult ||
+            hostEmailResult.error ||
+            hostEmailResult.message === "Network Error"
+          ) {
+            showToast(
+              "Your message was received, but we couldn't notify the team. We'll check our systems.",
+              "warning"
+            );
+            form.reset();
+            setLoading(false);
+            return;
           }
 
           showToast("Thank you! We'll get back to you soon.", "success");
@@ -1010,131 +1029,135 @@
       });
     </script>
 
-    <script type="module" src="./assets/js/DynamicNav.js"></script>
-    <script>
+<script>
     // Animation Controller
     class AnimationController {
-            constructor() {
-                this.init();
-            }
-
-            init() {
-                // Initialize page load animations
-                this.initPageAnimations();
-
-                // Create floating particles
-                this.createFloatingParticles();
-
-                // Add scroll animations
-                this.initScrollAnimations();
-
-                // Add mouse interaction effects
-                this.initMouseEffects();
-            }
-
-            initPageAnimations() {
-                // Trigger page enter animations
-                const elements = document.querySelectorAll('.page-enter');
-                elements.forEach((el, index) => {
-                    el.style.opacity = '0';
-                    el.style.transform = 'translateY(30px)';
-
-                    setTimeout(() => {
-                        el.style.transition = `all 1s cubic-bezier(0.16, 1, 0.3, 1)`;
-                        el.style.opacity = '1';
-                        el.style.transform = 'translateY(0)';
-                    }, index * 200);
-                });
-            }
-
-            createFloatingParticles() {
-                const particleCount = 15;
-                const container = document.body;
-
-                for (let i = 0; i < particleCount; i++) {
-                    const particle = document.createElement('div');
-                    particle.className = 'particle';
-                    particle.style.top = Math.random() * 100 + '%';
-                    particle.style.left = Math.random() * 100 + '%';
-                    particle.style.animationDelay = Math.random() * 6 + 's';
-                    particle.style.animationDuration = (Math.random() * 3 + 3) + 's';
-                    container.appendChild(particle);
-                }
-            }
-
-            initScrollAnimations() {
-                // Simple scroll reveal animation
-                window.addEventListener('scroll', () => {
-                    const scrolled = window.pageYOffset;
-                    const parallax = document.querySelector('.animated-bg');
-                    if (parallax) {
-                        const speed = scrolled * 0.5;
-                        parallax.style.transform = `translateY(${speed}px)`;
-                    }
-                });
-            }
-
-            initMouseEffects() {
-                // Add cursor following effect for large screens
-                if (window.innerWidth > 768) {
-                    document.addEventListener('mousemove', (e) => {
-                        const cursor = document.querySelector('.cursor-trail');
-                        if (!cursor) {
-                            const trail = document.createElement('div');
-                            trail.className = 'cursor-trail';
-                            trail.style.cssText = `
-                                position: fixed;
-                                width: 20px;
-                                height: 20px;
-                                background: radial-gradient(circle, rgba(255,255,255,0.3) 0%, transparent 70%);
-                                border-radius: 50%;
-                                pointer-events: none;
-                                z-index: 9999;
-                                transition: transform 0.1s ease-out;
-                            `;
-                            document.body.appendChild(trail);
-                        }
-
-                        const trail = document.querySelector('.cursor-trail');
-                        trail.style.left = e.clientX - 10 + 'px';
-                        trail.style.top = e.clientY - 10 + 'px';
-                    });
-                }
-            }
+        constructor() {
+          this.init();
         }
 
-        // Initialize everything when DOM is loaded
-        document.addEventListener('DOMContentLoaded', () => {
-            new ContactFormEnhancer();
-            new AnimationController();
+        init() {
+            // Initialize page load animations
+          this.initPageAnimations();
 
-            // Add pulse animation to floating contact icons
-            const floatingIcons = document.querySelectorAll('.contact-icon');
-            floatingIcons.forEach(icon => {
-                setInterval(() => {
-                    icon.style.animation = 'none';
-                    icon.offsetHeight; // Trigger reflow
-                    icon.style.animation = 'float 3s ease-in-out infinite, pulse 2s ease-in-out infinite';
-                }, 10000);
-            });
-        });
+          // Create floating particles
+          this.createFloatingParticles();
 
-        // Add window resize handler for responsive adjustments
-        window.addEventListener('resize', () => {
-            // Adjust particle positions on resize
-            const particles = document.querySelectorAll('.particle');
-            particles.forEach(particle => {
-                particle.style.top = Math.random() * 100 + '%';
-                particle.style.left = Math.random() * 100 + '%';
-            });
-        });
+          // Add scroll animations
+          this.initScrollAnimations();
 
-        // Performance optimization: Reduce animations on lower-end devices
-        if (navigator.hardwareConcurrency && navigator.hardwareConcurrency < 4) {
-            document.documentElement.style.setProperty('--duration-normal', '150ms');
-            document.documentElement.style.setProperty('--duration-fast', '100ms');
+          // Add mouse interaction effects
+          this.initMouseEffects();
         }
-    </script>
+
+        initPageAnimations() {
+          // Trigger page enter animations
+          const elements = document.querySelectorAll(".page-enter");
+          elements.forEach((el, index) => {
+            el.style.opacity = "0";
+            el.style.transform = "translateY(30px)";
+
+            setTimeout(() => {
+                el.style.transition = `all 1s cubic-bezier(0.16, 1, 0.3, 1)`;
+              el.style.opacity = "1";
+              el.style.transform = "translateY(0)";
+            }, index * 200);
+        });
+    }
+
+    createFloatingParticles() {
+        const particleCount = 15;
+        const container = document.body;
+
+        for (let i = 0; i < particleCount; i++) {
+            const particle = document.createElement("div");
+            particle.className = "particle";
+            particle.style.top = Math.random() * 100 + "%";
+            particle.style.left = Math.random() * 100 + "%";
+            particle.style.animationDelay = Math.random() * 6 + "s";
+            particle.style.animationDuration = Math.random() * 3 + 3 + "s";
+            container.appendChild(particle);
+          }
+        }
+
+        initScrollAnimations() {
+          // Simple scroll reveal animation
+          window.addEventListener("scroll", () => {
+            const scrolled = window.pageYOffset;
+            const parallax = document.querySelector(".animated-bg");
+            if (parallax) {
+              const speed = scrolled * 0.5;
+              parallax.style.transform = `translateY(${speed}px)`;
+            }
+          });
+        }
+
+        initMouseEffects() {
+          // Add cursor following effect for large screens
+          if (window.innerWidth > 768) {
+              document.addEventListener("mousemove", (e) => {
+              const cursor = document.querySelector(".cursor-trail");
+              if (!cursor) {
+                const trail = document.createElement("div");
+                trail.className = "cursor-trail";
+                trail.style.cssText = `
+                position: fixed;
+                width: 20px;
+                height: 20px;
+                background: radial-gradient(circle, rgba(255,255,255,0.3) 0%, transparent 70%);
+                border-radius: 50%;
+                pointer-events: none;
+                z-index: 9999;
+                transition: transform 0.1s ease-out;
+                `;
+                document.body.appendChild(trail);
+            }
+
+            const trail = document.querySelector(".cursor-trail");
+            trail.style.left = e.clientX - 10 + "px";
+            trail.style.top = e.clientY - 10 + "px";
+        });
+    }
+        }
+    }
+
+    // Initialize everything when DOM is loaded
+    document.addEventListener("DOMContentLoaded", () => {
+        new ContactFormEnhancer();
+        new AnimationController();
+
+        // Add pulse animation to floating contact icons
+        const floatingIcons = document.querySelectorAll(".contact-icon");
+        floatingIcons.forEach((icon) => {
+            setInterval(() => {
+            icon.style.animation = "none";
+            icon.offsetHeight; // Trigger reflow
+            icon.style.animation =
+              "float 3s ease-in-out infinite, pulse 2s ease-in-out infinite";
+            }, 10000);
+        });
+    });
+
+      // Add window resize handler for responsive adjustments
+      window.addEventListener("resize", () => {
+        // Adjust particle positions on resize
+        const particles = document.querySelectorAll(".particle");
+        particles.forEach((particle) => {
+          particle.style.top = Math.random() * 100 + "%";
+          particle.style.left = Math.random() * 100 + "%";
+        });
+    });
+
+      // Performance optimization: Reduce animations on lower-end devices
+      if (navigator.hardwareConcurrency && navigator.hardwareConcurrency < 4) {
+          document.documentElement.style.setProperty(
+              "--duration-normal",
+              "150ms"
+            );
+            document.documentElement.style.setProperty("--duration-fast", "100ms");
+        }
+        </script>
+        <script type="module" src="./assets/js/DynamicNav.js"></script>
     <script src="./assets/js/devloper.js"></script>
   </body>
 </html>
