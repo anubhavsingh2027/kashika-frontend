@@ -604,7 +604,14 @@
             } else {
               showSuccessMessage("🎉 Car booked successfully!");
               showToast("Car booked successfully!", "success");
-              console.log("kya be kuch dega  ...");
+
+              const maildata = {
+                to: data.email,
+                userName: userData.user.userName,
+                carName:  data.carName,
+              };
+
+              console.log("kya be kuch dega  ...",maildata);
               form.reset();
               carPreview.classList.add("hidden");
               totalPrice.textContent = "";
