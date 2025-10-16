@@ -1,8 +1,9 @@
   import { sendMail } from "./services.js";
   import { showToast } from "./tailwind-init.js";
-  let globalemail;
+  let globalemail=null;
+  let globalotp=null;
   export async function getGlobalMail() {
-    return globalemail;
+      return { globalemail, globalotp };
   }
 const a = [
   1234, 8988, 2332, 223, 3489, 6721, 9154, 4820, 7391, 5602,
@@ -84,6 +85,7 @@ document.getElementById('getCodeBtn').addEventListener('click', async () => {
 
   showToast("Sending...", "info");
   generated_code = getRandomValue(a);
+  globalotp=generated_code;
   const success = await sendOtp(email, generated_code);
 
   if (success) {
