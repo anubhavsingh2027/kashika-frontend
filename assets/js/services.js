@@ -278,7 +278,7 @@ export async function sendMail(data) {
 
   try {
     const response = await fetch(`https://anubhavmail.anubhavsingh.website/sendMail`, {
-      method: "PUT",
+      method: "POST",
       headers: {
         "Content-Type": "application/json"
       },
