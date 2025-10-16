@@ -644,12 +644,12 @@
             } else {
               showSuccessMessage("🎉 Package booked successfully!");
               showToast("Package booked successfully!", "success");
-                const dataSend = {
-              packageName: packageSelect.value,
-              userName: userData.user.userName,
-              to: userData.user.email
-            };
-              const mailSend=sendMailPackage(dataSend);
+              const dataSend = {
+                packageName: packageSelect.value,
+                userName: userData.user.userName,
+                to: userData.user.email,
+              };
+              await sendMailPackage(dataSend);
               form.reset();
               packagePreview.classList.add("hidden");
               totalPrice.textContent = "";
@@ -731,7 +731,7 @@
           }, 5000);
         }
 
-        setupCars();
+        setupPackages();
       })();
     </script>
     <script type="module" src="./assets/js/tailwind-init.js"></script>

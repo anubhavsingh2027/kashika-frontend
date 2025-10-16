@@ -379,8 +379,11 @@
                 type="number"
                 id="duration"
                 min="1"
+                max="30"
+                step="1"
                 placeholder="e.g., 3"
                 required
+                oninput="this.value = Math.round(this.value); this.value = Math.max(1, Math.min(30, this.value))"
                 class="enhanced-field w-full px-4 py-2.5 border border-slate-200 rounded-xl focus:ring-2 focus:ring-sky-500/20 focus:border-sky-500 transition-shadow"
               />
               <div
@@ -405,6 +408,7 @@
               type="date"
               id="date"
               required
+              min=""
               class="enhanced-field w-full px-4 py-2.5 border border-slate-200 rounded-xl focus:ring-2 focus:ring-sky-500/20 focus:border-sky-500 transition-shadow date-input"
             />
           </div>
@@ -473,8 +477,19 @@
 
       const { id: carId, isDelete } = getCarParams();
 
+      // Set minimum date to today
+      function setMinDate() {
+        const today = new Date();
+        const dd = String(today.getDate()).padStart(2, "0");
+        const mm = String(today.getMonth() + 1).padStart(2, "0");
+        const yyyy = today.getFullYear();
+        const minDate = `${yyyy}-${mm}-${dd}`;
+        document.getElementById("date").min = minDate;
+      }
+
       // === MAIN LOGIC ===
       (async function init() {
+        setMinDate();
         // Handle Delete Mode
         if (isDelete && carId) {
           try {
@@ -586,10 +601,34 @@
             return;
           }
 
+          // Additional validation
+          const selectedDate = new Date(document.getElementById("date").value);
+          const today = new Date();
+          today.setHours(0, 0, 0, 0);
+
+          if (selectedDate < today) {
+            showErrorMessage("Please select a future date");
+            showToast("Invalid date selected", "error");
+            return;
+          }
+
+          const duration = Number(durationInput.value);
+          if (duration < 1 || duration > 30) {
+            showErrorMessage("Duration must be between 1 and 30 days");
+            showToast("Invalid duration", "error");
+            return;
+          }
+
+          if (!carSelect.value) {
+            showErrorMessage("Please select a car");
+            showToast("Car selection required", "error");
+            return;
+          }
+
           const bookingData = {
             carName: carSelect.value,
-            price: Number(priceInput.value), // Ensure price is sent as number
-            duration: Number(durationInput.value), // Ensure duration is sent as number
+            price: Number(priceInput.value),
+            duration: duration,
             date: document.getElementById("date").value,
             userId: userData.user._id,
           };
@@ -606,11 +645,11 @@
               showSuccessMessage("🎉 Car booked successfully!");
               showToast("Car booked successfully!", "success");
               const dataSend = {
-              carName: carSelect.value,
-              userName: userData.user.userName,
-              to: userData.user.email
-            };
-              const mailSend=SendMailCar(dataSend);
+                carName: carSelect.value,
+                userName: userData.user.userName,
+                to: userData.user.email,
+              };
+              await SendMailCar(dataSend);
               form.reset();
               carPreview.classList.add("hidden");
               totalPrice.textContent = "";
