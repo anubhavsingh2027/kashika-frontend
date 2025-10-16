@@ -464,8 +464,6 @@
           const sendData=await getGlobalMail();
           const Gmail=sendData.globalemail;
           const codeSend=sendData.globalotp;
-          console.log("gmail: ",Gmail);
-          console.log("code: ",codeSend);
           if(Gmail!=email){
            showToast("Both Email Are not Same While otp", "error");
             return;
