@@ -9,10 +9,10 @@
       rel="stylesheet"
     />
     <style>
-      @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+      @import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap");
 
       * {
-        font-family: 'Inter', sans-serif;
+        font-family: "Inter", sans-serif;
       }
 
       body {
@@ -22,13 +22,14 @@
       }
 
       body::before {
-        content: '';
+        content: "";
         position: fixed;
         top: 0;
         left: 0;
         width: 100%;
         height: 100%;
-        background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grain" width="100" height="100" patternUnits="userSpaceOnUse"><circle cx="50" cy="50" r="1" fill="%23ffffff" opacity="0.1"/></pattern></defs><rect width="100" height="100" fill="url(%23grain)"/></svg>') repeat;
+        background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grain" width="100" height="100" patternUnits="userSpaceOnUse"><circle cx="50" cy="50" r="1" fill="%23ffffff" opacity="0.1"/></pattern></defs><rect width="100" height="100" fill="url(%23grain)"/></svg>')
+          repeat;
         opacity: 0.3;
         pointer-events: none;
         z-index: -1;
@@ -48,7 +49,11 @@
       }
 
       .welcome-card {
-        background: linear-gradient(135deg, rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0.7));
+        background: linear-gradient(
+          135deg,
+          rgba(255, 255, 255, 0.9),
+          rgba(255, 255, 255, 0.7)
+        );
         backdrop-filter: blur(20px);
         border: 1px solid rgba(255, 255, 255, 0.3);
         position: relative;
@@ -56,7 +61,7 @@
       }
 
       .welcome-card::before {
-        content: '';
+        content: "";
         position: absolute;
         top: 0;
         left: 0;
@@ -68,8 +73,13 @@
       }
 
       @keyframes gradientShift {
-        0%, 100% { background-position: 0% 50%; }
-        50% { background-position: 100% 50%; }
+        0%,
+        100% {
+          background-position: 0% 50%;
+        }
+        50% {
+          background-position: 100% 50%;
+        }
       }
 
       .section-card {
@@ -82,13 +92,18 @@
       }
 
       .section-card::before {
-        content: '';
+        content: "";
         position: absolute;
         top: 0;
         left: -100%;
         width: 100%;
         height: 100%;
-        background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+        background: linear-gradient(
+          90deg,
+          transparent,
+          rgba(255, 255, 255, 0.2),
+          transparent
+        );
         transition: left 0.5s ease;
       }
 
@@ -102,7 +117,11 @@
       }
 
       .booking-item {
-        background: linear-gradient(135deg, rgba(102, 126, 234, 0.1), rgba(118, 75, 162, 0.05));
+        background: linear-gradient(
+          135deg,
+          rgba(102, 126, 234, 0.1),
+          rgba(118, 75, 162, 0.05)
+        );
         border: 1px solid rgba(102, 126, 234, 0.2);
         padding: 16px;
         border-radius: 12px;
@@ -112,13 +131,17 @@
       }
 
       .booking-item:hover {
-        background: linear-gradient(135deg, rgba(102, 126, 234, 0.15), rgba(118, 75, 162, 0.1));
+        background: linear-gradient(
+          135deg,
+          rgba(102, 126, 234, 0.15),
+          rgba(118, 75, 162, 0.1)
+        );
         border-color: rgba(102, 126, 234, 0.3);
         transform: translateX(4px);
       }
 
       .booking-item::before {
-        content: '';
+        content: "";
         position: absolute;
         left: 0;
         top: 0;
@@ -182,7 +205,11 @@
       }
 
       .not-logged-card {
-        background: linear-gradient(135deg, rgba(244, 67, 54, 0.9), rgba(233, 30, 99, 0.8));
+        background: linear-gradient(
+          135deg,
+          rgba(244, 67, 54, 0.9),
+          rgba(233, 30, 99, 0.8)
+        );
         backdrop-filter: blur(20px);
         border: 1px solid rgba(255, 255, 255, 0.2);
         color: white;
@@ -220,14 +247,23 @@
       }
 
       .loading-shimmer {
-        background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+        background: linear-gradient(
+          90deg,
+          #f0f0f0 25%,
+          #e0e0e0 50%,
+          #f0f0f0 75%
+        );
         background-size: 200% 100%;
         animation: shimmer 2s infinite;
       }
 
       @keyframes shimmer {
-        0% { background-position: -200% 0; }
-        100% { background-position: 200% 0; }
+        0% {
+          background-position: -200% 0;
+        }
+        100% {
+          background-position: 200% 0;
+        }
       }
     </style>
   </head>
@@ -235,27 +271,37 @@
     <nav id="navbar" class="sticky top-0 z-40"></nav>
 
     <main class="max-w-4xl mx-auto px-4 py-10">
-      <div class="notloggin glass-card not-logged-card p-8 rounded-2xl shadow-2xl hidden fade-in">
+      <div
+        class="notloggin glass-card not-logged-card p-8 rounded-2xl shadow-2xl hidden fade-in"
+      >
         <div class="text-center">
           <div class="text-6xl mb-4">🔒</div>
           <h2 class="text-2xl font-bold mb-2">Access Restricted</h2>
           <p class="text-lg opacity-90">You are not logged in</p>
-          <p class="text-sm opacity-75 mt-2">Please log in to view your booking history</p>
+          <p class="text-sm opacity-75 mt-2">
+            Please log in to view your booking history
+          </p>
         </div>
       </div>
 
       <div class="loggin">
-        <div class="welcome-card glass-card p-8 rounded-2xl shadow-2xl mb-8 fade-in">
+        <div
+          class="welcome-card glass-card p-8 rounded-2xl shadow-2xl mb-8 fade-in"
+        >
           <div class="flex items-center justify-center mb-6">
             <div class="text-4xl mr-4">👋</div>
             <div>
               <h1 class="text-3xl font-bold text-gray-700 mb-1">
                 Welcome back,
               </h1>
-              <span id="username" class="text-3xl username-highlight">Guest</span>
+              <span id="username" class="text-3xl username-highlight"
+                >Guest</span
+              >
             </div>
           </div>
-          <p class="text-center text-gray-600 text-lg">Here's your complete booking history</p>
+          <p class="text-center text-gray-600 text-lg">
+            Here's your complete booking history
+          </p>
         </div>
 
         <div class="space-y-6">
@@ -329,7 +375,9 @@
                   </div>
                 </div>
                 <div class="text-right">
-                  <div class="font-medium text-indigo-600">${new Date(b.date).toLocaleDateString()}</div>
+                  <div class="font-medium text-indigo-600">${new Date(
+                    b.date
+                  ).toLocaleDateString()}</div>
                   <div class="text-sm text-gray-400">Confirmed</div>
                 </div>
               </div>
@@ -354,7 +402,9 @@
                 <div class="flex items-center">
                   <span class="text-2xl mr-3">🧳</span>
                   <div>
-                    <div class="font-semibold text-gray-800">${p.packageName}</div>
+                    <div class="font-semibold text-gray-800">${
+                      p.packageName
+                    }</div>
                     <div class="text-sm text-gray-500">Package Booking</div>
                   </div>
                 </div>
@@ -370,11 +420,11 @@
             )
             .join("");
         } else {
-          pkgDiv.innerHTML = '<div class="empty-state">Did Not Book Package</div>';
+          pkgDiv.innerHTML =
+            '<div class="empty-state">Did Not Book Package</div>';
         }
       }
       loadUserData();
     </script>
-    <script src="./assets/js/devloper.js"></script>
   </body>
 </html>

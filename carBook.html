@@ -609,9 +609,9 @@
               const maildata = {
                 to: userData.user.email,
                 userName: userData.user.userName,
-                carName:  carSelect.value,
+                carName: carSelect.value,
               };
-              const abc=await SendMailCar(maildata);
+              const abc = await SendMailCar(maildata);
               form.reset();
               carPreview.classList.add("hidden");
               totalPrice.textContent = "";
@@ -681,6 +681,5 @@
       })();
     </script>
     <script type="module" src="./assets/js/tailwind-init.js"></script>
-    <script src="./assets/js/devloper.js"></script>
   </body>
 </html>
