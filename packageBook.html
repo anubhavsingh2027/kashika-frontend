@@ -2,6 +2,10 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="HandheldFriendly" content="True" />
+    <meta name="MobileOptimized" content="320" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
     <title>Book Package | Kashika Travels</title>
     <link
       href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css"
@@ -16,6 +20,15 @@
 
       * {
         font-family: "Inter", sans-serif;
+        box-sizing: border-box;
+      }
+
+      /* Prevent horizontal overflow on small devices */
+      html,
+      body {
+        width: 100%;
+        max-width: 100%;
+        overflow-x: hidden;
       }
 
       [type="date"]::-webkit-calendar-picker-indicator {
@@ -335,7 +348,7 @@
 
     <main class="min-h-screen flex items-center justify-center p-6">
       <div
-        class="w-full max-w-xl glass-card rounded-2xl shadow-xl p-8 animate-slide-up"
+        class="w-full max-w-full sm:max-w-xl glass-card rounded-2xl shadow-xl p-6 sm:p-8 animate-slide-up mx-4 sm:mx-0"
       >
         <div class="flex items-center gap-3 mb-6 animate-slide-in-left">
           <div class="p-3 rounded-full icon-gradient animate-float">
@@ -730,7 +743,7 @@
           }, 5000);
         }
 
-        setupCars();
+        setupPackages();
       })();
     </script>
     <script type="module" src="./assets/js/tailwind-init.js"></script>
