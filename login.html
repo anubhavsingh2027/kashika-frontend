@@ -250,7 +250,7 @@
             const email = document.getElementById("email").value.trim();
             const password = document.getElementById("password").value;
             const loginData = { email, password };
-                showToast("Sending...", "send");
+                showToast("loading...", "send");
             try {
               setLoading(true);
               const data = await loginUser(loginData);
